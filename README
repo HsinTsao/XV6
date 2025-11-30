@@ -1,0 +1,131 @@
+Introduction to Operating Systems 
+Homework03
+Authors: Zimeng Li(zl6655), Chen Yang(cy2846)
+
+This README explains how to build and run each part of the assignment inside the GitHub Codespaces environment.
+
+------------------------------------------------------------
+1. Environment Setup
+------------------------------------------------------------
+All development and testing are performed inside GitHub Codespaces.
+
+Required tools are already pre-installed:
+  - make
+  - gcc
+  - qemu
+  - git
+
+------------------------------------------------------------
+2. Getting the Source Code
+------------------------------------------------------------
+If the repository is not yet cloned:
+  git clone git@github.com:Raegar7zzz/xv6-os.git
+  cd xv6-os
+
+If the repository already exists, pull the latest updates:
+  git pull origin master
+
+------------------------------------------------------------
+3. Building the Project
+------------------------------------------------------------
+Run the following command to compile the source code:
+  make
+
+This will generate the kernel and all necessary binaries.
+
+To clean previous builds:
+  make clean
+
+------------------------------------------------------------
+4. Running the System
+------------------------------------------------------------
+Use QEMU to run the compiled operating system:
+  make qemu
+
+or if you prefer terminal mode without GUI:
+  make qemu-nox
+
+To exit QEMU, press Ctrl + A followed by X.
+
+------------------------------------------------------------
+5. Running Task 1
+------------------------------------------------------------
+Task 1 demonstrates the basic functionality of the modified xv6 kernel.
+
+To run Task 1:
+  make qemu
+
+After the system boots successfully, you can test the new system call by running the following commands inside the xv6 shell:
+
+  Case 1 – Modify current process
+  $ nice 2
+  $ 3 2
+
+  Case 2 – Modify another process by PID
+  $ nice 1 4
+  $ 1 2
+
+  Case 3 – Out-of-range value
+  $ nice 1 5
+  $ nice failed pid=1 value=5
+
+  Case 4 – Invalid PID
+  $ nice 999 2
+  $ nice failed pid=999 value=2
+
+  Sequential Consistency Check
+  To ensure that the updated nice values persist, multiple calls were issued sequentially:
+  $ nice 1 1
+  1 4
+  $ nice 1 3
+  1 1
+  $ nice 1 0
+  1 3
+
+------------------------------------------------------------
+6. Running Task 2
+------------------------------------------------------------
+Task 2 includes two scheduling policies. The scheduler can be selected by changing the variable at build time.
+Please make sure to rebuild before switching schedulers.
+
+(1) Default Scheduler
+To test Task 2 with the default round-robin scheduler:
+  make clean
+  make 
+  make qemu-nox
+
+After the system boots successfully, you can test by running the following commands inside the xv6 shell:
+  test1
+  test2
+  test3
+
+(2) Modified Scheduler
+To test Task 2 with the priority-based scheduler:
+  make clean
+  make EXTRA_CFLAGS=-DPRIORITY_SCHED
+  make qemu-nox
+
+After the system boots successfully, you can test by running the following commands inside the xv6 shell:
+  test1
+  test2
+  test3
+
+------------------------------------------------------------
+7. Running Extra Credit
+------------------------------------------------------------
+The extra credit part extends the kernel with additional functionality.
+
+To build and run the extra credit version:
+  make clean
+  make EXTRA_CFLAGS=-DPRIORITY_SCHED
+  make qemu-nox
+
+After the system boots successfully, you can test by running the following command inside the xv6 shell:
+  test4
+
+------------------------------------------------------------
+7. Troubleshooting
+------------------------------------------------------------
+If you encounter a build or runtime error:
+  - Run "make clean" and rebuild.
+  - Ensure the correct build flag (CFLAGS=-DPRIORITY_SCHED) is provided.
