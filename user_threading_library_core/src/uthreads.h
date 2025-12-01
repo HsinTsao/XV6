@@ -1,22 +1,17 @@
-// uthreads.h - User-level threading library for xv6
-
 #ifndef UTHREADS_H
 #define UTHREADS_H
 
-/* 常量定义 */
 #define MAX_THREADS 64
 #define STACK_SIZE 4096
 
-/* 线程状态 */
 typedef enum {
-    T_UNUSED,       // 未使用
-    T_RUNNABLE,     // 就绪态
-    T_RUNNING,      // 运行态
-    T_SLEEPING,     // 睡眠态
-    T_ZOMBIE        // 僵尸态
+    T_UNUSED,
+    T_RUNNABLE,
+    T_RUNNING,
+    T_SLEEPING,
+    T_ZOMBIE
 } thread_state_t;
 
-/* 线程上下文（x86 32位寄存器） */
 typedef struct {
     uint eax;
     uint ebx;
@@ -25,11 +20,10 @@ typedef struct {
     uint esi;
     uint edi;
     uint ebp;
-    uint esp;       // 栈指针
-    uint eip;       // 指令指针
+    uint esp;
+    uint eip;
 } thread_context_t;
 
-/* 线程控制块 */
 typedef struct thread {
     int tid;
     thread_state_t state;
@@ -42,7 +36,6 @@ typedef struct thread {
     void *sleep_chan;
 } thread_t;
 
-/* 线程管理 API */
 void thread_init(void);
 int thread_create(void *(*start_routine)(void*), void *arg);
 void thread_exit(void *retval);
@@ -50,13 +43,11 @@ void *thread_join(int tid);
 void thread_yield(void);
 int thread_self(void);
 
-/* 内部函数 */
 void thread_schedule(void);
 void thread_switch(thread_context_t *old, thread_context_t *new);
 void thread_sleep(void *chan);
 void thread_wakeup(void *chan);
 
-/* 互斥锁 */
 typedef struct {
     int locked;
     int owner;
@@ -68,7 +59,6 @@ void mutex_lock(mutex_t *m);
 void mutex_unlock(mutex_t *m);
 int mutex_trylock(mutex_t *m);
 
-/* 条件变量 */
 typedef struct {
     void *wait_chan;
 } cond_t;
@@ -78,7 +68,6 @@ void cond_wait(cond_t *c, mutex_t *m);
 void cond_signal(cond_t *c);
 void cond_broadcast(cond_t *c);
 
-/* Channel */
 typedef struct {
     void **buffer;
     int capacity;
@@ -97,5 +86,4 @@ int channel_recv(channel_t *ch, void **data);
 void channel_close(channel_t *ch);
 void channel_destroy(channel_t *ch);
 
-#endif // UTHREADS_H
-
+#endif

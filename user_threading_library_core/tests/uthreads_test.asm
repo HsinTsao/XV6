@@ -5,9 +5,9 @@ _uthreads_test:     file format elf32-i386
 Disassembly of section .text:
 
 00000000 <main>:
-    
-    printf(1, "[线程%d] 结束执行\n", id);
-    return (void*)(id * 100);
+    printf(1, "  $ producer_consumer\n");
+    printf(1, "  $ reader_writer\n");
+    printf(1, "========================================================\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -16,2847 +16,4766 @@ int main(int argc, char *argv[]) {
        7:	ff 71 fc             	push   -0x4(%ecx)
        a:	55                   	push   %ebp
        b:	89 e5                	mov    %esp,%ebp
-       d:	57                   	push   %edi
-       e:	56                   	push   %esi
-       f:	53                   	push   %ebx
-      10:	51                   	push   %ecx
-      11:	83 ec 10             	sub    $0x10,%esp
-    int tid1, tid2, tid3;
-    void *ret;
-    
-    printf(1, "========================================\n");
-      14:	68 6c 14 00 00       	push   $0x146c
-      19:	6a 01                	push   $0x1
-      1b:	e8 f0 04 00 00       	call   510 <printf>
-    printf(1, "      用户级线程基础测试\n");
-      20:	58                   	pop    %eax
-      21:	5a                   	pop    %edx
-      22:	68 98 14 00 00       	push   $0x1498
-      27:	6a 01                	push   $0x1
-      29:	e8 e2 04 00 00       	call   510 <printf>
-    printf(1, "========================================\n\n");
-      2e:	59                   	pop    %ecx
-      2f:	5b                   	pop    %ebx
-      30:	68 bc 14 00 00       	push   $0x14bc
-      35:	6a 01                	push   $0x1
-      37:	e8 d4 04 00 00       	call   510 <printf>
+       d:	51                   	push   %ecx
+       e:	83 ec 0c             	sub    $0xc,%esp
+    printf(1, "\n");
+      11:	68 d6 25 00 00       	push   $0x25d6
+      16:	6a 01                	push   $0x1
+      18:	e8 b3 15 00 00       	call   15d0 <printf>
+    printf(1, "========================================================\n");
+      1d:	58                   	pop    %eax
+      1e:	5a                   	pop    %edx
+      1f:	68 5c 2f 00 00       	push   $0x2f5c
+      24:	6a 01                	push   $0x1
+      26:	e8 a5 15 00 00       	call   15d0 <printf>
+    printf(1, "    Threading Library Test\n");
+      2b:	59                   	pop    %ecx
+      2c:	58                   	pop    %eax
+      2d:	68 57 26 00 00       	push   $0x2657
+      32:	6a 01                	push   $0x1
+      34:	e8 97 15 00 00       	call   15d0 <printf>
+    printf(1, "========================================================\n");
+      39:	58                   	pop    %eax
+      3a:	5a                   	pop    %edx
+      3b:	68 5c 2f 00 00       	push   $0x2f5c
+      40:	6a 01                	push   $0x1
+      42:	e8 89 15 00 00       	call   15d0 <printf>
     
     thread_init();
-      3c:	e8 df 07 00 00       	call   820 <thread_init>
+      47:	e8 94 18 00 00       	call   18e0 <thread_init>
     
-    tid1 = thread_create(simple_task, (void*)1);
-      41:	5e                   	pop    %esi
-      42:	5f                   	pop    %edi
-      43:	6a 01                	push   $0x1
-      45:	68 00 01 00 00       	push   $0x100
-      4a:	e8 61 08 00 00       	call   8b0 <thread_create>
-      4f:	89 c7                	mov    %eax,%edi
-    tid2 = thread_create(simple_task, (void*)2);
-      51:	58                   	pop    %eax
-      52:	5a                   	pop    %edx
-      53:	6a 02                	push   $0x2
-      55:	68 00 01 00 00       	push   $0x100
-      5a:	e8 51 08 00 00       	call   8b0 <thread_create>
-    tid3 = thread_create(simple_task, (void*)3);
-      5f:	59                   	pop    %ecx
-      60:	5b                   	pop    %ebx
-      61:	6a 03                	push   $0x3
-      63:	68 00 01 00 00       	push   $0x100
-    tid2 = thread_create(simple_task, (void*)2);
-      68:	89 c6                	mov    %eax,%esi
-    tid3 = thread_create(simple_task, (void*)3);
-      6a:	e8 41 08 00 00       	call   8b0 <thread_create>
+    printf(1, "\n");
+      4c:	59                   	pop    %ecx
+      4d:	58                   	pop    %eax
+      4e:	68 d6 25 00 00       	push   $0x25d6
+      53:	6a 01                	push   $0x1
+      55:	e8 76 15 00 00       	call   15d0 <printf>
+    printf(1, "========================================================\n");
+      5a:	58                   	pop    %eax
+      5b:	5a                   	pop    %edx
+      5c:	68 5c 2f 00 00       	push   $0x2f5c
+      61:	6a 01                	push   $0x1
+      63:	e8 68 15 00 00       	call   15d0 <printf>
+    printf(1, "=                                                      =\n");
+      68:	59                   	pop    %ecx
+      69:	58                   	pop    %eax
+      6a:	68 98 2f 00 00       	push   $0x2f98
+      6f:	6a 01                	push   $0x1
+      71:	e8 5a 15 00 00       	call   15d0 <printf>
+    printf(1, "=      Part 1: Threading System Basics                 =\n");
+      76:	58                   	pop    %eax
+      77:	5a                   	pop    %edx
+      78:	68 d4 2f 00 00       	push   $0x2fd4
+      7d:	6a 01                	push   $0x1
+      7f:	e8 4c 15 00 00       	call   15d0 <printf>
+    printf(1, "=                                                      =\n");
+      84:	59                   	pop    %ecx
+      85:	58                   	pop    %eax
+      86:	68 98 2f 00 00       	push   $0x2f98
+      8b:	6a 01                	push   $0x1
+      8d:	e8 3e 15 00 00       	call   15d0 <printf>
+    printf(1, "=  Test Content:                                       =\n");
+      92:	58                   	pop    %eax
+      93:	5a                   	pop    %edx
+      94:	68 10 30 00 00       	push   $0x3010
+      99:	6a 01                	push   $0x1
+      9b:	e8 30 15 00 00       	call   15d0 <printf>
+    printf(1, "=  - Thread data structure + global thread table      =\n");
+      a0:	59                   	pop    %ecx
+      a1:	58                   	pop    %eax
+      a2:	68 4c 30 00 00       	push   $0x304c
+      a7:	6a 01                	push   $0x1
+      a9:	e8 22 15 00 00       	call   15d0 <printf>
+    printf(1, "=  - Thread create/exit/join/yield                    =\n");
+      ae:	58                   	pop    %eax
+      af:	5a                   	pop    %edx
+      b0:	68 88 30 00 00       	push   $0x3088
+      b5:	6a 01                	push   $0x1
+      b7:	e8 14 15 00 00       	call   15d0 <printf>
+    printf(1, "=  - x86 assembly context switch                      =\n");
+      bc:	59                   	pop    %ecx
+      bd:	58                   	pop    %eax
+      be:	68 c4 30 00 00       	push   $0x30c4
+      c3:	6a 01                	push   $0x1
+      c5:	e8 06 15 00 00       	call   15d0 <printf>
+    printf(1, "=  - Round-Robin scheduler                            =\n");
+      ca:	58                   	pop    %eax
+      cb:	5a                   	pop    %edx
+      cc:	68 00 31 00 00       	push   $0x3100
+      d1:	6a 01                	push   $0x1
+      d3:	e8 f8 14 00 00       	call   15d0 <printf>
+    printf(1, "=                                                      =\n");
+      d8:	59                   	pop    %ecx
+      d9:	58                   	pop    %eax
+      da:	68 98 2f 00 00       	push   $0x2f98
+      df:	6a 01                	push   $0x1
+      e1:	e8 ea 14 00 00       	call   15d0 <printf>
+    printf(1, "========================================================\n");
+      e6:	58                   	pop    %eax
+      e7:	5a                   	pop    %edx
+      e8:	68 5c 2f 00 00       	push   $0x2f5c
+      ed:	6a 01                	push   $0x1
+      ef:	e8 dc 14 00 00       	call   15d0 <printf>
     
-    printf(1, "创建了 3 个线程: tid=%d, %d, %d\n\n", tid1, tid2, tid3);
-      6f:	89 04 24             	mov    %eax,(%esp)
-    tid3 = thread_create(simple_task, (void*)3);
-      72:	89 c3                	mov    %eax,%ebx
-    printf(1, "创建了 3 个线程: tid=%d, %d, %d\n\n", tid1, tid2, tid3);
-      74:	56                   	push   %esi
-      75:	57                   	push   %edi
-      76:	68 e8 14 00 00       	push   $0x14e8
-      7b:	6a 01                	push   $0x1
-      7d:	e8 8e 04 00 00       	call   510 <printf>
+    test_basic_create_exit();
+      f4:	e8 07 08 00 00       	call   900 <test_basic_create_exit>
+    test_yield_scheduling();
+      f9:	e8 d2 08 00 00       	call   9d0 <test_yield_scheduling>
+    test_many_threads();
+      fe:	e8 6d 09 00 00       	call   a70 <test_many_threads>
+    test_context_switch();
+     103:	e8 18 0a 00 00       	call   b20 <test_context_switch>
+    test_thread_self();
+     108:	e8 03 0b 00 00       	call   c10 <test_thread_self>
     
-    ret = thread_join(tid1);
-      82:	83 c4 14             	add    $0x14,%esp
-      85:	57                   	push   %edi
-      86:	e8 a5 0a 00 00       	call   b30 <thread_join>
-    printf(1, "线程 tid=%d 返回值=%d\n", tid1, (int)ret);
-      8b:	50                   	push   %eax
-      8c:	57                   	push   %edi
-      8d:	68 18 14 00 00       	push   $0x1418
-      92:	6a 01                	push   $0x1
-      94:	e8 77 04 00 00       	call   510 <printf>
+    printf(1, "\n");
+     10d:	59                   	pop    %ecx
+     10e:	58                   	pop    %eax
+     10f:	68 d6 25 00 00       	push   $0x25d6
+     114:	6a 01                	push   $0x1
+     116:	e8 b5 14 00 00       	call   15d0 <printf>
+    printf(1, "========================================================\n");
+     11b:	58                   	pop    %eax
+     11c:	5a                   	pop    %edx
+     11d:	68 5c 2f 00 00       	push   $0x2f5c
+     122:	6a 01                	push   $0x1
+     124:	e8 a7 14 00 00       	call   15d0 <printf>
+    printf(1, "=                                                      =\n");
+     129:	59                   	pop    %ecx
+     12a:	58                   	pop    %eax
+     12b:	68 98 2f 00 00       	push   $0x2f98
+     130:	6a 01                	push   $0x1
+     132:	e8 99 14 00 00       	call   15d0 <printf>
+    printf(1, "=      Part 2: Synchronization Primitives              =\n");
+     137:	58                   	pop    %eax
+     138:	5a                   	pop    %edx
+     139:	68 3c 31 00 00       	push   $0x313c
+     13e:	6a 01                	push   $0x1
+     140:	e8 8b 14 00 00       	call   15d0 <printf>
+    printf(1, "=                                                      =\n");
+     145:	59                   	pop    %ecx
+     146:	58                   	pop    %eax
+     147:	68 98 2f 00 00       	push   $0x2f98
+     14c:	6a 01                	push   $0x1
+     14e:	e8 7d 14 00 00       	call   15d0 <printf>
+    printf(1, "=  Test Content:                                       =\n");
+     153:	58                   	pop    %eax
+     154:	5a                   	pop    %edx
+     155:	68 10 30 00 00       	push   $0x3010
+     15a:	6a 01                	push   $0x1
+     15c:	e8 6f 14 00 00       	call   15d0 <printf>
+    printf(1, "=  - Mutex lock (lock/unlock/trylock)                 =\n");
+     161:	59                   	pop    %ecx
+     162:	58                   	pop    %eax
+     163:	68 78 31 00 00       	push   $0x3178
+     168:	6a 01                	push   $0x1
+     16a:	e8 61 14 00 00       	call   15d0 <printf>
+    printf(1, "=  - Condition Variable (wait/signal/broadcast)       =\n");
+     16f:	58                   	pop    %eax
+     170:	5a                   	pop    %edx
+     171:	68 b4 31 00 00       	push   $0x31b4
+     176:	6a 01                	push   $0x1
+     178:	e8 53 14 00 00       	call   15d0 <printf>
+    printf(1, "=  - Channel (buffered message queue)                 =\n");
+     17d:	59                   	pop    %ecx
+     17e:	58                   	pop    %eax
+     17f:	68 f0 31 00 00       	push   $0x31f0
+     184:	6a 01                	push   $0x1
+     186:	e8 45 14 00 00       	call   15d0 <printf>
+    printf(1, "=                                                      =\n");
+     18b:	58                   	pop    %eax
+     18c:	5a                   	pop    %edx
+     18d:	68 98 2f 00 00       	push   $0x2f98
+     192:	6a 01                	push   $0x1
+     194:	e8 37 14 00 00       	call   15d0 <printf>
+    printf(1, "========================================================\n");
+     199:	59                   	pop    %ecx
+     19a:	58                   	pop    %eax
+     19b:	68 5c 2f 00 00       	push   $0x2f5c
+     1a0:	6a 01                	push   $0x1
+     1a2:	e8 29 14 00 00       	call   15d0 <printf>
     
-    ret = thread_join(tid2);
-      99:	83 c4 14             	add    $0x14,%esp
-      9c:	56                   	push   %esi
-      9d:	e8 8e 0a 00 00       	call   b30 <thread_join>
-    printf(1, "线程 tid=%d 返回值=%d\n", tid2, (int)ret);
-      a2:	50                   	push   %eax
-      a3:	56                   	push   %esi
-      a4:	68 18 14 00 00       	push   $0x1418
-      a9:	6a 01                	push   $0x1
-      ab:	e8 60 04 00 00       	call   510 <printf>
+    test_mutex_basic();
+     1a7:	e8 b4 0a 00 00       	call   c60 <test_mutex_basic>
+    test_mutex_trylock();
+     1ac:	e8 7f 0b 00 00       	call   d30 <test_mutex_trylock>
+    test_condition_variable();
+     1b1:	e8 fa 0b 00 00       	call   db0 <test_condition_variable>
+    test_cond_broadcast();
+     1b6:	e8 e5 0c 00 00       	call   ea0 <test_cond_broadcast>
+    test_channel_basic();
+     1bb:	e8 10 0e 00 00       	call   fd0 <test_channel_basic>
+    test_channel_blocking();
+     1c0:	e8 8b 0e 00 00       	call   1050 <test_channel_blocking>
+    test_channel_multi();
+     1c5:	e8 16 0f 00 00       	call   10e0 <test_channel_multi>
     
-    ret = thread_join(tid3);
-      b0:	83 c4 14             	add    $0x14,%esp
-      b3:	53                   	push   %ebx
-      b4:	e8 77 0a 00 00       	call   b30 <thread_join>
-    printf(1, "线程 tid=%d 返回值=%d\n", tid3, (int)ret);
-      b9:	50                   	push   %eax
-      ba:	53                   	push   %ebx
-      bb:	68 18 14 00 00       	push   $0x1418
-      c0:	6a 01                	push   $0x1
-      c2:	e8 49 04 00 00       	call   510 <printf>
+    printf(1, "\n");
+     1ca:	58                   	pop    %eax
+     1cb:	5a                   	pop    %edx
+     1cc:	68 d6 25 00 00       	push   $0x25d6
+     1d1:	6a 01                	push   $0x1
+     1d3:	e8 f8 13 00 00       	call   15d0 <printf>
+    printf(1, "========================================================\n");
+     1d8:	59                   	pop    %ecx
+     1d9:	58                   	pop    %eax
+     1da:	68 5c 2f 00 00       	push   $0x2f5c
+     1df:	6a 01                	push   $0x1
+     1e1:	e8 ea 13 00 00       	call   15d0 <printf>
+    printf(1, "=                                                      =\n");
+     1e6:	58                   	pop    %eax
+     1e7:	5a                   	pop    %edx
+     1e8:	68 98 2f 00 00       	push   $0x2f98
+     1ed:	6a 01                	push   $0x1
+     1ef:	e8 dc 13 00 00       	call   15d0 <printf>
+    printf(1, "=      Part 3: Application Examples                    =\n");
+     1f4:	59                   	pop    %ecx
+     1f5:	58                   	pop    %eax
+     1f6:	68 2c 32 00 00       	push   $0x322c
+     1fb:	6a 01                	push   $0x1
+     1fd:	e8 ce 13 00 00       	call   15d0 <printf>
+    printf(1, "=                                                      =\n");
+     202:	58                   	pop    %eax
+     203:	5a                   	pop    %edx
+     204:	68 98 2f 00 00       	push   $0x2f98
+     209:	6a 01                	push   $0x1
+     20b:	e8 c0 13 00 00       	call   15d0 <printf>
+    printf(1, "=  Note: Part 3 uses standalone example programs:     =\n");
+     210:	59                   	pop    %ecx
+     211:	58                   	pop    %eax
+     212:	68 68 32 00 00       	push   $0x3268
+     217:	6a 01                	push   $0x1
+     219:	e8 b2 13 00 00       	call   15d0 <printf>
+    printf(1, "=    - examples/producer_consumer.c                   =\n");
+     21e:	58                   	pop    %eax
+     21f:	5a                   	pop    %edx
+     220:	68 a4 32 00 00       	push   $0x32a4
+     225:	6a 01                	push   $0x1
+     227:	e8 a4 13 00 00       	call   15d0 <printf>
+    printf(1, "=    - examples/reader_writer.c                       =\n");
+     22c:	59                   	pop    %ecx
+     22d:	58                   	pop    %eax
+     22e:	68 e0 32 00 00       	push   $0x32e0
+     233:	6a 01                	push   $0x1
+     235:	e8 96 13 00 00       	call   15d0 <printf>
+    printf(1, "=                                                      =\n");
+     23a:	58                   	pop    %eax
+     23b:	5a                   	pop    %edx
+     23c:	68 98 2f 00 00       	push   $0x2f98
+     241:	6a 01                	push   $0x1
+     243:	e8 88 13 00 00       	call   15d0 <printf>
+    printf(1, "=  Run them separately for full application demos:    =\n");
+     248:	59                   	pop    %ecx
+     249:	58                   	pop    %eax
+     24a:	68 1c 33 00 00       	push   $0x331c
+     24f:	6a 01                	push   $0x1
+     251:	e8 7a 13 00 00       	call   15d0 <printf>
+    printf(1, "=    $ producer_consumer                              =\n");
+     256:	58                   	pop    %eax
+     257:	5a                   	pop    %edx
+     258:	68 58 33 00 00       	push   $0x3358
+     25d:	6a 01                	push   $0x1
+     25f:	e8 6c 13 00 00       	call   15d0 <printf>
+    printf(1, "=    $ reader_writer                                  =\n");
+     264:	59                   	pop    %ecx
+     265:	58                   	pop    %eax
+     266:	68 94 33 00 00       	push   $0x3394
+     26b:	6a 01                	push   $0x1
+     26d:	e8 5e 13 00 00       	call   15d0 <printf>
+    printf(1, "=                                                      =\n");
+     272:	58                   	pop    %eax
+     273:	5a                   	pop    %edx
+     274:	68 98 2f 00 00       	push   $0x2f98
+     279:	6a 01                	push   $0x1
+     27b:	e8 50 13 00 00       	call   15d0 <printf>
+    printf(1, "========================================================\n");
+     280:	59                   	pop    %ecx
+     281:	58                   	pop    %eax
+     282:	68 5c 2f 00 00       	push   $0x2f5c
+     287:	6a 01                	push   $0x1
+     289:	e8 42 13 00 00       	call   15d0 <printf>
     
-    printf(1, "\n========================================\n");
-      c7:	83 c4 18             	add    $0x18,%esp
-      ca:	68 10 15 00 00       	push   $0x1510
-      cf:	6a 01                	push   $0x1
-      d1:	e8 3a 04 00 00       	call   510 <printf>
-    printf(1, "测试完成！\n");
-      d6:	5e                   	pop    %esi
-      d7:	5f                   	pop    %edi
-      d8:	68 34 14 00 00       	push   $0x1434
-      dd:	6a 01                	push   $0x1
-      df:	e8 2c 04 00 00       	call   510 <printf>
-    printf(1, "========================================\n");
-      e4:	58                   	pop    %eax
-      e5:	5a                   	pop    %edx
-      e6:	68 6c 14 00 00       	push   $0x146c
-      eb:	6a 01                	push   $0x1
-      ed:	e8 1e 04 00 00       	call   510 <printf>
+    test_part3_examples();
+     28e:	e8 0d 0f 00 00       	call   11a0 <test_part3_examples>
+    
+    printf(1, "\n");
+     293:	58                   	pop    %eax
+     294:	5a                   	pop    %edx
+     295:	68 d6 25 00 00       	push   $0x25d6
+     29a:	6a 01                	push   $0x1
+     29c:	e8 2f 13 00 00       	call   15d0 <printf>
+    printf(1, "========================================================\n");
+     2a1:	59                   	pop    %ecx
+     2a2:	58                   	pop    %eax
+     2a3:	68 5c 2f 00 00       	push   $0x2f5c
+     2a8:	6a 01                	push   $0x1
+     2aa:	e8 21 13 00 00       	call   15d0 <printf>
+    printf(1, "              All Tests Completed!\n");
+     2af:	58                   	pop    %eax
+     2b0:	5a                   	pop    %edx
+     2b1:	68 d0 33 00 00       	push   $0x33d0
+     2b6:	6a 01                	push   $0x1
+     2b8:	e8 13 13 00 00       	call   15d0 <printf>
+    printf(1, "========================================================\n");
+     2bd:	59                   	pop    %ecx
+     2be:	58                   	pop    %eax
+     2bf:	68 5c 2f 00 00       	push   $0x2f5c
+     2c4:	6a 01                	push   $0x1
+     2c6:	e8 05 13 00 00       	call   15d0 <printf>
+
     
     exit();
-      f2:	e8 ac 02 00 00       	call   3a3 <exit>
-      f7:	66 90                	xchg   %ax,%ax
-      f9:	66 90                	xchg   %ax,%ax
-      fb:	66 90                	xchg   %ax,%ax
-      fd:	66 90                	xchg   %ax,%ax
-      ff:	90                   	nop
+     2cb:	e8 93 11 00 00       	call   1463 <exit>
 
-00000100 <simple_task>:
-void *simple_task(void *arg) {
-     100:	55                   	push   %ebp
-     101:	89 e5                	mov    %esp,%ebp
-     103:	56                   	push   %esi
-     104:	53                   	push   %ebx
-     105:	8b 75 08             	mov    0x8(%ebp),%esi
-    for (i = 0; i < 3; i++) {
-     108:	31 db                	xor    %ebx,%ebx
-    printf(1, "[线程%d] 开始执行\n", id);
-     10a:	83 ec 04             	sub    $0x4,%esp
-     10d:	56                   	push   %esi
-     10e:	68 d0 13 00 00       	push   $0x13d0
-     113:	6a 01                	push   $0x1
-     115:	e8 f6 03 00 00       	call   510 <printf>
-     11a:	83 c4 10             	add    $0x10,%esp
-        printf(1, "[线程%d] 迭代 %d\n", id, i);
-     11d:	53                   	push   %ebx
-    for (i = 0; i < 3; i++) {
-     11e:	83 c3 01             	add    $0x1,%ebx
-        printf(1, "[线程%d] 迭代 %d\n", id, i);
-     121:	56                   	push   %esi
-     122:	68 e9 13 00 00       	push   $0x13e9
-     127:	6a 01                	push   $0x1
-     129:	e8 e2 03 00 00       	call   510 <printf>
-        thread_yield();
-     12e:	e8 dd 0a 00 00       	call   c10 <thread_yield>
-    for (i = 0; i < 3; i++) {
-     133:	83 c4 10             	add    $0x10,%esp
-     136:	83 fb 03             	cmp    $0x3,%ebx
-     139:	75 e2                	jne    11d <simple_task+0x1d>
-    printf(1, "[线程%d] 结束执行\n", id);
-     13b:	83 ec 04             	sub    $0x4,%esp
-     13e:	56                   	push   %esi
-     13f:	68 ff 13 00 00       	push   $0x13ff
-     144:	6a 01                	push   $0x1
-     146:	e8 c5 03 00 00       	call   510 <printf>
-    return (void*)(id * 100);
-     14b:	6b c6 64             	imul   $0x64,%esi,%eax
+000002d0 <basic_thread>:
+void *basic_thread(void *arg) {
+     2d0:	55                   	push   %ebp
+     2d1:	89 e5                	mov    %esp,%ebp
+     2d3:	53                   	push   %ebx
+     2d4:	83 ec 08             	sub    $0x8,%esp
+     2d7:	8b 5d 08             	mov    0x8(%ebp),%ebx
+    printf(1, "  [Thread%d] Start running\n", id);
+     2da:	53                   	push   %ebx
+     2db:	68 90 24 00 00       	push   $0x2490
+     2e0:	6a 01                	push   $0x1
+     2e2:	e8 e9 12 00 00       	call   15d0 <printf>
+    printf(1, "  [Thread%d] Finish running\n", id);
+     2e7:	83 c4 0c             	add    $0xc,%esp
+     2ea:	53                   	push   %ebx
+     2eb:	68 ac 24 00 00       	push   $0x24ac
+     2f0:	6a 01                	push   $0x1
+     2f2:	e8 d9 12 00 00       	call   15d0 <printf>
+    return (void*)(id * 10);
+     2f7:	8d 04 9b             	lea    (%ebx,%ebx,4),%eax
 }
-     14e:	8d 65 f8             	lea    -0x8(%ebp),%esp
-     151:	5b                   	pop    %ebx
-     152:	5e                   	pop    %esi
-     153:	5d                   	pop    %ebp
-     154:	c3                   	ret
-     155:	66 90                	xchg   %ax,%ax
-     157:	66 90                	xchg   %ax,%ax
-     159:	66 90                	xchg   %ax,%ax
-     15b:	66 90                	xchg   %ax,%ax
-     15d:	66 90                	xchg   %ax,%ax
-     15f:	90                   	nop
+     2fa:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+     2fd:	c9                   	leave
+    return (void*)(id * 10);
+     2fe:	01 c0                	add    %eax,%eax
+}
+     300:	c3                   	ret
+     301:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     308:	00 
+     309:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
-00000160 <strcpy>:
+00000310 <stress_thread>:
+void *stress_thread(void *arg) {
+     310:	55                   	push   %ebp
+     311:	89 e5                	mov    %esp,%ebp
+     313:	53                   	push   %ebx
+     314:	83 ec 08             	sub    $0x8,%esp
+     317:	8b 5d 08             	mov    0x8(%ebp),%ebx
+    printf(1, "  [Thread%d] Fast execution and exit\n", id);
+     31a:	53                   	push   %ebx
+     31b:	68 98 26 00 00       	push   $0x2698
+     320:	6a 01                	push   $0x1
+     322:	e8 a9 12 00 00       	call   15d0 <printf>
+}
+     327:	89 d8                	mov    %ebx,%eax
+     329:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+     32c:	c9                   	leave
+     32d:	c3                   	ret
+     32e:	66 90                	xchg   %ax,%ax
+
+00000330 <yield_thread>:
+void *yield_thread(void *arg) {
+     330:	55                   	push   %ebp
+     331:	89 e5                	mov    %esp,%ebp
+     333:	56                   	push   %esi
+     334:	53                   	push   %ebx
+     335:	8b 75 08             	mov    0x8(%ebp),%esi
+    for (i = 0; i < 5; i++) {
+     338:	31 db                	xor    %ebx,%ebx
+     33a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+        printf(1, "  [Thread%d] Iteration %d\n", id, i);
+     340:	53                   	push   %ebx
+    for (i = 0; i < 5; i++) {
+     341:	83 c3 01             	add    $0x1,%ebx
+        printf(1, "  [Thread%d] Iteration %d\n", id, i);
+     344:	56                   	push   %esi
+     345:	68 c9 24 00 00       	push   $0x24c9
+     34a:	6a 01                	push   $0x1
+     34c:	e8 7f 12 00 00       	call   15d0 <printf>
+        thread_yield();
+     351:	e8 7a 19 00 00       	call   1cd0 <thread_yield>
+    for (i = 0; i < 5; i++) {
+     356:	83 c4 10             	add    $0x10,%esp
+     359:	83 fb 05             	cmp    $0x5,%ebx
+     35c:	75 e2                	jne    340 <yield_thread+0x10>
+}
+     35e:	8d 65 f8             	lea    -0x8(%ebp),%esp
+     361:	31 c0                	xor    %eax,%eax
+     363:	5b                   	pop    %ebx
+     364:	5e                   	pop    %esi
+     365:	5d                   	pop    %ebp
+     366:	c3                   	ret
+     367:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     36e:	00 
+     36f:	90                   	nop
+
+00000370 <context_thread1>:
+void *context_thread1(void *arg) {
+     370:	55                   	push   %ebp
+     371:	89 e5                	mov    %esp,%ebp
+     373:	53                   	push   %ebx
+     374:	bb 64 00 00 00       	mov    $0x64,%ebx
+     379:	83 ec 04             	sub    $0x4,%esp
+     37c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+        ctx_var1++;
+     380:	83 05 18 43 00 00 01 	addl   $0x1,0x4318
+        thread_yield();
+     387:	e8 44 19 00 00       	call   1cd0 <thread_yield>
+    for (i = 0; i < 100; i++) {
+     38c:	83 eb 01             	sub    $0x1,%ebx
+     38f:	75 ef                	jne    380 <context_thread1+0x10>
+}
+     391:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+     394:	31 c0                	xor    %eax,%eax
+     396:	c9                   	leave
+     397:	c3                   	ret
+     398:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     39f:	00 
+
+000003a0 <context_thread2>:
+void *context_thread2(void *arg) {
+     3a0:	55                   	push   %ebp
+     3a1:	89 e5                	mov    %esp,%ebp
+     3a3:	53                   	push   %ebx
+     3a4:	bb 64 00 00 00       	mov    $0x64,%ebx
+     3a9:	83 ec 04             	sub    $0x4,%esp
+     3ac:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+        ctx_var2++;
+     3b0:	83 05 14 43 00 00 01 	addl   $0x1,0x4314
+        thread_yield();
+     3b7:	e8 14 19 00 00       	call   1cd0 <thread_yield>
+    for (i = 0; i < 100; i++) {
+     3bc:	83 eb 01             	sub    $0x1,%ebx
+     3bf:	75 ef                	jne    3b0 <context_thread2+0x10>
+}
+     3c1:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+     3c4:	31 c0                	xor    %eax,%eax
+     3c6:	c9                   	leave
+     3c7:	c3                   	ret
+     3c8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     3cf:	00 
+
+000003d0 <self_thread>:
+void *self_thread(void *arg) {
+     3d0:	55                   	push   %ebp
+     3d1:	89 e5                	mov    %esp,%ebp
+     3d3:	56                   	push   %esi
+     3d4:	53                   	push   %ebx
+     3d5:	8b 75 08             	mov    0x8(%ebp),%esi
+    int actual_tid = thread_self();
+     3d8:	e8 a3 16 00 00       	call   1a80 <thread_self>
+    printf(1, "  [Thread] Expected tid=%d, Actual tid=%d\n", expected_tid, actual_tid);
+     3dd:	50                   	push   %eax
+    int actual_tid = thread_self();
+     3de:	89 c3                	mov    %eax,%ebx
+    printf(1, "  [Thread] Expected tid=%d, Actual tid=%d\n", expected_tid, actual_tid);
+     3e0:	56                   	push   %esi
+     3e1:	68 c0 26 00 00       	push   $0x26c0
+     3e6:	6a 01                	push   $0x1
+     3e8:	e8 e3 11 00 00       	call   15d0 <printf>
+    if (expected_tid == actual_tid) {
+     3ed:	83 c4 10             	add    $0x10,%esp
+     3f0:	31 c0                	xor    %eax,%eax
+     3f2:	39 de                	cmp    %ebx,%esi
+     3f4:	0f 94 c0             	sete   %al
+}
+     3f7:	8d 65 f8             	lea    -0x8(%ebp),%esp
+     3fa:	5b                   	pop    %ebx
+     3fb:	5e                   	pop    %esi
+     3fc:	5d                   	pop    %ebp
+     3fd:	c3                   	ret
+     3fe:	66 90                	xchg   %ax,%ax
+
+00000400 <mutex_inc_thread>:
+void *mutex_inc_thread(void *arg) {
+     400:	55                   	push   %ebp
+     401:	89 e5                	mov    %esp,%ebp
+     403:	57                   	push   %edi
+     404:	56                   	push   %esi
+     405:	53                   	push   %ebx
+     406:	83 ec 0c             	sub    $0xc,%esp
+     409:	8b 7d 08             	mov    0x8(%ebp),%edi
+    for (i = 0; i < iterations; i++) {
+     40c:	85 ff                	test   %edi,%edi
+     40e:	7e 52                	jle    462 <mutex_inc_thread+0x62>
+     410:	31 f6                	xor    %esi,%esi
+     412:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+        mutex_lock(&test_mutex);
+     418:	83 ec 0c             	sub    $0xc,%esp
+    for (i = 0; i < iterations; i++) {
+     41b:	83 c6 01             	add    $0x1,%esi
+        mutex_lock(&test_mutex);
+     41e:	68 08 43 00 00       	push   $0x4308
+     423:	e8 48 19 00 00       	call   1d70 <mutex_lock>
+        protected_counter++;
+     428:	a1 04 43 00 00       	mov    0x4304,%eax
+     42d:	8d 58 01             	lea    0x1(%eax),%ebx
+     430:	89 1d 04 43 00 00    	mov    %ebx,0x4304
+        printf(1, "  [Thread%d] counter = %d\n", thread_self(), protected_counter);
+     436:	e8 45 16 00 00       	call   1a80 <thread_self>
+     43b:	53                   	push   %ebx
+     43c:	50                   	push   %eax
+     43d:	68 e4 24 00 00       	push   $0x24e4
+     442:	6a 01                	push   $0x1
+     444:	e8 87 11 00 00       	call   15d0 <printf>
+        mutex_unlock(&test_mutex);
+     449:	83 c4 14             	add    $0x14,%esp
+     44c:	68 08 43 00 00       	push   $0x4308
+     451:	e8 5a 19 00 00       	call   1db0 <mutex_unlock>
+        thread_yield();
+     456:	e8 75 18 00 00       	call   1cd0 <thread_yield>
+    for (i = 0; i < iterations; i++) {
+     45b:	83 c4 10             	add    $0x10,%esp
+     45e:	39 f7                	cmp    %esi,%edi
+     460:	75 b6                	jne    418 <mutex_inc_thread+0x18>
+}
+     462:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     465:	31 c0                	xor    %eax,%eax
+     467:	5b                   	pop    %ebx
+     468:	5e                   	pop    %esi
+     469:	5f                   	pop    %edi
+     46a:	5d                   	pop    %ebp
+     46b:	c3                   	ret
+     46c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+
+00000470 <trylock_thread>:
+void *trylock_thread(void *arg) {
+     470:	55                   	push   %ebp
+     471:	89 e5                	mov    %esp,%ebp
+     473:	56                   	push   %esi
+    int success = 0;
+     474:	31 f6                	xor    %esi,%esi
+void *trylock_thread(void *arg) {
+     476:	53                   	push   %ebx
+     477:	bb 05 00 00 00       	mov    $0x5,%ebx
+     47c:	eb 3a                	jmp    4b8 <trylock_thread+0x48>
+     47e:	66 90                	xchg   %ax,%ax
+            printf(1, "  [Thread%d] Trylock succeeded\n", thread_self());
+     480:	e8 fb 15 00 00       	call   1a80 <thread_self>
+     485:	83 ec 04             	sub    $0x4,%esp
+            success++;
+     488:	83 c6 01             	add    $0x1,%esi
+            printf(1, "  [Thread%d] Trylock succeeded\n", thread_self());
+     48b:	50                   	push   %eax
+     48c:	68 ec 26 00 00       	push   $0x26ec
+     491:	6a 01                	push   $0x1
+     493:	e8 38 11 00 00       	call   15d0 <printf>
+            protected_counter++;
+     498:	83 05 04 43 00 00 01 	addl   $0x1,0x4304
+            mutex_unlock(&test_mutex);
+     49f:	c7 04 24 08 43 00 00 	movl   $0x4308,(%esp)
+     4a6:	e8 05 19 00 00       	call   1db0 <mutex_unlock>
+     4ab:	83 c4 10             	add    $0x10,%esp
+        thread_yield();
+     4ae:	e8 1d 18 00 00       	call   1cd0 <thread_yield>
+    for (i = 0; i < 5; i++) {
+     4b3:	83 eb 01             	sub    $0x1,%ebx
+     4b6:	74 36                	je     4ee <trylock_thread+0x7e>
+        if (mutex_trylock(&test_mutex)) {
+     4b8:	83 ec 0c             	sub    $0xc,%esp
+     4bb:	68 08 43 00 00       	push   $0x4308
+     4c0:	e8 3b 19 00 00       	call   1e00 <mutex_trylock>
+     4c5:	83 c4 10             	add    $0x10,%esp
+     4c8:	85 c0                	test   %eax,%eax
+     4ca:	75 b4                	jne    480 <trylock_thread+0x10>
+            printf(1, "  [Thread%d] Trylock failed, lock occupied\n", thread_self());
+     4cc:	e8 af 15 00 00       	call   1a80 <thread_self>
+     4d1:	83 ec 04             	sub    $0x4,%esp
+     4d4:	50                   	push   %eax
+     4d5:	68 0c 27 00 00       	push   $0x270c
+     4da:	6a 01                	push   $0x1
+     4dc:	e8 ef 10 00 00       	call   15d0 <printf>
+     4e1:	83 c4 10             	add    $0x10,%esp
+        thread_yield();
+     4e4:	e8 e7 17 00 00       	call   1cd0 <thread_yield>
+    for (i = 0; i < 5; i++) {
+     4e9:	83 eb 01             	sub    $0x1,%ebx
+     4ec:	75 ca                	jne    4b8 <trylock_thread+0x48>
+}
+     4ee:	8d 65 f8             	lea    -0x8(%ebp),%esp
+     4f1:	89 f0                	mov    %esi,%eax
+     4f3:	5b                   	pop    %ebx
+     4f4:	5e                   	pop    %esi
+     4f5:	5d                   	pop    %ebp
+     4f6:	c3                   	ret
+     4f7:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     4fe:	00 
+     4ff:	90                   	nop
+
+00000500 <wait_broadcast_thread>:
+void *wait_broadcast_thread(void *arg) {
+     500:	55                   	push   %ebp
+     501:	89 e5                	mov    %esp,%ebp
+     503:	53                   	push   %ebx
+     504:	83 ec 10             	sub    $0x10,%esp
+     507:	8b 5d 08             	mov    0x8(%ebp),%ebx
+    mutex_lock(&broadcast_mutex);
+     50a:	68 c8 42 00 00       	push   $0x42c8
+     50f:	e8 5c 18 00 00       	call   1d70 <mutex_lock>
+    printf(1, "  [Thread%d] Waiting for broadcast signal...\n", id);
+     514:	83 c4 0c             	add    $0xc,%esp
+     517:	53                   	push   %ebx
+     518:	68 38 27 00 00       	push   $0x2738
+     51d:	6a 01                	push   $0x1
+     51f:	e8 ac 10 00 00       	call   15d0 <printf>
+    while (!broadcast_ready) {
+     524:	8b 15 c4 42 00 00    	mov    0x42c4,%edx
+     52a:	83 c4 10             	add    $0x10,%esp
+     52d:	85 d2                	test   %edx,%edx
+     52f:	75 25                	jne    556 <wait_broadcast_thread+0x56>
+     531:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+        cond_wait(&broadcast_cond, &broadcast_mutex);
+     538:	83 ec 08             	sub    $0x8,%esp
+     53b:	68 c8 42 00 00       	push   $0x42c8
+     540:	68 d4 42 00 00       	push   $0x42d4
+     545:	e8 06 19 00 00       	call   1e50 <cond_wait>
+    while (!broadcast_ready) {
+     54a:	a1 c4 42 00 00       	mov    0x42c4,%eax
+     54f:	83 c4 10             	add    $0x10,%esp
+     552:	85 c0                	test   %eax,%eax
+     554:	74 e2                	je     538 <wait_broadcast_thread+0x38>
+    printf(1, "  [Thread%d] Received broadcast, woken up!\n", id);
+     556:	83 ec 04             	sub    $0x4,%esp
+    wakeup_count++;
+     559:	83 05 c0 42 00 00 01 	addl   $0x1,0x42c0
+    printf(1, "  [Thread%d] Received broadcast, woken up!\n", id);
+     560:	53                   	push   %ebx
+     561:	68 68 27 00 00       	push   $0x2768
+     566:	6a 01                	push   $0x1
+     568:	e8 63 10 00 00       	call   15d0 <printf>
+    mutex_unlock(&broadcast_mutex);
+     56d:	c7 04 24 c8 42 00 00 	movl   $0x42c8,(%esp)
+     574:	e8 37 18 00 00       	call   1db0 <mutex_unlock>
+}
+     579:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+     57c:	31 c0                	xor    %eax,%eax
+     57e:	c9                   	leave
+     57f:	c3                   	ret
+
+00000580 <producer_thread>:
+void *producer_thread(void *arg) {
+     580:	55                   	push   %ebp
+     581:	89 e5                	mov    %esp,%ebp
+     583:	57                   	push   %edi
+     584:	56                   	push   %esi
+    for (i = 0; i < 3; i++) {
+     585:	31 f6                	xor    %esi,%esi
+void *producer_thread(void *arg) {
+     587:	53                   	push   %ebx
+     588:	83 ec 0c             	sub    $0xc,%esp
+     58b:	8b 5d 08             	mov    0x8(%ebp),%ebx
+        buffer[count] = id * 10 + i;
+     58e:	8d 3c 9b             	lea    (%ebx,%ebx,4),%edi
+     591:	01 ff                	add    %edi,%edi
+        mutex_lock(&pc_mutex);
+     593:	83 ec 0c             	sub    $0xc,%esp
+     596:	68 e0 42 00 00       	push   $0x42e0
+     59b:	e8 d0 17 00 00       	call   1d70 <mutex_lock>
+        while (count == BUFFER_SIZE) {
+     5a0:	a1 ec 42 00 00       	mov    0x42ec,%eax
+     5a5:	83 c4 10             	add    $0x10,%esp
+     5a8:	83 f8 05             	cmp    $0x5,%eax
+     5ab:	75 31                	jne    5de <producer_thread+0x5e>
+     5ad:	8d 76 00             	lea    0x0(%esi),%esi
+            printf(1, "  [Producer%d] Buffer full, waiting...\n", id);
+     5b0:	83 ec 04             	sub    $0x4,%esp
+     5b3:	53                   	push   %ebx
+     5b4:	68 94 27 00 00       	push   $0x2794
+     5b9:	6a 01                	push   $0x1
+     5bb:	e8 10 10 00 00       	call   15d0 <printf>
+            cond_wait(&not_full, &pc_mutex);
+     5c0:	58                   	pop    %eax
+     5c1:	5a                   	pop    %edx
+     5c2:	68 e0 42 00 00       	push   $0x42e0
+     5c7:	68 d8 42 00 00       	push   $0x42d8
+     5cc:	e8 7f 18 00 00       	call   1e50 <cond_wait>
+        while (count == BUFFER_SIZE) {
+     5d1:	a1 ec 42 00 00       	mov    0x42ec,%eax
+     5d6:	83 c4 10             	add    $0x10,%esp
+     5d9:	83 f8 05             	cmp    $0x5,%eax
+     5dc:	74 d2                	je     5b0 <producer_thread+0x30>
+        buffer[count] = id * 10 + i;
+     5de:	8d 14 3e             	lea    (%esi,%edi,1),%edx
+        printf(1, "  [Producer%d] Produce: %d (count=%d)\n", id, id*10+i, count);
+     5e1:	83 ec 0c             	sub    $0xc,%esp
+    for (i = 0; i < 3; i++) {
+     5e4:	83 c6 01             	add    $0x1,%esi
+        buffer[count] = id * 10 + i;
+     5e7:	89 14 85 f0 42 00 00 	mov    %edx,0x42f0(,%eax,4)
+        count++;
+     5ee:	83 c0 01             	add    $0x1,%eax
+     5f1:	a3 ec 42 00 00       	mov    %eax,0x42ec
+        printf(1, "  [Producer%d] Produce: %d (count=%d)\n", id, id*10+i, count);
+     5f6:	50                   	push   %eax
+     5f7:	52                   	push   %edx
+     5f8:	53                   	push   %ebx
+     5f9:	68 bc 27 00 00       	push   $0x27bc
+     5fe:	6a 01                	push   $0x1
+     600:	e8 cb 0f 00 00       	call   15d0 <printf>
+        cond_signal(&not_empty);
+     605:	83 c4 14             	add    $0x14,%esp
+     608:	68 dc 42 00 00       	push   $0x42dc
+     60d:	e8 de 18 00 00       	call   1ef0 <cond_signal>
+        mutex_unlock(&pc_mutex);
+     612:	c7 04 24 e0 42 00 00 	movl   $0x42e0,(%esp)
+     619:	e8 92 17 00 00       	call   1db0 <mutex_unlock>
+        thread_yield();
+     61e:	e8 ad 16 00 00       	call   1cd0 <thread_yield>
+    for (i = 0; i < 3; i++) {
+     623:	83 c4 10             	add    $0x10,%esp
+     626:	83 fe 03             	cmp    $0x3,%esi
+     629:	0f 85 64 ff ff ff    	jne    593 <producer_thread+0x13>
+}
+     62f:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     632:	31 c0                	xor    %eax,%eax
+     634:	5b                   	pop    %ebx
+     635:	5e                   	pop    %esi
+     636:	5f                   	pop    %edi
+     637:	5d                   	pop    %ebp
+     638:	c3                   	ret
+     639:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+
+00000640 <consumer_thread>:
+void *consumer_thread(void *arg) {
+     640:	55                   	push   %ebp
+     641:	89 e5                	mov    %esp,%ebp
+     643:	56                   	push   %esi
+    int id = (int)arg;
+     644:	be 03 00 00 00       	mov    $0x3,%esi
+void *consumer_thread(void *arg) {
+     649:	53                   	push   %ebx
+     64a:	8b 5d 08             	mov    0x8(%ebp),%ebx
+        mutex_lock(&pc_mutex);
+     64d:	83 ec 0c             	sub    $0xc,%esp
+     650:	68 e0 42 00 00       	push   $0x42e0
+     655:	e8 16 17 00 00       	call   1d70 <mutex_lock>
+        while (count == 0) {
+     65a:	a1 ec 42 00 00       	mov    0x42ec,%eax
+     65f:	83 c4 10             	add    $0x10,%esp
+     662:	85 c0                	test   %eax,%eax
+     664:	75 37                	jne    69d <consumer_thread+0x5d>
+     666:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     66d:	00 
+     66e:	66 90                	xchg   %ax,%ax
+            printf(1, "  [Consumer%d] Buffer empty, waiting...\n", id);
+     670:	83 ec 04             	sub    $0x4,%esp
+     673:	53                   	push   %ebx
+     674:	68 e4 27 00 00       	push   $0x27e4
+     679:	6a 01                	push   $0x1
+     67b:	e8 50 0f 00 00       	call   15d0 <printf>
+            cond_wait(&not_empty, &pc_mutex);
+     680:	58                   	pop    %eax
+     681:	5a                   	pop    %edx
+     682:	68 e0 42 00 00       	push   $0x42e0
+     687:	68 dc 42 00 00       	push   $0x42dc
+     68c:	e8 bf 17 00 00       	call   1e50 <cond_wait>
+        while (count == 0) {
+     691:	a1 ec 42 00 00       	mov    0x42ec,%eax
+     696:	83 c4 10             	add    $0x10,%esp
+     699:	85 c0                	test   %eax,%eax
+     69b:	74 d3                	je     670 <consumer_thread+0x30>
+        printf(1, "  [Consumer%d] Consume: %d (count=%d)\n", id, item, count);
+     69d:	83 ec 0c             	sub    $0xc,%esp
+        count--;
+     6a0:	83 e8 01             	sub    $0x1,%eax
+     6a3:	a3 ec 42 00 00       	mov    %eax,0x42ec
+        printf(1, "  [Consumer%d] Consume: %d (count=%d)\n", id, item, count);
+     6a8:	50                   	push   %eax
+     6a9:	ff 34 85 f0 42 00 00 	push   0x42f0(,%eax,4)
+     6b0:	53                   	push   %ebx
+     6b1:	68 10 28 00 00       	push   $0x2810
+     6b6:	6a 01                	push   $0x1
+     6b8:	e8 13 0f 00 00       	call   15d0 <printf>
+        cond_signal(&not_full);
+     6bd:	83 c4 14             	add    $0x14,%esp
+     6c0:	68 d8 42 00 00       	push   $0x42d8
+     6c5:	e8 26 18 00 00       	call   1ef0 <cond_signal>
+        mutex_unlock(&pc_mutex);
+     6ca:	c7 04 24 e0 42 00 00 	movl   $0x42e0,(%esp)
+     6d1:	e8 da 16 00 00       	call   1db0 <mutex_unlock>
+        thread_yield();
+     6d6:	e8 f5 15 00 00       	call   1cd0 <thread_yield>
+    for (i = 0; i < 3; i++) {
+     6db:	83 c4 10             	add    $0x10,%esp
+     6de:	83 ee 01             	sub    $0x1,%esi
+     6e1:	0f 85 66 ff ff ff    	jne    64d <consumer_thread+0xd>
+}
+     6e7:	8d 65 f8             	lea    -0x8(%ebp),%esp
+     6ea:	31 c0                	xor    %eax,%eax
+     6ec:	5b                   	pop    %ebx
+     6ed:	5e                   	pop    %esi
+     6ee:	5d                   	pop    %ebp
+     6ef:	c3                   	ret
+
+000006f0 <channel_sender>:
+void *channel_sender(void *arg) {
+     6f0:	55                   	push   %ebp
+     6f1:	89 e5                	mov    %esp,%ebp
+     6f3:	57                   	push   %edi
+     6f4:	56                   	push   %esi
+     6f5:	53                   	push   %ebx
+     6f6:	31 db                	xor    %ebx,%ebx
+     6f8:	83 ec 0c             	sub    $0xc,%esp
+     6fb:	8b 7d 08             	mov    0x8(%ebp),%edi
+    for (i = 0; i < 5; i++) {
+     6fe:	66 90                	xchg   %ax,%ax
+        int *data = (int*)malloc(sizeof(int));
+     700:	83 ec 0c             	sub    $0xc,%esp
+     703:	6a 04                	push   $0x4
+     705:	e8 e6 10 00 00       	call   17f0 <malloc>
+        printf(1, "  [Sender] Send: %d\n", *data);
+     70a:	83 c4 0c             	add    $0xc,%esp
+        *data = i * 100;
+     70d:	89 18                	mov    %ebx,(%eax)
+        int *data = (int*)malloc(sizeof(int));
+     70f:	89 c6                	mov    %eax,%esi
+        printf(1, "  [Sender] Send: %d\n", *data);
+     711:	53                   	push   %ebx
+    for (i = 0; i < 5; i++) {
+     712:	83 c3 64             	add    $0x64,%ebx
+        printf(1, "  [Sender] Send: %d\n", *data);
+     715:	68 ff 24 00 00       	push   $0x24ff
+     71a:	6a 01                	push   $0x1
+     71c:	e8 af 0e 00 00       	call   15d0 <printf>
+        channel_send(ch, (void*)data);
+     721:	58                   	pop    %eax
+     722:	5a                   	pop    %edx
+     723:	56                   	push   %esi
+     724:	57                   	push   %edi
+     725:	e8 06 19 00 00       	call   2030 <channel_send>
+        thread_yield();
+     72a:	e8 a1 15 00 00       	call   1cd0 <thread_yield>
+    for (i = 0; i < 5; i++) {
+     72f:	83 c4 10             	add    $0x10,%esp
+     732:	81 fb f4 01 00 00    	cmp    $0x1f4,%ebx
+     738:	75 c6                	jne    700 <channel_sender+0x10>
+}
+     73a:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     73d:	31 c0                	xor    %eax,%eax
+     73f:	5b                   	pop    %ebx
+     740:	5e                   	pop    %esi
+     741:	5f                   	pop    %edi
+     742:	5d                   	pop    %ebp
+     743:	c3                   	ret
+     744:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     74b:	00 
+     74c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+
+00000750 <channel_fast_sender>:
+void *channel_fast_sender(void *arg) {
+     750:	55                   	push   %ebp
+     751:	89 e5                	mov    %esp,%ebp
+     753:	56                   	push   %esi
+     754:	53                   	push   %ebx
+     755:	8b 75 08             	mov    0x8(%ebp),%esi
+    for (i = 0; i < 8; i++) {
+     758:	31 db                	xor    %ebx,%ebx
+     75a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+        printf(1, "  [FastSend] Try to send %d\n", i);
+     760:	83 ec 04             	sub    $0x4,%esp
+     763:	53                   	push   %ebx
+     764:	68 14 25 00 00       	push   $0x2514
+     769:	6a 01                	push   $0x1
+     76b:	e8 60 0e 00 00       	call   15d0 <printf>
+        channel_send(ch, (void*)i);
+     770:	58                   	pop    %eax
+     771:	5a                   	pop    %edx
+     772:	53                   	push   %ebx
+     773:	56                   	push   %esi
+     774:	e8 b7 18 00 00       	call   2030 <channel_send>
+        printf(1, "  [FastSend] Successfully sent %d\n", i);
+     779:	83 c4 0c             	add    $0xc,%esp
+     77c:	53                   	push   %ebx
+    for (i = 0; i < 8; i++) {
+     77d:	83 c3 01             	add    $0x1,%ebx
+        printf(1, "  [FastSend] Successfully sent %d\n", i);
+     780:	68 38 28 00 00       	push   $0x2838
+     785:	6a 01                	push   $0x1
+     787:	e8 44 0e 00 00       	call   15d0 <printf>
+    for (i = 0; i < 8; i++) {
+     78c:	83 c4 10             	add    $0x10,%esp
+     78f:	83 fb 08             	cmp    $0x8,%ebx
+     792:	75 cc                	jne    760 <channel_fast_sender+0x10>
+}
+     794:	8d 65 f8             	lea    -0x8(%ebp),%esp
+     797:	31 c0                	xor    %eax,%eax
+     799:	5b                   	pop    %ebx
+     79a:	5e                   	pop    %esi
+     79b:	5d                   	pop    %ebp
+     79c:	c3                   	ret
+     79d:	8d 76 00             	lea    0x0(%esi),%esi
+
+000007a0 <multi_producer>:
+void *multi_producer(void *arg) {
+     7a0:	55                   	push   %ebp
+     7a1:	89 e5                	mov    %esp,%ebp
+     7a3:	57                   	push   %edi
+     7a4:	56                   	push   %esi
+     7a5:	53                   	push   %ebx
+     7a6:	83 ec 0c             	sub    $0xc,%esp
+    int id = thread_self();
+     7a9:	e8 d2 12 00 00       	call   1a80 <thread_self>
+        int msg = id * 100 + i;
+     7ae:	6b f8 64             	imul   $0x64,%eax,%edi
+    int id = thread_self();
+     7b1:	89 c3                	mov    %eax,%ebx
+    for (i = 0; i < 3; i++) {
+     7b3:	8d 77 03             	lea    0x3(%edi),%esi
+        printf(1, "  [Producer%d] Send: %d\n", id, msg);
+     7b6:	57                   	push   %edi
+     7b7:	53                   	push   %ebx
+     7b8:	68 31 25 00 00       	push   $0x2531
+     7bd:	6a 01                	push   $0x1
+     7bf:	e8 0c 0e 00 00       	call   15d0 <printf>
+        channel_send(ch, (void*)msg);
+     7c4:	58                   	pop    %eax
+     7c5:	5a                   	pop    %edx
+     7c6:	57                   	push   %edi
+     7c7:	ff 75 08             	push   0x8(%ebp)
+    for (i = 0; i < 3; i++) {
+     7ca:	83 c7 01             	add    $0x1,%edi
+        channel_send(ch, (void*)msg);
+     7cd:	e8 5e 18 00 00       	call   2030 <channel_send>
+        thread_yield();
+     7d2:	e8 f9 14 00 00       	call   1cd0 <thread_yield>
+    for (i = 0; i < 3; i++) {
+     7d7:	83 c4 10             	add    $0x10,%esp
+     7da:	39 f7                	cmp    %esi,%edi
+     7dc:	75 d8                	jne    7b6 <multi_producer+0x16>
+}
+     7de:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     7e1:	31 c0                	xor    %eax,%eax
+     7e3:	5b                   	pop    %ebx
+     7e4:	5e                   	pop    %esi
+     7e5:	5f                   	pop    %edi
+     7e6:	5d                   	pop    %ebp
+     7e7:	c3                   	ret
+     7e8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     7ef:	00 
+
+000007f0 <channel_slow_receiver>:
+void *channel_slow_receiver(void *arg) {
+     7f0:	55                   	push   %ebp
+     7f1:	89 e5                	mov    %esp,%ebp
+     7f3:	57                   	push   %edi
+     7f4:	56                   	push   %esi
+     7f5:	8d 75 e4             	lea    -0x1c(%ebp),%esi
+     7f8:	53                   	push   %ebx
+     7f9:	bb 08 00 00 00       	mov    $0x8,%ebx
+     7fe:	83 ec 1c             	sub    $0x1c,%esp
+     801:	8b 7d 08             	mov    0x8(%ebp),%edi
+    for (i = 0; i < 8; i++) {
+     804:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+        thread_yield();
+     808:	e8 c3 14 00 00       	call   1cd0 <thread_yield>
+        thread_yield();
+     80d:	e8 be 14 00 00       	call   1cd0 <thread_yield>
+        channel_recv(ch, &data);
+     812:	83 ec 08             	sub    $0x8,%esp
+     815:	56                   	push   %esi
+     816:	57                   	push   %edi
+     817:	e8 d4 19 00 00       	call   21f0 <channel_recv>
+        printf(1, "  [SlowRecv] Received %d\n", (int)data);
+     81c:	83 c4 0c             	add    $0xc,%esp
+     81f:	ff 75 e4             	push   -0x1c(%ebp)
+     822:	68 4a 25 00 00       	push   $0x254a
+     827:	6a 01                	push   $0x1
+     829:	e8 a2 0d 00 00       	call   15d0 <printf>
+    for (i = 0; i < 8; i++) {
+     82e:	83 c4 10             	add    $0x10,%esp
+     831:	83 eb 01             	sub    $0x1,%ebx
+     834:	75 d2                	jne    808 <channel_slow_receiver+0x18>
+}
+     836:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     839:	31 c0                	xor    %eax,%eax
+     83b:	5b                   	pop    %ebx
+     83c:	5e                   	pop    %esi
+     83d:	5f                   	pop    %edi
+     83e:	5d                   	pop    %ebp
+     83f:	c3                   	ret
+
+00000840 <multi_consumer>:
+void *multi_consumer(void *arg) {
+     840:	55                   	push   %ebp
+     841:	89 e5                	mov    %esp,%ebp
+     843:	57                   	push   %edi
+    int id = thread_self();
+     844:	bf 03 00 00 00       	mov    $0x3,%edi
+void *multi_consumer(void *arg) {
+     849:	56                   	push   %esi
+     84a:	8d 75 e4             	lea    -0x1c(%ebp),%esi
+     84d:	53                   	push   %ebx
+     84e:	83 ec 1c             	sub    $0x1c,%esp
+    int id = thread_self();
+     851:	e8 2a 12 00 00       	call   1a80 <thread_self>
+     856:	89 c3                	mov    %eax,%ebx
+        channel_recv(ch, &msg);
+     858:	83 ec 08             	sub    $0x8,%esp
+     85b:	56                   	push   %esi
+     85c:	ff 75 08             	push   0x8(%ebp)
+     85f:	e8 8c 19 00 00       	call   21f0 <channel_recv>
+        printf(1, "  [Consumer%d] Receive: %d\n", id, (int)msg);
+     864:	ff 75 e4             	push   -0x1c(%ebp)
+     867:	53                   	push   %ebx
+     868:	68 64 25 00 00       	push   $0x2564
+     86d:	6a 01                	push   $0x1
+     86f:	e8 5c 0d 00 00       	call   15d0 <printf>
+        thread_yield();
+     874:	83 c4 20             	add    $0x20,%esp
+     877:	e8 54 14 00 00       	call   1cd0 <thread_yield>
+    for (i = 0; i < 3; i++) {
+     87c:	83 ef 01             	sub    $0x1,%edi
+     87f:	75 d7                	jne    858 <multi_consumer+0x18>
+}
+     881:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     884:	31 c0                	xor    %eax,%eax
+     886:	5b                   	pop    %ebx
+     887:	5e                   	pop    %esi
+     888:	5f                   	pop    %edi
+     889:	5d                   	pop    %ebp
+     88a:	c3                   	ret
+     88b:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+
+00000890 <channel_receiver>:
+void *channel_receiver(void *arg) {
+     890:	55                   	push   %ebp
+     891:	89 e5                	mov    %esp,%ebp
+     893:	57                   	push   %edi
+     894:	56                   	push   %esi
+     895:	8d 75 e4             	lea    -0x1c(%ebp),%esi
+     898:	53                   	push   %ebx
+     899:	bb 05 00 00 00       	mov    $0x5,%ebx
+     89e:	83 ec 1c             	sub    $0x1c,%esp
+     8a1:	8b 7d 08             	mov    0x8(%ebp),%edi
+    for (i = 0; i < 5; i++) {
+     8a4:	eb 14                	jmp    8ba <channel_receiver+0x2a>
+     8a6:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     8ad:	00 
+     8ae:	66 90                	xchg   %ax,%ax
+        thread_yield();
+     8b0:	e8 1b 14 00 00       	call   1cd0 <thread_yield>
+    for (i = 0; i < 5; i++) {
+     8b5:	83 eb 01             	sub    $0x1,%ebx
+     8b8:	74 3b                	je     8f5 <channel_receiver+0x65>
+        int ret = channel_recv(ch, &data);
+     8ba:	83 ec 08             	sub    $0x8,%esp
+     8bd:	56                   	push   %esi
+     8be:	57                   	push   %edi
+     8bf:	e8 2c 19 00 00       	call   21f0 <channel_recv>
+        if (ret == 0) {
+     8c4:	83 c4 10             	add    $0x10,%esp
+     8c7:	85 c0                	test   %eax,%eax
+     8c9:	75 e5                	jne    8b0 <channel_receiver+0x20>
+            printf(1, "  [Receiver] Receive: %d\n", *(int*)data);
+     8cb:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+     8ce:	83 ec 04             	sub    $0x4,%esp
+     8d1:	ff 30                	push   (%eax)
+     8d3:	68 80 25 00 00       	push   $0x2580
+     8d8:	6a 01                	push   $0x1
+     8da:	e8 f1 0c 00 00       	call   15d0 <printf>
+            free(data);
+     8df:	58                   	pop    %eax
+     8e0:	ff 75 e4             	push   -0x1c(%ebp)
+     8e3:	e8 78 0e 00 00       	call   1760 <free>
+     8e8:	83 c4 10             	add    $0x10,%esp
+        thread_yield();
+     8eb:	e8 e0 13 00 00       	call   1cd0 <thread_yield>
+    for (i = 0; i < 5; i++) {
+     8f0:	83 eb 01             	sub    $0x1,%ebx
+     8f3:	75 c5                	jne    8ba <channel_receiver+0x2a>
+}
+     8f5:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     8f8:	31 c0                	xor    %eax,%eax
+     8fa:	5b                   	pop    %ebx
+     8fb:	5e                   	pop    %esi
+     8fc:	5f                   	pop    %edi
+     8fd:	5d                   	pop    %ebp
+     8fe:	c3                   	ret
+     8ff:	90                   	nop
+
+00000900 <test_basic_create_exit>:
+void test_basic_create_exit(void) {
+     900:	55                   	push   %ebp
+     901:	89 e5                	mov    %esp,%ebp
+     903:	57                   	push   %edi
+     904:	56                   	push   %esi
+     905:	53                   	push   %ebx
+     906:	83 ec 24             	sub    $0x24,%esp
+    printf(1, "\n[Test 1.1] Basic Thread Creation and Exit\n");
+     909:	68 5c 28 00 00       	push   $0x285c
+     90e:	6a 01                	push   $0x1
+     910:	e8 bb 0c 00 00       	call   15d0 <printf>
+    printf(1, "----------------------------------------------\n");
+     915:	58                   	pop    %eax
+     916:	5a                   	pop    %edx
+     917:	68 88 28 00 00       	push   $0x2888
+     91c:	6a 01                	push   $0x1
+     91e:	e8 ad 0c 00 00       	call   15d0 <printf>
+    int tid1 = thread_create(basic_thread, (void*)1);
+     923:	59                   	pop    %ecx
+     924:	5b                   	pop    %ebx
+     925:	6a 01                	push   $0x1
+     927:	68 d0 02 00 00       	push   $0x2d0
+     92c:	e8 3f 10 00 00       	call   1970 <thread_create>
+    int tid2 = thread_create(basic_thread, (void*)2);
+     931:	5e                   	pop    %esi
+     932:	5f                   	pop    %edi
+     933:	6a 02                	push   $0x2
+     935:	68 d0 02 00 00       	push   $0x2d0
+    int tid1 = thread_create(basic_thread, (void*)1);
+     93a:	89 c3                	mov    %eax,%ebx
+    int tid2 = thread_create(basic_thread, (void*)2);
+     93c:	e8 2f 10 00 00       	call   1970 <thread_create>
+    printf(1, "Created 2 threads: tid=%d, tid=%d\n", tid1, tid2);
+     941:	50                   	push   %eax
+    int tid2 = thread_create(basic_thread, (void*)2);
+     942:	89 c7                	mov    %eax,%edi
+    printf(1, "Created 2 threads: tid=%d, tid=%d\n", tid1, tid2);
+     944:	53                   	push   %ebx
+     945:	68 b8 28 00 00       	push   $0x28b8
+     94a:	6a 01                	push   $0x1
+     94c:	e8 7f 0c 00 00       	call   15d0 <printf>
+    void *ret1 = thread_join(tid1);
+     951:	83 c4 14             	add    $0x14,%esp
+     954:	53                   	push   %ebx
+     955:	e8 96 12 00 00       	call   1bf0 <thread_join>
+    void *ret2 = thread_join(tid2);
+     95a:	89 3c 24             	mov    %edi,(%esp)
+    void *ret1 = thread_join(tid1);
+     95d:	89 c6                	mov    %eax,%esi
+    void *ret2 = thread_join(tid2);
+     95f:	e8 8c 12 00 00       	call   1bf0 <thread_join>
+     964:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+    printf(1, "Thread %d return value: %d (expected: 10)\n", tid1, (int)ret1);
+     967:	56                   	push   %esi
+     968:	53                   	push   %ebx
+     969:	68 dc 28 00 00       	push   $0x28dc
+     96e:	6a 01                	push   $0x1
+     970:	e8 5b 0c 00 00       	call   15d0 <printf>
+    printf(1, "Thread %d return value: %d (expected: 20)\n", tid2, (int)ret2);
+     975:	8b 5d e4             	mov    -0x1c(%ebp),%ebx
+     978:	83 c4 20             	add    $0x20,%esp
+     97b:	53                   	push   %ebx
+     97c:	57                   	push   %edi
+     97d:	68 08 29 00 00       	push   $0x2908
+     982:	6a 01                	push   $0x1
+     984:	e8 47 0c 00 00       	call   15d0 <printf>
+    if ((int)ret1 == 10 && (int)ret2 == 20) {
+     989:	83 c4 10             	add    $0x10,%esp
+     98c:	83 fe 0a             	cmp    $0xa,%esi
+     98f:	75 1f                	jne    9b0 <test_basic_create_exit+0xb0>
+     991:	83 fb 14             	cmp    $0x14,%ebx
+     994:	75 1a                	jne    9b0 <test_basic_create_exit+0xb0>
+        printf(1, "PASS Test passed\n");
+     996:	83 ec 08             	sub    $0x8,%esp
+     999:	68 9a 25 00 00       	push   $0x259a
+     99e:	6a 01                	push   $0x1
+     9a0:	e8 2b 0c 00 00       	call   15d0 <printf>
+     9a5:	83 c4 10             	add    $0x10,%esp
+}
+     9a8:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     9ab:	5b                   	pop    %ebx
+     9ac:	5e                   	pop    %esi
+     9ad:	5f                   	pop    %edi
+     9ae:	5d                   	pop    %ebp
+     9af:	c3                   	ret
+        printf(1, "FAIL Test failed\n");
+     9b0:	83 ec 08             	sub    $0x8,%esp
+     9b3:	68 ac 25 00 00       	push   $0x25ac
+     9b8:	6a 01                	push   $0x1
+     9ba:	e8 11 0c 00 00       	call   15d0 <printf>
+     9bf:	83 c4 10             	add    $0x10,%esp
+}
+     9c2:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     9c5:	5b                   	pop    %ebx
+     9c6:	5e                   	pop    %esi
+     9c7:	5f                   	pop    %edi
+     9c8:	5d                   	pop    %ebp
+     9c9:	c3                   	ret
+     9ca:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+
+000009d0 <test_yield_scheduling>:
+void test_yield_scheduling(void) {
+     9d0:	55                   	push   %ebp
+     9d1:	89 e5                	mov    %esp,%ebp
+     9d3:	57                   	push   %edi
+     9d4:	56                   	push   %esi
+     9d5:	53                   	push   %ebx
+     9d6:	83 ec 14             	sub    $0x14,%esp
+    printf(1, "\n[Test 1.2] Thread Yield and Round-Robin Scheduling\n");
+     9d9:	68 34 29 00 00       	push   $0x2934
+     9de:	6a 01                	push   $0x1
+     9e0:	e8 eb 0b 00 00       	call   15d0 <printf>
+    printf(1, "----------------------------------------------\n");
+     9e5:	58                   	pop    %eax
+     9e6:	5a                   	pop    %edx
+     9e7:	68 88 28 00 00       	push   $0x2888
+     9ec:	6a 01                	push   $0x1
+     9ee:	e8 dd 0b 00 00       	call   15d0 <printf>
+    printf(1, "Expected: Threads should alternate (Round-Robin)\n\n");
+     9f3:	59                   	pop    %ecx
+     9f4:	5b                   	pop    %ebx
+     9f5:	68 6c 29 00 00       	push   $0x296c
+     9fa:	6a 01                	push   $0x1
+     9fc:	e8 cf 0b 00 00       	call   15d0 <printf>
+    int tid1 = thread_create(yield_thread, (void*)1);
+     a01:	5e                   	pop    %esi
+     a02:	5f                   	pop    %edi
+     a03:	6a 01                	push   $0x1
+     a05:	68 30 03 00 00       	push   $0x330
+     a0a:	e8 61 0f 00 00       	call   1970 <thread_create>
+     a0f:	89 c7                	mov    %eax,%edi
+    int tid2 = thread_create(yield_thread, (void*)2);
+     a11:	58                   	pop    %eax
+     a12:	5a                   	pop    %edx
+     a13:	6a 02                	push   $0x2
+     a15:	68 30 03 00 00       	push   $0x330
+     a1a:	e8 51 0f 00 00       	call   1970 <thread_create>
+    int tid3 = thread_create(yield_thread, (void*)3);
+     a1f:	59                   	pop    %ecx
+     a20:	5b                   	pop    %ebx
+     a21:	6a 03                	push   $0x3
+     a23:	68 30 03 00 00       	push   $0x330
+    int tid2 = thread_create(yield_thread, (void*)2);
+     a28:	89 c6                	mov    %eax,%esi
+    int tid3 = thread_create(yield_thread, (void*)3);
+     a2a:	e8 41 0f 00 00       	call   1970 <thread_create>
+    thread_join(tid1);
+     a2f:	89 3c 24             	mov    %edi,(%esp)
+    int tid3 = thread_create(yield_thread, (void*)3);
+     a32:	89 c3                	mov    %eax,%ebx
+    thread_join(tid1);
+     a34:	e8 b7 11 00 00       	call   1bf0 <thread_join>
+    thread_join(tid2);
+     a39:	89 34 24             	mov    %esi,(%esp)
+     a3c:	e8 af 11 00 00       	call   1bf0 <thread_join>
+    thread_join(tid3);
+     a41:	89 1c 24             	mov    %ebx,(%esp)
+     a44:	e8 a7 11 00 00       	call   1bf0 <thread_join>
+    printf(1, "PASS Test completed (verify scheduling order from output)\n");
+     a49:	5e                   	pop    %esi
+     a4a:	5f                   	pop    %edi
+     a4b:	68 a0 29 00 00       	push   $0x29a0
+     a50:	6a 01                	push   $0x1
+     a52:	e8 79 0b 00 00       	call   15d0 <printf>
+}
+     a57:	83 c4 10             	add    $0x10,%esp
+     a5a:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     a5d:	5b                   	pop    %ebx
+     a5e:	5e                   	pop    %esi
+     a5f:	5f                   	pop    %edi
+     a60:	5d                   	pop    %ebp
+     a61:	c3                   	ret
+     a62:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     a69:	00 
+     a6a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+
+00000a70 <test_many_threads>:
+void test_many_threads(void) {
+     a70:	55                   	push   %ebp
+     a71:	89 e5                	mov    %esp,%ebp
+     a73:	57                   	push   %edi
+     a74:	56                   	push   %esi
+     a75:	53                   	push   %ebx
+    for (i = 0; i < 10; i++) {
+     a76:	31 db                	xor    %ebx,%ebx
+void test_many_threads(void) {
+     a78:	83 ec 44             	sub    $0x44,%esp
+    printf(1, "\n[Test 1.3] Multiple Threads Creation Stress Test\n");
+     a7b:	68 dc 29 00 00       	push   $0x29dc
+     a80:	6a 01                	push   $0x1
+     a82:	e8 49 0b 00 00       	call   15d0 <printf>
+    printf(1, "----------------------------------------------\n");
+     a87:	58                   	pop    %eax
+     a88:	5a                   	pop    %edx
+     a89:	68 88 28 00 00       	push   $0x2888
+     a8e:	6a 01                	push   $0x1
+     a90:	e8 3b 0b 00 00       	call   15d0 <printf>
+     a95:	83 c4 10             	add    $0x10,%esp
+     a98:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     a9f:	00 
+        tids[i] = thread_create(stress_thread, (void*)i);
+     aa0:	83 ec 08             	sub    $0x8,%esp
+     aa3:	53                   	push   %ebx
+     aa4:	68 10 03 00 00       	push   $0x310
+     aa9:	e8 c2 0e 00 00       	call   1970 <thread_create>
+    for (i = 0; i < 10; i++) {
+     aae:	83 c4 10             	add    $0x10,%esp
+        tids[i] = thread_create(stress_thread, (void*)i);
+     ab1:	89 44 9d c0          	mov    %eax,-0x40(%ebp,%ebx,4)
+    for (i = 0; i < 10; i++) {
+     ab5:	83 c3 01             	add    $0x1,%ebx
+     ab8:	83 fb 0a             	cmp    $0xa,%ebx
+     abb:	75 e3                	jne    aa0 <test_many_threads+0x30>
+    printf(1, "Successfully created 10 threads\n");
+     abd:	83 ec 08             	sub    $0x8,%esp
+     ac0:	8d 5d c0             	lea    -0x40(%ebp),%ebx
+     ac3:	8d 7d e8             	lea    -0x18(%ebp),%edi
+     ac6:	68 10 2a 00 00       	push   $0x2a10
+     acb:	6a 01                	push   $0x1
+     acd:	e8 fe 0a 00 00       	call   15d0 <printf>
+    for (i = 0; i < 10; i++) {
+     ad2:	83 c4 10             	add    $0x10,%esp
+     ad5:	8d 76 00             	lea    0x0(%esi),%esi
+        void *ret = thread_join(tids[i]);
+     ad8:	8b 33                	mov    (%ebx),%esi
+     ada:	83 ec 0c             	sub    $0xc,%esp
+    for (i = 0; i < 10; i++) {
+     add:	83 c3 04             	add    $0x4,%ebx
+        void *ret = thread_join(tids[i]);
+     ae0:	56                   	push   %esi
+     ae1:	e8 0a 11 00 00       	call   1bf0 <thread_join>
+        printf(1, "  Thread %d returned: %d\n", tids[i], (int)ret);
+     ae6:	50                   	push   %eax
+     ae7:	56                   	push   %esi
+     ae8:	68 be 25 00 00       	push   $0x25be
+     aed:	6a 01                	push   $0x1
+     aef:	e8 dc 0a 00 00       	call   15d0 <printf>
+    for (i = 0; i < 10; i++) {
+     af4:	83 c4 20             	add    $0x20,%esp
+     af7:	39 fb                	cmp    %edi,%ebx
+     af9:	75 dd                	jne    ad8 <test_many_threads+0x68>
+    printf(1, "PASS Test passed\n");
+     afb:	83 ec 08             	sub    $0x8,%esp
+     afe:	68 9a 25 00 00       	push   $0x259a
+     b03:	6a 01                	push   $0x1
+     b05:	e8 c6 0a 00 00       	call   15d0 <printf>
+}
+     b0a:	83 c4 10             	add    $0x10,%esp
+     b0d:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     b10:	5b                   	pop    %ebx
+     b11:	5e                   	pop    %esi
+     b12:	5f                   	pop    %edi
+     b13:	5d                   	pop    %ebp
+     b14:	c3                   	ret
+     b15:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     b1c:	00 
+     b1d:	8d 76 00             	lea    0x0(%esi),%esi
+
+00000b20 <test_context_switch>:
+void test_context_switch(void) {
+     b20:	55                   	push   %ebp
+     b21:	89 e5                	mov    %esp,%ebp
+     b23:	56                   	push   %esi
+     b24:	53                   	push   %ebx
+    printf(1, "\n[Test 1.4] Context Switch Correctness\n");
+     b25:	83 ec 08             	sub    $0x8,%esp
+     b28:	68 34 2a 00 00       	push   $0x2a34
+     b2d:	6a 01                	push   $0x1
+     b2f:	e8 9c 0a 00 00       	call   15d0 <printf>
+    printf(1, "----------------------------------------------\n");
+     b34:	58                   	pop    %eax
+     b35:	5a                   	pop    %edx
+     b36:	68 88 28 00 00       	push   $0x2888
+     b3b:	6a 01                	push   $0x1
+     b3d:	e8 8e 0a 00 00       	call   15d0 <printf>
+    printf(1, "Test: Two threads increment different variables, verify context save\n");
+     b42:	59                   	pop    %ecx
+     b43:	5b                   	pop    %ebx
+     b44:	68 5c 2a 00 00       	push   $0x2a5c
+     b49:	6a 01                	push   $0x1
+     b4b:	e8 80 0a 00 00       	call   15d0 <printf>
+    ctx_var1 = 0;
+     b50:	c7 05 18 43 00 00 00 	movl   $0x0,0x4318
+     b57:	00 00 00 
+    ctx_var2 = 0;
+     b5a:	c7 05 14 43 00 00 00 	movl   $0x0,0x4314
+     b61:	00 00 00 
+    int tid1 = thread_create(context_thread1, (void*)0);
+     b64:	5e                   	pop    %esi
+     b65:	58                   	pop    %eax
+     b66:	6a 00                	push   $0x0
+     b68:	68 70 03 00 00       	push   $0x370
+     b6d:	e8 fe 0d 00 00       	call   1970 <thread_create>
+     b72:	89 c6                	mov    %eax,%esi
+    int tid2 = thread_create(context_thread2, (void*)0);
+     b74:	58                   	pop    %eax
+     b75:	5a                   	pop    %edx
+     b76:	6a 00                	push   $0x0
+     b78:	68 a0 03 00 00       	push   $0x3a0
+     b7d:	e8 ee 0d 00 00       	call   1970 <thread_create>
+    thread_join(tid1);
+     b82:	89 34 24             	mov    %esi,(%esp)
+    int tid2 = thread_create(context_thread2, (void*)0);
+     b85:	89 c3                	mov    %eax,%ebx
+    thread_join(tid1);
+     b87:	e8 64 10 00 00       	call   1bf0 <thread_join>
+    thread_join(tid2);
+     b8c:	89 1c 24             	mov    %ebx,(%esp)
+     b8f:	e8 5c 10 00 00       	call   1bf0 <thread_join>
+    printf(1, "ctx_var1 = %d (expected: 100)\n", ctx_var1);
+     b94:	83 c4 0c             	add    $0xc,%esp
+     b97:	ff 35 18 43 00 00    	push   0x4318
+     b9d:	68 a4 2a 00 00       	push   $0x2aa4
+     ba2:	6a 01                	push   $0x1
+     ba4:	e8 27 0a 00 00       	call   15d0 <printf>
+    printf(1, "ctx_var2 = %d (expected: 100)\n", ctx_var2);
+     ba9:	83 c4 0c             	add    $0xc,%esp
+     bac:	ff 35 14 43 00 00    	push   0x4314
+     bb2:	68 c4 2a 00 00       	push   $0x2ac4
+     bb7:	6a 01                	push   $0x1
+     bb9:	e8 12 0a 00 00       	call   15d0 <printf>
+    if (ctx_var1 == 100 && ctx_var2 == 100) {
+     bbe:	83 c4 10             	add    $0x10,%esp
+     bc1:	83 3d 18 43 00 00 64 	cmpl   $0x64,0x4318
+     bc8:	75 09                	jne    bd3 <test_context_switch+0xb3>
+     bca:	83 3d 14 43 00 00 64 	cmpl   $0x64,0x4314
+     bd1:	74 1d                	je     bf0 <test_context_switch+0xd0>
+        printf(1, "FAIL Context switch error\n");
+     bd3:	83 ec 08             	sub    $0x8,%esp
+     bd6:	68 f5 25 00 00       	push   $0x25f5
+     bdb:	6a 01                	push   $0x1
+     bdd:	e8 ee 09 00 00       	call   15d0 <printf>
+     be2:	83 c4 10             	add    $0x10,%esp
+}
+     be5:	8d 65 f8             	lea    -0x8(%ebp),%esp
+     be8:	5b                   	pop    %ebx
+     be9:	5e                   	pop    %esi
+     bea:	5d                   	pop    %ebp
+     beb:	c3                   	ret
+     bec:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+        printf(1, "PASS Context switch correct\n");
+     bf0:	83 ec 08             	sub    $0x8,%esp
+     bf3:	68 d8 25 00 00       	push   $0x25d8
+     bf8:	6a 01                	push   $0x1
+     bfa:	e8 d1 09 00 00       	call   15d0 <printf>
+     bff:	83 c4 10             	add    $0x10,%esp
+}
+     c02:	8d 65 f8             	lea    -0x8(%ebp),%esp
+     c05:	5b                   	pop    %ebx
+     c06:	5e                   	pop    %esi
+     c07:	5d                   	pop    %ebp
+     c08:	c3                   	ret
+     c09:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+
+00000c10 <test_thread_self>:
+void test_thread_self(void) {
+     c10:	55                   	push   %ebp
+     c11:	89 e5                	mov    %esp,%ebp
+     c13:	83 ec 10             	sub    $0x10,%esp
+    printf(1, "\n[Test 1.5] Thread Self Function\n");
+     c16:	68 e4 2a 00 00       	push   $0x2ae4
+     c1b:	6a 01                	push   $0x1
+     c1d:	e8 ae 09 00 00       	call   15d0 <printf>
+    printf(1, "----------------------------------------------\n");
+     c22:	58                   	pop    %eax
+     c23:	5a                   	pop    %edx
+     c24:	68 88 28 00 00       	push   $0x2888
+     c29:	6a 01                	push   $0x1
+     c2b:	e8 a0 09 00 00       	call   15d0 <printf>
+    int tid1 = thread_create(self_thread, (void*)0);
+     c30:	59                   	pop    %ecx
+     c31:	58                   	pop    %eax
+     c32:	6a 00                	push   $0x0
+     c34:	68 d0 03 00 00       	push   $0x3d0
+     c39:	e8 32 0d 00 00       	call   1970 <thread_create>
+    thread_join(tid1);
+     c3e:	89 04 24             	mov    %eax,(%esp)
+     c41:	e8 aa 0f 00 00       	call   1bf0 <thread_join>
+    printf(1, "PASS Thread Self test completed\n");
+     c46:	58                   	pop    %eax
+     c47:	5a                   	pop    %edx
+     c48:	68 08 2b 00 00       	push   $0x2b08
+     c4d:	6a 01                	push   $0x1
+     c4f:	e8 7c 09 00 00       	call   15d0 <printf>
+}
+     c54:	83 c4 10             	add    $0x10,%esp
+     c57:	c9                   	leave
+     c58:	c3                   	ret
+     c59:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+
+00000c60 <test_mutex_basic>:
+void test_mutex_basic(void) {
+     c60:	55                   	push   %ebp
+     c61:	89 e5                	mov    %esp,%ebp
+     c63:	56                   	push   %esi
+     c64:	53                   	push   %ebx
+    printf(1, "\n[Test 2.1] Mutex Basic Lock/Unlock\n");
+     c65:	83 ec 08             	sub    $0x8,%esp
+     c68:	68 2c 2b 00 00       	push   $0x2b2c
+     c6d:	6a 01                	push   $0x1
+     c6f:	e8 5c 09 00 00       	call   15d0 <printf>
+    printf(1, "----------------------------------------------\n");
+     c74:	58                   	pop    %eax
+     c75:	5a                   	pop    %edx
+     c76:	68 88 28 00 00       	push   $0x2888
+     c7b:	6a 01                	push   $0x1
+     c7d:	e8 4e 09 00 00       	call   15d0 <printf>
+    mutex_init(&test_mutex);
+     c82:	c7 04 24 08 43 00 00 	movl   $0x4308,(%esp)
+     c89:	e8 c2 10 00 00       	call   1d50 <mutex_init>
+    protected_counter = 0;
+     c8e:	c7 05 04 43 00 00 00 	movl   $0x0,0x4304
+     c95:	00 00 00 
+    int tid1 = thread_create(mutex_inc_thread, (void*)5);
+     c98:	59                   	pop    %ecx
+     c99:	5b                   	pop    %ebx
+     c9a:	6a 05                	push   $0x5
+     c9c:	68 00 04 00 00       	push   $0x400
+     ca1:	e8 ca 0c 00 00       	call   1970 <thread_create>
+     ca6:	89 c6                	mov    %eax,%esi
+    int tid2 = thread_create(mutex_inc_thread, (void*)5);
+     ca8:	58                   	pop    %eax
+     ca9:	5a                   	pop    %edx
+     caa:	6a 05                	push   $0x5
+     cac:	68 00 04 00 00       	push   $0x400
+     cb1:	e8 ba 0c 00 00       	call   1970 <thread_create>
+    thread_join(tid1);
+     cb6:	89 34 24             	mov    %esi,(%esp)
+    int tid2 = thread_create(mutex_inc_thread, (void*)5);
+     cb9:	89 c3                	mov    %eax,%ebx
+    thread_join(tid1);
+     cbb:	e8 30 0f 00 00       	call   1bf0 <thread_join>
+    thread_join(tid2);
+     cc0:	89 1c 24             	mov    %ebx,(%esp)
+     cc3:	e8 28 0f 00 00       	call   1bf0 <thread_join>
+    printf(1, "Final counter = %d (expected: 10)\n", protected_counter);
+     cc8:	83 c4 0c             	add    $0xc,%esp
+     ccb:	ff 35 04 43 00 00    	push   0x4304
+     cd1:	68 54 2b 00 00       	push   $0x2b54
+     cd6:	6a 01                	push   $0x1
+     cd8:	e8 f3 08 00 00       	call   15d0 <printf>
+    if (protected_counter == 10) {
+     cdd:	83 c4 10             	add    $0x10,%esp
+     ce0:	83 3d 04 43 00 00 0a 	cmpl   $0xa,0x4304
+     ce7:	74 1f                	je     d08 <test_mutex_basic+0xa8>
+        printf(1, "FAIL Mutex failed to protect critical section\n");
+     ce9:	83 ec 08             	sub    $0x8,%esp
+     cec:	68 ac 2b 00 00       	push   $0x2bac
+     cf1:	6a 01                	push   $0x1
+     cf3:	e8 d8 08 00 00       	call   15d0 <printf>
+     cf8:	83 c4 10             	add    $0x10,%esp
+}
+     cfb:	8d 65 f8             	lea    -0x8(%ebp),%esp
+     cfe:	5b                   	pop    %ebx
+     cff:	5e                   	pop    %esi
+     d00:	5d                   	pop    %ebp
+     d01:	c3                   	ret
+     d02:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+        printf(1, "PASS Mutex correctly protected critical section\n");
+     d08:	83 ec 08             	sub    $0x8,%esp
+     d0b:	68 78 2b 00 00       	push   $0x2b78
+     d10:	6a 01                	push   $0x1
+     d12:	e8 b9 08 00 00       	call   15d0 <printf>
+     d17:	83 c4 10             	add    $0x10,%esp
+}
+     d1a:	8d 65 f8             	lea    -0x8(%ebp),%esp
+     d1d:	5b                   	pop    %ebx
+     d1e:	5e                   	pop    %esi
+     d1f:	5d                   	pop    %ebp
+     d20:	c3                   	ret
+     d21:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     d28:	00 
+     d29:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+
+00000d30 <test_mutex_trylock>:
+void test_mutex_trylock(void) {
+     d30:	55                   	push   %ebp
+     d31:	89 e5                	mov    %esp,%ebp
+     d33:	56                   	push   %esi
+     d34:	53                   	push   %ebx
+    printf(1, "\n[Test 2.2] Mutex Trylock Function\n");
+     d35:	83 ec 08             	sub    $0x8,%esp
+     d38:	68 dc 2b 00 00       	push   $0x2bdc
+     d3d:	6a 01                	push   $0x1
+     d3f:	e8 8c 08 00 00       	call   15d0 <printf>
+    printf(1, "----------------------------------------------\n");
+     d44:	58                   	pop    %eax
+     d45:	5a                   	pop    %edx
+     d46:	68 88 28 00 00       	push   $0x2888
+     d4b:	6a 01                	push   $0x1
+     d4d:	e8 7e 08 00 00       	call   15d0 <printf>
+    mutex_init(&test_mutex);
+     d52:	c7 04 24 08 43 00 00 	movl   $0x4308,(%esp)
+     d59:	e8 f2 0f 00 00       	call   1d50 <mutex_init>
+    protected_counter = 0;
+     d5e:	c7 05 04 43 00 00 00 	movl   $0x0,0x4304
+     d65:	00 00 00 
+    int tid1 = thread_create(trylock_thread, (void*)0);
+     d68:	59                   	pop    %ecx
+     d69:	5b                   	pop    %ebx
+     d6a:	6a 00                	push   $0x0
+     d6c:	68 70 04 00 00       	push   $0x470
+     d71:	e8 fa 0b 00 00       	call   1970 <thread_create>
+     d76:	89 c6                	mov    %eax,%esi
+    int tid2 = thread_create(trylock_thread, (void*)0);
+     d78:	58                   	pop    %eax
+     d79:	5a                   	pop    %edx
+     d7a:	6a 00                	push   $0x0
+     d7c:	68 70 04 00 00       	push   $0x470
+     d81:	e8 ea 0b 00 00       	call   1970 <thread_create>
+    thread_join(tid1);
+     d86:	89 34 24             	mov    %esi,(%esp)
+    int tid2 = thread_create(trylock_thread, (void*)0);
+     d89:	89 c3                	mov    %eax,%ebx
+    thread_join(tid1);
+     d8b:	e8 60 0e 00 00       	call   1bf0 <thread_join>
+    thread_join(tid2);
+     d90:	89 1c 24             	mov    %ebx,(%esp)
+     d93:	e8 58 0e 00 00       	call   1bf0 <thread_join>
+    printf(1, "PASS Trylock test completed\n");
+     d98:	59                   	pop    %ecx
+     d99:	5b                   	pop    %ebx
+     d9a:	68 10 26 00 00       	push   $0x2610
+     d9f:	6a 01                	push   $0x1
+     da1:	e8 2a 08 00 00       	call   15d0 <printf>
+}
+     da6:	83 c4 10             	add    $0x10,%esp
+     da9:	8d 65 f8             	lea    -0x8(%ebp),%esp
+     dac:	5b                   	pop    %ebx
+     dad:	5e                   	pop    %esi
+     dae:	5d                   	pop    %ebp
+     daf:	c3                   	ret
+
+00000db0 <test_condition_variable>:
+void test_condition_variable(void) {
+     db0:	55                   	push   %ebp
+     db1:	89 e5                	mov    %esp,%ebp
+     db3:	57                   	push   %edi
+     db4:	56                   	push   %esi
+     db5:	53                   	push   %ebx
+     db6:	83 ec 24             	sub    $0x24,%esp
+    printf(1, "\n[Test 2.3] Condition Variable - Producer Consumer\n");
+     db9:	68 00 2c 00 00       	push   $0x2c00
+     dbe:	6a 01                	push   $0x1
+     dc0:	e8 0b 08 00 00       	call   15d0 <printf>
+    printf(1, "----------------------------------------------\n");
+     dc5:	58                   	pop    %eax
+     dc6:	5a                   	pop    %edx
+     dc7:	68 88 28 00 00       	push   $0x2888
+     dcc:	6a 01                	push   $0x1
+     dce:	e8 fd 07 00 00       	call   15d0 <printf>
+    mutex_init(&pc_mutex);
+     dd3:	c7 04 24 e0 42 00 00 	movl   $0x42e0,(%esp)
+     dda:	e8 71 0f 00 00       	call   1d50 <mutex_init>
+    cond_init(&not_empty);
+     ddf:	c7 04 24 dc 42 00 00 	movl   $0x42dc,(%esp)
+     de6:	e8 55 10 00 00       	call   1e40 <cond_init>
+    cond_init(&not_full);
+     deb:	c7 04 24 d8 42 00 00 	movl   $0x42d8,(%esp)
+     df2:	e8 49 10 00 00       	call   1e40 <cond_init>
+    count = 0;
+     df7:	c7 05 ec 42 00 00 00 	movl   $0x0,0x42ec
+     dfe:	00 00 00 
+    int prod1 = thread_create(producer_thread, (void*)1);
+     e01:	59                   	pop    %ecx
+     e02:	5b                   	pop    %ebx
+     e03:	6a 01                	push   $0x1
+     e05:	68 80 05 00 00       	push   $0x580
+     e0a:	e8 61 0b 00 00       	call   1970 <thread_create>
+     e0f:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+    int cons1 = thread_create(consumer_thread, (void*)1);
+     e12:	5e                   	pop    %esi
+     e13:	5f                   	pop    %edi
+     e14:	6a 01                	push   $0x1
+     e16:	68 40 06 00 00       	push   $0x640
+     e1b:	e8 50 0b 00 00       	call   1970 <thread_create>
+     e20:	89 c6                	mov    %eax,%esi
+    int prod2 = thread_create(producer_thread, (void*)2);
+     e22:	58                   	pop    %eax
+     e23:	5a                   	pop    %edx
+     e24:	6a 02                	push   $0x2
+     e26:	68 80 05 00 00       	push   $0x580
+     e2b:	e8 40 0b 00 00       	call   1970 <thread_create>
+    int cons2 = thread_create(consumer_thread, (void*)2);
+     e30:	59                   	pop    %ecx
+     e31:	5b                   	pop    %ebx
+     e32:	6a 02                	push   $0x2
+     e34:	68 40 06 00 00       	push   $0x640
+    int prod2 = thread_create(producer_thread, (void*)2);
+     e39:	89 c7                	mov    %eax,%edi
+    int cons2 = thread_create(consumer_thread, (void*)2);
+     e3b:	e8 30 0b 00 00       	call   1970 <thread_create>
+    thread_join(prod1);
+     e40:	8b 55 e4             	mov    -0x1c(%ebp),%edx
+    int cons2 = thread_create(consumer_thread, (void*)2);
+     e43:	89 c3                	mov    %eax,%ebx
+    thread_join(prod1);
+     e45:	89 14 24             	mov    %edx,(%esp)
+     e48:	e8 a3 0d 00 00       	call   1bf0 <thread_join>
+    thread_join(prod2);
+     e4d:	89 3c 24             	mov    %edi,(%esp)
+     e50:	e8 9b 0d 00 00       	call   1bf0 <thread_join>
+    thread_join(cons1);
+     e55:	89 34 24             	mov    %esi,(%esp)
+     e58:	e8 93 0d 00 00       	call   1bf0 <thread_join>
+    thread_join(cons2);
+     e5d:	89 1c 24             	mov    %ebx,(%esp)
+     e60:	e8 8b 0d 00 00       	call   1bf0 <thread_join>
+    printf(1, "Final count = %d (expected: 0)\n", count);
+     e65:	83 c4 0c             	add    $0xc,%esp
+     e68:	ff 35 ec 42 00 00    	push   0x42ec
+     e6e:	68 34 2c 00 00       	push   $0x2c34
+     e73:	6a 01                	push   $0x1
+     e75:	e8 56 07 00 00       	call   15d0 <printf>
+    printf(1, "PASS Condition variable test completed\n");
+     e7a:	5e                   	pop    %esi
+     e7b:	5f                   	pop    %edi
+     e7c:	68 54 2c 00 00       	push   $0x2c54
+     e81:	6a 01                	push   $0x1
+     e83:	e8 48 07 00 00       	call   15d0 <printf>
+}
+     e88:	83 c4 10             	add    $0x10,%esp
+     e8b:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     e8e:	5b                   	pop    %ebx
+     e8f:	5e                   	pop    %esi
+     e90:	5f                   	pop    %edi
+     e91:	5d                   	pop    %ebp
+     e92:	c3                   	ret
+     e93:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     e9a:	00 
+     e9b:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+
+00000ea0 <test_cond_broadcast>:
+void test_cond_broadcast(void) {
+     ea0:	55                   	push   %ebp
+     ea1:	89 e5                	mov    %esp,%ebp
+     ea3:	57                   	push   %edi
+     ea4:	56                   	push   %esi
+     ea5:	53                   	push   %ebx
+     ea6:	83 ec 24             	sub    $0x24,%esp
+    printf(1, "\n[Test 2.4] Condition Variable Broadcast\n");
+     ea9:	68 7c 2c 00 00       	push   $0x2c7c
+     eae:	6a 01                	push   $0x1
+     eb0:	e8 1b 07 00 00       	call   15d0 <printf>
+    printf(1, "----------------------------------------------\n");
+     eb5:	58                   	pop    %eax
+     eb6:	5a                   	pop    %edx
+     eb7:	68 88 28 00 00       	push   $0x2888
+     ebc:	6a 01                	push   $0x1
+     ebe:	e8 0d 07 00 00       	call   15d0 <printf>
+    mutex_init(&broadcast_mutex);
+     ec3:	c7 04 24 c8 42 00 00 	movl   $0x42c8,(%esp)
+     eca:	e8 81 0e 00 00       	call   1d50 <mutex_init>
+    cond_init(&broadcast_cond);
+     ecf:	c7 04 24 d4 42 00 00 	movl   $0x42d4,(%esp)
+     ed6:	e8 65 0f 00 00       	call   1e40 <cond_init>
+    broadcast_ready = 0;
+     edb:	c7 05 c4 42 00 00 00 	movl   $0x0,0x42c4
+     ee2:	00 00 00 
+    wakeup_count = 0;
+     ee5:	c7 05 c0 42 00 00 00 	movl   $0x0,0x42c0
+     eec:	00 00 00 
+    int tid1 = thread_create(wait_broadcast_thread, (void*)1);
+     eef:	59                   	pop    %ecx
+     ef0:	5b                   	pop    %ebx
+     ef1:	6a 01                	push   $0x1
+     ef3:	68 00 05 00 00       	push   $0x500
+     ef8:	e8 73 0a 00 00       	call   1970 <thread_create>
+     efd:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+    int tid2 = thread_create(wait_broadcast_thread, (void*)2);
+     f00:	5e                   	pop    %esi
+     f01:	5f                   	pop    %edi
+     f02:	6a 02                	push   $0x2
+     f04:	68 00 05 00 00       	push   $0x500
+     f09:	e8 62 0a 00 00       	call   1970 <thread_create>
+     f0e:	89 c7                	mov    %eax,%edi
+    int tid3 = thread_create(wait_broadcast_thread, (void*)3);
+     f10:	58                   	pop    %eax
+     f11:	5a                   	pop    %edx
+     f12:	6a 03                	push   $0x3
+     f14:	68 00 05 00 00       	push   $0x500
+     f19:	e8 52 0a 00 00       	call   1970 <thread_create>
+    int tid4 = thread_create(wait_broadcast_thread, (void*)4);
+     f1e:	59                   	pop    %ecx
+     f1f:	5b                   	pop    %ebx
+     f20:	6a 04                	push   $0x4
+     f22:	68 00 05 00 00       	push   $0x500
+    int tid3 = thread_create(wait_broadcast_thread, (void*)3);
+     f27:	89 c6                	mov    %eax,%esi
+    int tid4 = thread_create(wait_broadcast_thread, (void*)4);
+     f29:	e8 42 0a 00 00       	call   1970 <thread_create>
+     f2e:	89 c3                	mov    %eax,%ebx
+    thread_yield();
+     f30:	e8 9b 0d 00 00       	call   1cd0 <thread_yield>
+    thread_yield();
+     f35:	e8 96 0d 00 00       	call   1cd0 <thread_yield>
+    printf(1, "  [Main] Sending broadcast signal...\n");
+     f3a:	58                   	pop    %eax
+     f3b:	5a                   	pop    %edx
+     f3c:	68 a8 2c 00 00       	push   $0x2ca8
+     f41:	6a 01                	push   $0x1
+     f43:	e8 88 06 00 00       	call   15d0 <printf>
+    mutex_lock(&broadcast_mutex);
+     f48:	c7 04 24 c8 42 00 00 	movl   $0x42c8,(%esp)
+     f4f:	e8 1c 0e 00 00       	call   1d70 <mutex_lock>
+    broadcast_ready = 1;
+     f54:	c7 05 c4 42 00 00 01 	movl   $0x1,0x42c4
+     f5b:	00 00 00 
+    cond_broadcast(&broadcast_cond);
+     f5e:	c7 04 24 d4 42 00 00 	movl   $0x42d4,(%esp)
+     f65:	e8 a6 0f 00 00       	call   1f10 <cond_broadcast>
+    mutex_unlock(&broadcast_mutex);
+     f6a:	c7 04 24 c8 42 00 00 	movl   $0x42c8,(%esp)
+     f71:	e8 3a 0e 00 00       	call   1db0 <mutex_unlock>
+    thread_join(tid1);
+     f76:	8b 55 e4             	mov    -0x1c(%ebp),%edx
+     f79:	89 14 24             	mov    %edx,(%esp)
+     f7c:	e8 6f 0c 00 00       	call   1bf0 <thread_join>
+    thread_join(tid2);
+     f81:	89 3c 24             	mov    %edi,(%esp)
+     f84:	e8 67 0c 00 00       	call   1bf0 <thread_join>
+    thread_join(tid3);
+     f89:	89 34 24             	mov    %esi,(%esp)
+     f8c:	e8 5f 0c 00 00       	call   1bf0 <thread_join>
+    thread_join(tid4);
+     f91:	89 1c 24             	mov    %ebx,(%esp)
+     f94:	e8 57 0c 00 00       	call   1bf0 <thread_join>
+    printf(1, "Woken threads: %d (expected: 4)\n", wakeup_count);
+     f99:	83 c4 0c             	add    $0xc,%esp
+     f9c:	ff 35 c0 42 00 00    	push   0x42c0
+     fa2:	68 d0 2c 00 00       	push   $0x2cd0
+     fa7:	6a 01                	push   $0x1
+     fa9:	e8 22 06 00 00       	call   15d0 <printf>
+    printf(1, "PASS Broadcast test completed\n");
+     fae:	59                   	pop    %ecx
+     faf:	5b                   	pop    %ebx
+     fb0:	68 f4 2c 00 00       	push   $0x2cf4
+     fb5:	6a 01                	push   $0x1
+     fb7:	e8 14 06 00 00       	call   15d0 <printf>
+}
+     fbc:	83 c4 10             	add    $0x10,%esp
+     fbf:	8d 65 f4             	lea    -0xc(%ebp),%esp
+     fc2:	5b                   	pop    %ebx
+     fc3:	5e                   	pop    %esi
+     fc4:	5f                   	pop    %edi
+     fc5:	5d                   	pop    %ebp
+     fc6:	c3                   	ret
+     fc7:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+     fce:	00 
+     fcf:	90                   	nop
+
+00000fd0 <test_channel_basic>:
+void test_channel_basic(void) {
+     fd0:	55                   	push   %ebp
+     fd1:	89 e5                	mov    %esp,%ebp
+     fd3:	57                   	push   %edi
+     fd4:	56                   	push   %esi
+     fd5:	53                   	push   %ebx
+     fd6:	83 ec 14             	sub    $0x14,%esp
+    printf(1, "\n[Test 2.5] Channel Basic Send/Receive\n");
+     fd9:	68 14 2d 00 00       	push   $0x2d14
+     fde:	6a 01                	push   $0x1
+     fe0:	e8 eb 05 00 00       	call   15d0 <printf>
+    printf(1, "----------------------------------------------\n");
+     fe5:	58                   	pop    %eax
+     fe6:	5a                   	pop    %edx
+     fe7:	68 88 28 00 00       	push   $0x2888
+     fec:	6a 01                	push   $0x1
+     fee:	e8 dd 05 00 00       	call   15d0 <printf>
+    channel_t *ch = channel_create(3);
+     ff3:	c7 04 24 03 00 00 00 	movl   $0x3,(%esp)
+     ffa:	e8 31 0f 00 00       	call   1f30 <channel_create>
+    int sender = thread_create(channel_sender, (void*)ch);
+     fff:	59                   	pop    %ecx
+    1000:	5e                   	pop    %esi
+    1001:	50                   	push   %eax
+    channel_t *ch = channel_create(3);
+    1002:	89 c3                	mov    %eax,%ebx
+    int sender = thread_create(channel_sender, (void*)ch);
+    1004:	68 f0 06 00 00       	push   $0x6f0
+    1009:	e8 62 09 00 00       	call   1970 <thread_create>
+    100e:	89 c7                	mov    %eax,%edi
+    int receiver = thread_create(channel_receiver, (void*)ch);
+    1010:	58                   	pop    %eax
+    1011:	5a                   	pop    %edx
+    1012:	53                   	push   %ebx
+    1013:	68 90 08 00 00       	push   $0x890
+    1018:	e8 53 09 00 00       	call   1970 <thread_create>
+    thread_join(sender);
+    101d:	89 3c 24             	mov    %edi,(%esp)
+    int receiver = thread_create(channel_receiver, (void*)ch);
+    1020:	89 c6                	mov    %eax,%esi
+    thread_join(sender);
+    1022:	e8 c9 0b 00 00       	call   1bf0 <thread_join>
+    thread_join(receiver);
+    1027:	89 34 24             	mov    %esi,(%esp)
+    102a:	e8 c1 0b 00 00       	call   1bf0 <thread_join>
+    channel_destroy(ch);
+    102f:	89 1c 24             	mov    %ebx,(%esp)
+    1032:	e8 e9 13 00 00       	call   2420 <channel_destroy>
+    printf(1, "PASS Channel basic function test completed\n");
+    1037:	59                   	pop    %ecx
+    1038:	5b                   	pop    %ebx
+    1039:	68 3c 2d 00 00       	push   $0x2d3c
+    103e:	6a 01                	push   $0x1
+    1040:	e8 8b 05 00 00       	call   15d0 <printf>
+}
+    1045:	83 c4 10             	add    $0x10,%esp
+    1048:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    104b:	5b                   	pop    %ebx
+    104c:	5e                   	pop    %esi
+    104d:	5f                   	pop    %edi
+    104e:	5d                   	pop    %ebp
+    104f:	c3                   	ret
+
+00001050 <test_channel_blocking>:
+void test_channel_blocking(void) {
+    1050:	55                   	push   %ebp
+    1051:	89 e5                	mov    %esp,%ebp
+    1053:	57                   	push   %edi
+    1054:	56                   	push   %esi
+    1055:	53                   	push   %ebx
+    1056:	83 ec 14             	sub    $0x14,%esp
+    printf(1, "\n[Test 2.6] Channel Blocking and Wakeup\n");
+    1059:	68 68 2d 00 00       	push   $0x2d68
+    105e:	6a 01                	push   $0x1
+    1060:	e8 6b 05 00 00       	call   15d0 <printf>
+    printf(1, "----------------------------------------------\n");
+    1065:	58                   	pop    %eax
+    1066:	5a                   	pop    %edx
+    1067:	68 88 28 00 00       	push   $0x2888
+    106c:	6a 01                	push   $0x1
+    106e:	e8 5d 05 00 00       	call   15d0 <printf>
+    printf(1, "Fast sender will block when buffer is full\n\n");
+    1073:	59                   	pop    %ecx
+    1074:	5b                   	pop    %ebx
+    1075:	68 94 2d 00 00       	push   $0x2d94
+    107a:	6a 01                	push   $0x1
+    107c:	e8 4f 05 00 00       	call   15d0 <printf>
+    channel_t *ch = channel_create(3);
+    1081:	c7 04 24 03 00 00 00 	movl   $0x3,(%esp)
+    1088:	e8 a3 0e 00 00       	call   1f30 <channel_create>
+    int sender = thread_create(channel_fast_sender, (void*)ch);
+    108d:	5e                   	pop    %esi
+    108e:	5f                   	pop    %edi
+    108f:	50                   	push   %eax
+    channel_t *ch = channel_create(3);
+    1090:	89 c3                	mov    %eax,%ebx
+    int sender = thread_create(channel_fast_sender, (void*)ch);
+    1092:	68 50 07 00 00       	push   $0x750
+    1097:	e8 d4 08 00 00       	call   1970 <thread_create>
+    109c:	89 c7                	mov    %eax,%edi
+    int receiver = thread_create(channel_slow_receiver, (void*)ch);
+    109e:	58                   	pop    %eax
+    109f:	5a                   	pop    %edx
+    10a0:	53                   	push   %ebx
+    10a1:	68 f0 07 00 00       	push   $0x7f0
+    10a6:	e8 c5 08 00 00       	call   1970 <thread_create>
+    thread_join(sender);
+    10ab:	89 3c 24             	mov    %edi,(%esp)
+    int receiver = thread_create(channel_slow_receiver, (void*)ch);
+    10ae:	89 c6                	mov    %eax,%esi
+    thread_join(sender);
+    10b0:	e8 3b 0b 00 00       	call   1bf0 <thread_join>
+    thread_join(receiver);
+    10b5:	89 34 24             	mov    %esi,(%esp)
+    10b8:	e8 33 0b 00 00       	call   1bf0 <thread_join>
+    channel_destroy(ch);
+    10bd:	89 1c 24             	mov    %ebx,(%esp)
+    10c0:	e8 5b 13 00 00       	call   2420 <channel_destroy>
+    printf(1, "PASS Channel blocking test completed\n");
+    10c5:	59                   	pop    %ecx
+    10c6:	5b                   	pop    %ebx
+    10c7:	68 c4 2d 00 00       	push   $0x2dc4
+    10cc:	6a 01                	push   $0x1
+    10ce:	e8 fd 04 00 00       	call   15d0 <printf>
+}
+    10d3:	83 c4 10             	add    $0x10,%esp
+    10d6:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    10d9:	5b                   	pop    %ebx
+    10da:	5e                   	pop    %esi
+    10db:	5f                   	pop    %edi
+    10dc:	5d                   	pop    %ebp
+    10dd:	c3                   	ret
+    10de:	66 90                	xchg   %ax,%ax
+
+000010e0 <test_channel_multi>:
+void test_channel_multi(void) {
+    10e0:	55                   	push   %ebp
+    10e1:	89 e5                	mov    %esp,%ebp
+    10e3:	57                   	push   %edi
+    10e4:	56                   	push   %esi
+    10e5:	53                   	push   %ebx
+    10e6:	83 ec 24             	sub    $0x24,%esp
+    printf(1, "\n[Test 2.7] Multiple Producer-Consumer Channel\n");
+    10e9:	68 ec 2d 00 00       	push   $0x2dec
+    10ee:	6a 01                	push   $0x1
+    10f0:	e8 db 04 00 00       	call   15d0 <printf>
+    printf(1, "----------------------------------------------\n");
+    10f5:	58                   	pop    %eax
+    10f6:	5a                   	pop    %edx
+    10f7:	68 88 28 00 00       	push   $0x2888
+    10fc:	6a 01                	push   $0x1
+    10fe:	e8 cd 04 00 00       	call   15d0 <printf>
+    channel_t *ch = channel_create(5);
+    1103:	c7 04 24 05 00 00 00 	movl   $0x5,(%esp)
+    110a:	e8 21 0e 00 00       	call   1f30 <channel_create>
+    int p1 = thread_create(multi_producer, (void*)ch);
+    110f:	59                   	pop    %ecx
+    1110:	5e                   	pop    %esi
+    1111:	50                   	push   %eax
+    channel_t *ch = channel_create(5);
+    1112:	89 c3                	mov    %eax,%ebx
+    int p1 = thread_create(multi_producer, (void*)ch);
+    1114:	68 a0 07 00 00       	push   $0x7a0
+    1119:	e8 52 08 00 00       	call   1970 <thread_create>
+    111e:	89 45 e0             	mov    %eax,-0x20(%ebp)
+    int p2 = thread_create(multi_producer, (void*)ch);
+    1121:	5f                   	pop    %edi
+    1122:	58                   	pop    %eax
+    1123:	53                   	push   %ebx
+    1124:	68 a0 07 00 00       	push   $0x7a0
+    1129:	e8 42 08 00 00       	call   1970 <thread_create>
+    112e:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+    int c1 = thread_create(multi_consumer, (void*)ch);
+    1131:	58                   	pop    %eax
+    1132:	5a                   	pop    %edx
+    1133:	53                   	push   %ebx
+    1134:	68 40 08 00 00       	push   $0x840
+    1139:	e8 32 08 00 00       	call   1970 <thread_create>
+    int c2 = thread_create(multi_consumer, (void*)ch);
+    113e:	59                   	pop    %ecx
+    113f:	5e                   	pop    %esi
+    1140:	53                   	push   %ebx
+    1141:	68 40 08 00 00       	push   $0x840
+    int c1 = thread_create(multi_consumer, (void*)ch);
+    1146:	89 c7                	mov    %eax,%edi
+    int c2 = thread_create(multi_consumer, (void*)ch);
+    1148:	e8 23 08 00 00       	call   1970 <thread_create>
+    thread_join(p1);
+    114d:	8b 4d e0             	mov    -0x20(%ebp),%ecx
+    int c2 = thread_create(multi_consumer, (void*)ch);
+    1150:	89 c6                	mov    %eax,%esi
+    thread_join(p1);
+    1152:	89 0c 24             	mov    %ecx,(%esp)
+    1155:	e8 96 0a 00 00       	call   1bf0 <thread_join>
+    thread_join(p2);
+    115a:	8b 55 e4             	mov    -0x1c(%ebp),%edx
+    115d:	89 14 24             	mov    %edx,(%esp)
+    1160:	e8 8b 0a 00 00       	call   1bf0 <thread_join>
+    thread_join(c1);
+    1165:	89 3c 24             	mov    %edi,(%esp)
+    1168:	e8 83 0a 00 00       	call   1bf0 <thread_join>
+    thread_join(c2);
+    116d:	89 34 24             	mov    %esi,(%esp)
+    1170:	e8 7b 0a 00 00       	call   1bf0 <thread_join>
+    channel_destroy(ch);
+    1175:	89 1c 24             	mov    %ebx,(%esp)
+    1178:	e8 a3 12 00 00       	call   2420 <channel_destroy>
+    printf(1, "PASS Multiple producer-consumer test completed\n");
+    117d:	5f                   	pop    %edi
+    117e:	58                   	pop    %eax
+    117f:	68 1c 2e 00 00       	push   $0x2e1c
+    1184:	6a 01                	push   $0x1
+    1186:	e8 45 04 00 00       	call   15d0 <printf>
+}
+    118b:	83 c4 10             	add    $0x10,%esp
+    118e:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    1191:	5b                   	pop    %ebx
+    1192:	5e                   	pop    %esi
+    1193:	5f                   	pop    %edi
+    1194:	5d                   	pop    %ebp
+    1195:	c3                   	ret
+    1196:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    119d:	00 
+    119e:	66 90                	xchg   %ax,%ax
+
+000011a0 <test_part3_examples>:
+void test_part3_examples(void) {
+    11a0:	55                   	push   %ebp
+    11a1:	89 e5                	mov    %esp,%ebp
+    11a3:	83 ec 10             	sub    $0x10,%esp
+    printf(1, "\n========================================================\n");
+    11a6:	68 4c 2e 00 00       	push   $0x2e4c
+    11ab:	6a 01                	push   $0x1
+    11ad:	e8 1e 04 00 00       	call   15d0 <printf>
+    printf(1, "Part 3 tests the same logic as standalone examples:\n");
+    11b2:	58                   	pop    %eax
+    11b3:	5a                   	pop    %edx
+    11b4:	68 88 2e 00 00       	push   $0x2e88
+    11b9:	6a 01                	push   $0x1
+    11bb:	e8 10 04 00 00       	call   15d0 <printf>
+    printf(1, "  - examples/producer_consumer.c (3 producers, 2 consumers)\n");
+    11c0:	59                   	pop    %ecx
+    11c1:	58                   	pop    %eax
+    11c2:	68 c0 2e 00 00       	push   $0x2ec0
+    11c7:	6a 01                	push   $0x1
+    11c9:	e8 02 04 00 00       	call   15d0 <printf>
+    printf(1, "  - examples/reader_writer.c (5 readers, 2 writers)\n");
+    11ce:	58                   	pop    %eax
+    11cf:	5a                   	pop    %edx
+    11d0:	68 00 2f 00 00       	push   $0x2f00
+    11d5:	6a 01                	push   $0x1
+    11d7:	e8 f4 03 00 00       	call   15d0 <printf>
+    printf(1, "\nTo run full examples separately:\n");
+    11dc:	59                   	pop    %ecx
+    11dd:	58                   	pop    %eax
+    11de:	68 38 2f 00 00       	push   $0x2f38
+    11e3:	6a 01                	push   $0x1
+    11e5:	e8 e6 03 00 00       	call   15d0 <printf>
+    printf(1, "  $ producer_consumer\n");
+    11ea:	58                   	pop    %eax
+    11eb:	5a                   	pop    %edx
+    11ec:	68 2d 26 00 00       	push   $0x262d
+    11f1:	6a 01                	push   $0x1
+    11f3:	e8 d8 03 00 00       	call   15d0 <printf>
+    printf(1, "  $ reader_writer\n");
+    11f8:	59                   	pop    %ecx
+    11f9:	58                   	pop    %eax
+    11fa:	68 44 26 00 00       	push   $0x2644
+    11ff:	6a 01                	push   $0x1
+    1201:	e8 ca 03 00 00       	call   15d0 <printf>
+    printf(1, "========================================================\n");
+    1206:	58                   	pop    %eax
+    1207:	5a                   	pop    %edx
+    1208:	68 5c 2f 00 00       	push   $0x2f5c
+    120d:	6a 01                	push   $0x1
+    120f:	e8 bc 03 00 00       	call   15d0 <printf>
+}
+    1214:	83 c4 10             	add    $0x10,%esp
+    1217:	c9                   	leave
+    1218:	c3                   	ret
+    1219:	66 90                	xchg   %ax,%ax
+    121b:	66 90                	xchg   %ax,%ax
+    121d:	66 90                	xchg   %ax,%ax
+    121f:	90                   	nop
+
+00001220 <strcpy>:
 #include "user.h"
 #include "x86.h"
 
 char*
 strcpy(char *s, const char *t)
 {
-     160:	55                   	push   %ebp
+    1220:	55                   	push   %ebp
   char *os;
 
   os = s;
   while((*s++ = *t++) != 0)
-     161:	31 c0                	xor    %eax,%eax
+    1221:	31 c0                	xor    %eax,%eax
 {
-     163:	89 e5                	mov    %esp,%ebp
-     165:	53                   	push   %ebx
-     166:	8b 4d 08             	mov    0x8(%ebp),%ecx
-     169:	8b 5d 0c             	mov    0xc(%ebp),%ebx
-     16c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    1223:	89 e5                	mov    %esp,%ebp
+    1225:	53                   	push   %ebx
+    1226:	8b 4d 08             	mov    0x8(%ebp),%ecx
+    1229:	8b 5d 0c             	mov    0xc(%ebp),%ebx
+    122c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
   while((*s++ = *t++) != 0)
-     170:	0f b6 14 03          	movzbl (%ebx,%eax,1),%edx
-     174:	88 14 01             	mov    %dl,(%ecx,%eax,1)
-     177:	83 c0 01             	add    $0x1,%eax
-     17a:	84 d2                	test   %dl,%dl
-     17c:	75 f2                	jne    170 <strcpy+0x10>
+    1230:	0f b6 14 03          	movzbl (%ebx,%eax,1),%edx
+    1234:	88 14 01             	mov    %dl,(%ecx,%eax,1)
+    1237:	83 c0 01             	add    $0x1,%eax
+    123a:	84 d2                	test   %dl,%dl
+    123c:	75 f2                	jne    1230 <strcpy+0x10>
     ;
   return os;
 }
-     17e:	8b 5d fc             	mov    -0x4(%ebp),%ebx
-     181:	89 c8                	mov    %ecx,%eax
-     183:	c9                   	leave
-     184:	c3                   	ret
-     185:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     18c:	00 
-     18d:	8d 76 00             	lea    0x0(%esi),%esi
+    123e:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+    1241:	89 c8                	mov    %ecx,%eax
+    1243:	c9                   	leave
+    1244:	c3                   	ret
+    1245:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    124c:	00 
+    124d:	8d 76 00             	lea    0x0(%esi),%esi
 
-00000190 <strcmp>:
+00001250 <strcmp>:
 
 int
 strcmp(const char *p, const char *q)
 {
-     190:	55                   	push   %ebp
-     191:	89 e5                	mov    %esp,%ebp
-     193:	53                   	push   %ebx
-     194:	8b 55 08             	mov    0x8(%ebp),%edx
-     197:	8b 4d 0c             	mov    0xc(%ebp),%ecx
+    1250:	55                   	push   %ebp
+    1251:	89 e5                	mov    %esp,%ebp
+    1253:	53                   	push   %ebx
+    1254:	8b 55 08             	mov    0x8(%ebp),%edx
+    1257:	8b 4d 0c             	mov    0xc(%ebp),%ecx
   while(*p && *p == *q)
-     19a:	0f b6 02             	movzbl (%edx),%eax
-     19d:	84 c0                	test   %al,%al
-     19f:	75 17                	jne    1b8 <strcmp+0x28>
-     1a1:	eb 3a                	jmp    1dd <strcmp+0x4d>
-     1a3:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
-     1a8:	0f b6 42 01          	movzbl 0x1(%edx),%eax
+    125a:	0f b6 02             	movzbl (%edx),%eax
+    125d:	84 c0                	test   %al,%al
+    125f:	75 17                	jne    1278 <strcmp+0x28>
+    1261:	eb 3a                	jmp    129d <strcmp+0x4d>
+    1263:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1268:	0f b6 42 01          	movzbl 0x1(%edx),%eax
     p++, q++;
-     1ac:	83 c2 01             	add    $0x1,%edx
-     1af:	8d 59 01             	lea    0x1(%ecx),%ebx
+    126c:	83 c2 01             	add    $0x1,%edx
+    126f:	8d 59 01             	lea    0x1(%ecx),%ebx
   while(*p && *p == *q)
-     1b2:	84 c0                	test   %al,%al
-     1b4:	74 1a                	je     1d0 <strcmp+0x40>
-     1b6:	89 d9                	mov    %ebx,%ecx
-     1b8:	0f b6 19             	movzbl (%ecx),%ebx
-     1bb:	38 c3                	cmp    %al,%bl
-     1bd:	74 e9                	je     1a8 <strcmp+0x18>
+    1272:	84 c0                	test   %al,%al
+    1274:	74 1a                	je     1290 <strcmp+0x40>
+    1276:	89 d9                	mov    %ebx,%ecx
+    1278:	0f b6 19             	movzbl (%ecx),%ebx
+    127b:	38 c3                	cmp    %al,%bl
+    127d:	74 e9                	je     1268 <strcmp+0x18>
   return (uchar)*p - (uchar)*q;
-     1bf:	29 d8                	sub    %ebx,%eax
+    127f:	29 d8                	sub    %ebx,%eax
 }
-     1c1:	8b 5d fc             	mov    -0x4(%ebp),%ebx
-     1c4:	c9                   	leave
-     1c5:	c3                   	ret
-     1c6:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     1cd:	00 
-     1ce:	66 90                	xchg   %ax,%ax
+    1281:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+    1284:	c9                   	leave
+    1285:	c3                   	ret
+    1286:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    128d:	00 
+    128e:	66 90                	xchg   %ax,%ax
   return (uchar)*p - (uchar)*q;
-     1d0:	0f b6 59 01          	movzbl 0x1(%ecx),%ebx
-     1d4:	31 c0                	xor    %eax,%eax
-     1d6:	29 d8                	sub    %ebx,%eax
+    1290:	0f b6 59 01          	movzbl 0x1(%ecx),%ebx
+    1294:	31 c0                	xor    %eax,%eax
+    1296:	29 d8                	sub    %ebx,%eax
 }
-     1d8:	8b 5d fc             	mov    -0x4(%ebp),%ebx
-     1db:	c9                   	leave
-     1dc:	c3                   	ret
+    1298:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+    129b:	c9                   	leave
+    129c:	c3                   	ret
   return (uchar)*p - (uchar)*q;
-     1dd:	0f b6 19             	movzbl (%ecx),%ebx
-     1e0:	31 c0                	xor    %eax,%eax
-     1e2:	eb db                	jmp    1bf <strcmp+0x2f>
-     1e4:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     1eb:	00 
-     1ec:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    129d:	0f b6 19             	movzbl (%ecx),%ebx
+    12a0:	31 c0                	xor    %eax,%eax
+    12a2:	eb db                	jmp    127f <strcmp+0x2f>
+    12a4:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    12ab:	00 
+    12ac:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-000001f0 <strlen>:
+000012b0 <strlen>:
 
 uint
 strlen(const char *s)
 {
-     1f0:	55                   	push   %ebp
-     1f1:	89 e5                	mov    %esp,%ebp
-     1f3:	8b 55 08             	mov    0x8(%ebp),%edx
+    12b0:	55                   	push   %ebp
+    12b1:	89 e5                	mov    %esp,%ebp
+    12b3:	8b 55 08             	mov    0x8(%ebp),%edx
   int n;
 
   for(n = 0; s[n]; n++)
-     1f6:	80 3a 00             	cmpb   $0x0,(%edx)
-     1f9:	74 15                	je     210 <strlen+0x20>
-     1fb:	31 c0                	xor    %eax,%eax
-     1fd:	8d 76 00             	lea    0x0(%esi),%esi
-     200:	83 c0 01             	add    $0x1,%eax
-     203:	80 3c 02 00          	cmpb   $0x0,(%edx,%eax,1)
-     207:	89 c1                	mov    %eax,%ecx
-     209:	75 f5                	jne    200 <strlen+0x10>
+    12b6:	80 3a 00             	cmpb   $0x0,(%edx)
+    12b9:	74 15                	je     12d0 <strlen+0x20>
+    12bb:	31 c0                	xor    %eax,%eax
+    12bd:	8d 76 00             	lea    0x0(%esi),%esi
+    12c0:	83 c0 01             	add    $0x1,%eax
+    12c3:	80 3c 02 00          	cmpb   $0x0,(%edx,%eax,1)
+    12c7:	89 c1                	mov    %eax,%ecx
+    12c9:	75 f5                	jne    12c0 <strlen+0x10>
     ;
   return n;
 }
-     20b:	89 c8                	mov    %ecx,%eax
-     20d:	5d                   	pop    %ebp
-     20e:	c3                   	ret
-     20f:	90                   	nop
+    12cb:	89 c8                	mov    %ecx,%eax
+    12cd:	5d                   	pop    %ebp
+    12ce:	c3                   	ret
+    12cf:	90                   	nop
   for(n = 0; s[n]; n++)
-     210:	31 c9                	xor    %ecx,%ecx
+    12d0:	31 c9                	xor    %ecx,%ecx
 }
-     212:	5d                   	pop    %ebp
-     213:	89 c8                	mov    %ecx,%eax
-     215:	c3                   	ret
-     216:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     21d:	00 
-     21e:	66 90                	xchg   %ax,%ax
+    12d2:	5d                   	pop    %ebp
+    12d3:	89 c8                	mov    %ecx,%eax
+    12d5:	c3                   	ret
+    12d6:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    12dd:	00 
+    12de:	66 90                	xchg   %ax,%ax
 
-00000220 <memset>:
+000012e0 <memset>:
 
 void*
 memset(void *dst, int c, uint n)
 {
-     220:	55                   	push   %ebp
-     221:	89 e5                	mov    %esp,%ebp
-     223:	57                   	push   %edi
-     224:	8b 55 08             	mov    0x8(%ebp),%edx
+    12e0:	55                   	push   %ebp
+    12e1:	89 e5                	mov    %esp,%ebp
+    12e3:	57                   	push   %edi
+    12e4:	8b 55 08             	mov    0x8(%ebp),%edx
 }
 
 static inline void
 stosb(void *addr, int data, int cnt)
 {
   asm volatile("cld; rep stosb" :
-     227:	8b 4d 10             	mov    0x10(%ebp),%ecx
-     22a:	8b 45 0c             	mov    0xc(%ebp),%eax
-     22d:	89 d7                	mov    %edx,%edi
-     22f:	fc                   	cld
-     230:	f3 aa                	rep stos %al,%es:(%edi)
+    12e7:	8b 4d 10             	mov    0x10(%ebp),%ecx
+    12ea:	8b 45 0c             	mov    0xc(%ebp),%eax
+    12ed:	89 d7                	mov    %edx,%edi
+    12ef:	fc                   	cld
+    12f0:	f3 aa                	rep stos %al,%es:(%edi)
   stosb(dst, c, n);
   return dst;
 }
-     232:	8b 7d fc             	mov    -0x4(%ebp),%edi
-     235:	89 d0                	mov    %edx,%eax
-     237:	c9                   	leave
-     238:	c3                   	ret
-     239:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    12f2:	8b 7d fc             	mov    -0x4(%ebp),%edi
+    12f5:	89 d0                	mov    %edx,%eax
+    12f7:	c9                   	leave
+    12f8:	c3                   	ret
+    12f9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
-00000240 <strchr>:
+00001300 <strchr>:
 
 char*
 strchr(const char *s, char c)
 {
-     240:	55                   	push   %ebp
-     241:	89 e5                	mov    %esp,%ebp
-     243:	8b 45 08             	mov    0x8(%ebp),%eax
-     246:	0f b6 4d 0c          	movzbl 0xc(%ebp),%ecx
+    1300:	55                   	push   %ebp
+    1301:	89 e5                	mov    %esp,%ebp
+    1303:	8b 45 08             	mov    0x8(%ebp),%eax
+    1306:	0f b6 4d 0c          	movzbl 0xc(%ebp),%ecx
   for(; *s; s++)
-     24a:	0f b6 10             	movzbl (%eax),%edx
-     24d:	84 d2                	test   %dl,%dl
-     24f:	75 12                	jne    263 <strchr+0x23>
-     251:	eb 1d                	jmp    270 <strchr+0x30>
-     253:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
-     258:	0f b6 50 01          	movzbl 0x1(%eax),%edx
-     25c:	83 c0 01             	add    $0x1,%eax
-     25f:	84 d2                	test   %dl,%dl
-     261:	74 0d                	je     270 <strchr+0x30>
+    130a:	0f b6 10             	movzbl (%eax),%edx
+    130d:	84 d2                	test   %dl,%dl
+    130f:	75 12                	jne    1323 <strchr+0x23>
+    1311:	eb 1d                	jmp    1330 <strchr+0x30>
+    1313:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1318:	0f b6 50 01          	movzbl 0x1(%eax),%edx
+    131c:	83 c0 01             	add    $0x1,%eax
+    131f:	84 d2                	test   %dl,%dl
+    1321:	74 0d                	je     1330 <strchr+0x30>
     if(*s == c)
-     263:	38 d1                	cmp    %dl,%cl
-     265:	75 f1                	jne    258 <strchr+0x18>
+    1323:	38 d1                	cmp    %dl,%cl
+    1325:	75 f1                	jne    1318 <strchr+0x18>
       return (char*)s;
   return 0;
 }
-     267:	5d                   	pop    %ebp
-     268:	c3                   	ret
-     269:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    1327:	5d                   	pop    %ebp
+    1328:	c3                   	ret
+    1329:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
   return 0;
-     270:	31 c0                	xor    %eax,%eax
+    1330:	31 c0                	xor    %eax,%eax
 }
-     272:	5d                   	pop    %ebp
-     273:	c3                   	ret
-     274:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     27b:	00 
-     27c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    1332:	5d                   	pop    %ebp
+    1333:	c3                   	ret
+    1334:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    133b:	00 
+    133c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-00000280 <gets>:
+00001340 <gets>:
 
 char*
 gets(char *buf, int max)
 {
-     280:	55                   	push   %ebp
-     281:	89 e5                	mov    %esp,%ebp
-     283:	57                   	push   %edi
-     284:	56                   	push   %esi
+    1340:	55                   	push   %ebp
+    1341:	89 e5                	mov    %esp,%ebp
+    1343:	57                   	push   %edi
+    1344:	56                   	push   %esi
   int i, cc;
   char c;
 
   for(i=0; i+1 < max; ){
     cc = read(0, &c, 1);
-     285:	8d 75 e7             	lea    -0x19(%ebp),%esi
+    1345:	8d 75 e7             	lea    -0x19(%ebp),%esi
 {
-     288:	53                   	push   %ebx
+    1348:	53                   	push   %ebx
   for(i=0; i+1 < max; ){
-     289:	31 db                	xor    %ebx,%ebx
+    1349:	31 db                	xor    %ebx,%ebx
 {
-     28b:	83 ec 1c             	sub    $0x1c,%esp
+    134b:	83 ec 1c             	sub    $0x1c,%esp
   for(i=0; i+1 < max; ){
-     28e:	eb 27                	jmp    2b7 <gets+0x37>
+    134e:	eb 27                	jmp    1377 <gets+0x37>
     cc = read(0, &c, 1);
-     290:	83 ec 04             	sub    $0x4,%esp
-     293:	6a 01                	push   $0x1
-     295:	56                   	push   %esi
-     296:	6a 00                	push   $0x0
-     298:	e8 1e 01 00 00       	call   3bb <read>
+    1350:	83 ec 04             	sub    $0x4,%esp
+    1353:	6a 01                	push   $0x1
+    1355:	56                   	push   %esi
+    1356:	6a 00                	push   $0x0
+    1358:	e8 1e 01 00 00       	call   147b <read>
     if(cc < 1)
-     29d:	83 c4 10             	add    $0x10,%esp
-     2a0:	85 c0                	test   %eax,%eax
-     2a2:	7e 1d                	jle    2c1 <gets+0x41>
+    135d:	83 c4 10             	add    $0x10,%esp
+    1360:	85 c0                	test   %eax,%eax
+    1362:	7e 1d                	jle    1381 <gets+0x41>
       break;
     buf[i++] = c;
-     2a4:	0f b6 45 e7          	movzbl -0x19(%ebp),%eax
-     2a8:	8b 55 08             	mov    0x8(%ebp),%edx
-     2ab:	88 44 1a ff          	mov    %al,-0x1(%edx,%ebx,1)
+    1364:	0f b6 45 e7          	movzbl -0x19(%ebp),%eax
+    1368:	8b 55 08             	mov    0x8(%ebp),%edx
+    136b:	88 44 1a ff          	mov    %al,-0x1(%edx,%ebx,1)
     if(c == '\n' || c == '\r')
-     2af:	3c 0a                	cmp    $0xa,%al
-     2b1:	74 10                	je     2c3 <gets+0x43>
-     2b3:	3c 0d                	cmp    $0xd,%al
-     2b5:	74 0c                	je     2c3 <gets+0x43>
+    136f:	3c 0a                	cmp    $0xa,%al
+    1371:	74 10                	je     1383 <gets+0x43>
+    1373:	3c 0d                	cmp    $0xd,%al
+    1375:	74 0c                	je     1383 <gets+0x43>
   for(i=0; i+1 < max; ){
-     2b7:	89 df                	mov    %ebx,%edi
-     2b9:	83 c3 01             	add    $0x1,%ebx
-     2bc:	3b 5d 0c             	cmp    0xc(%ebp),%ebx
-     2bf:	7c cf                	jl     290 <gets+0x10>
-     2c1:	89 fb                	mov    %edi,%ebx
+    1377:	89 df                	mov    %ebx,%edi
+    1379:	83 c3 01             	add    $0x1,%ebx
+    137c:	3b 5d 0c             	cmp    0xc(%ebp),%ebx
+    137f:	7c cf                	jl     1350 <gets+0x10>
+    1381:	89 fb                	mov    %edi,%ebx
       break;
   }
   buf[i] = '\0';
-     2c3:	8b 45 08             	mov    0x8(%ebp),%eax
-     2c6:	c6 04 18 00          	movb   $0x0,(%eax,%ebx,1)
+    1383:	8b 45 08             	mov    0x8(%ebp),%eax
+    1386:	c6 04 18 00          	movb   $0x0,(%eax,%ebx,1)
   return buf;
 }
-     2ca:	8d 65 f4             	lea    -0xc(%ebp),%esp
-     2cd:	5b                   	pop    %ebx
-     2ce:	5e                   	pop    %esi
-     2cf:	5f                   	pop    %edi
-     2d0:	5d                   	pop    %ebp
-     2d1:	c3                   	ret
-     2d2:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     2d9:	00 
-     2da:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+    138a:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    138d:	5b                   	pop    %ebx
+    138e:	5e                   	pop    %esi
+    138f:	5f                   	pop    %edi
+    1390:	5d                   	pop    %ebp
+    1391:	c3                   	ret
+    1392:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1399:	00 
+    139a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
 
-000002e0 <stat>:
+000013a0 <stat>:
 
 int
 stat(const char *n, struct stat *st)
 {
-     2e0:	55                   	push   %ebp
-     2e1:	89 e5                	mov    %esp,%ebp
-     2e3:	56                   	push   %esi
-     2e4:	53                   	push   %ebx
+    13a0:	55                   	push   %ebp
+    13a1:	89 e5                	mov    %esp,%ebp
+    13a3:	56                   	push   %esi
+    13a4:	53                   	push   %ebx
   int fd;
   int r;
 
   fd = open(n, O_RDONLY);
-     2e5:	83 ec 08             	sub    $0x8,%esp
-     2e8:	6a 00                	push   $0x0
-     2ea:	ff 75 08             	push   0x8(%ebp)
-     2ed:	e8 f1 00 00 00       	call   3e3 <open>
+    13a5:	83 ec 08             	sub    $0x8,%esp
+    13a8:	6a 00                	push   $0x0
+    13aa:	ff 75 08             	push   0x8(%ebp)
+    13ad:	e8 f1 00 00 00       	call   14a3 <open>
   if(fd < 0)
-     2f2:	83 c4 10             	add    $0x10,%esp
-     2f5:	85 c0                	test   %eax,%eax
-     2f7:	78 27                	js     320 <stat+0x40>
+    13b2:	83 c4 10             	add    $0x10,%esp
+    13b5:	85 c0                	test   %eax,%eax
+    13b7:	78 27                	js     13e0 <stat+0x40>
     return -1;
   r = fstat(fd, st);
-     2f9:	83 ec 08             	sub    $0x8,%esp
-     2fc:	ff 75 0c             	push   0xc(%ebp)
-     2ff:	89 c3                	mov    %eax,%ebx
-     301:	50                   	push   %eax
-     302:	e8 f4 00 00 00       	call   3fb <fstat>
+    13b9:	83 ec 08             	sub    $0x8,%esp
+    13bc:	ff 75 0c             	push   0xc(%ebp)
+    13bf:	89 c3                	mov    %eax,%ebx
+    13c1:	50                   	push   %eax
+    13c2:	e8 f4 00 00 00       	call   14bb <fstat>
   close(fd);
-     307:	89 1c 24             	mov    %ebx,(%esp)
+    13c7:	89 1c 24             	mov    %ebx,(%esp)
   r = fstat(fd, st);
-     30a:	89 c6                	mov    %eax,%esi
+    13ca:	89 c6                	mov    %eax,%esi
   close(fd);
-     30c:	e8 ba 00 00 00       	call   3cb <close>
+    13cc:	e8 ba 00 00 00       	call   148b <close>
   return r;
-     311:	83 c4 10             	add    $0x10,%esp
+    13d1:	83 c4 10             	add    $0x10,%esp
 }
-     314:	8d 65 f8             	lea    -0x8(%ebp),%esp
-     317:	89 f0                	mov    %esi,%eax
-     319:	5b                   	pop    %ebx
-     31a:	5e                   	pop    %esi
-     31b:	5d                   	pop    %ebp
-     31c:	c3                   	ret
-     31d:	8d 76 00             	lea    0x0(%esi),%esi
+    13d4:	8d 65 f8             	lea    -0x8(%ebp),%esp
+    13d7:	89 f0                	mov    %esi,%eax
+    13d9:	5b                   	pop    %ebx
+    13da:	5e                   	pop    %esi
+    13db:	5d                   	pop    %ebp
+    13dc:	c3                   	ret
+    13dd:	8d 76 00             	lea    0x0(%esi),%esi
     return -1;
-     320:	be ff ff ff ff       	mov    $0xffffffff,%esi
-     325:	eb ed                	jmp    314 <stat+0x34>
-     327:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     32e:	00 
-     32f:	90                   	nop
+    13e0:	be ff ff ff ff       	mov    $0xffffffff,%esi
+    13e5:	eb ed                	jmp    13d4 <stat+0x34>
+    13e7:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    13ee:	00 
+    13ef:	90                   	nop
 
-00000330 <atoi>:
+000013f0 <atoi>:
 
 int
 atoi(const char *s)
 {
-     330:	55                   	push   %ebp
-     331:	89 e5                	mov    %esp,%ebp
-     333:	53                   	push   %ebx
-     334:	8b 55 08             	mov    0x8(%ebp),%edx
+    13f0:	55                   	push   %ebp
+    13f1:	89 e5                	mov    %esp,%ebp
+    13f3:	53                   	push   %ebx
+    13f4:	8b 55 08             	mov    0x8(%ebp),%edx
   int n;
 
   n = 0;
   while('0' <= *s && *s <= '9')
-     337:	0f be 02             	movsbl (%edx),%eax
-     33a:	8d 48 d0             	lea    -0x30(%eax),%ecx
-     33d:	80 f9 09             	cmp    $0x9,%cl
+    13f7:	0f be 02             	movsbl (%edx),%eax
+    13fa:	8d 48 d0             	lea    -0x30(%eax),%ecx
+    13fd:	80 f9 09             	cmp    $0x9,%cl
   n = 0;
-     340:	b9 00 00 00 00       	mov    $0x0,%ecx
+    1400:	b9 00 00 00 00       	mov    $0x0,%ecx
   while('0' <= *s && *s <= '9')
-     345:	77 1e                	ja     365 <atoi+0x35>
-     347:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     34e:	00 
-     34f:	90                   	nop
+    1405:	77 1e                	ja     1425 <atoi+0x35>
+    1407:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    140e:	00 
+    140f:	90                   	nop
     n = n*10 + *s++ - '0';
-     350:	83 c2 01             	add    $0x1,%edx
-     353:	8d 0c 89             	lea    (%ecx,%ecx,4),%ecx
-     356:	8d 4c 48 d0          	lea    -0x30(%eax,%ecx,2),%ecx
+    1410:	83 c2 01             	add    $0x1,%edx
+    1413:	8d 0c 89             	lea    (%ecx,%ecx,4),%ecx
+    1416:	8d 4c 48 d0          	lea    -0x30(%eax,%ecx,2),%ecx
   while('0' <= *s && *s <= '9')
-     35a:	0f be 02             	movsbl (%edx),%eax
-     35d:	8d 58 d0             	lea    -0x30(%eax),%ebx
-     360:	80 fb 09             	cmp    $0x9,%bl
-     363:	76 eb                	jbe    350 <atoi+0x20>
+    141a:	0f be 02             	movsbl (%edx),%eax
+    141d:	8d 58 d0             	lea    -0x30(%eax),%ebx
+    1420:	80 fb 09             	cmp    $0x9,%bl
+    1423:	76 eb                	jbe    1410 <atoi+0x20>
   return n;
 }
-     365:	8b 5d fc             	mov    -0x4(%ebp),%ebx
-     368:	89 c8                	mov    %ecx,%eax
-     36a:	c9                   	leave
-     36b:	c3                   	ret
-     36c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    1425:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+    1428:	89 c8                	mov    %ecx,%eax
+    142a:	c9                   	leave
+    142b:	c3                   	ret
+    142c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-00000370 <memmove>:
+00001430 <memmove>:
 
 void*
 memmove(void *vdst, const void *vsrc, int n)
 {
-     370:	55                   	push   %ebp
-     371:	89 e5                	mov    %esp,%ebp
-     373:	57                   	push   %edi
-     374:	8b 45 10             	mov    0x10(%ebp),%eax
-     377:	8b 55 08             	mov    0x8(%ebp),%edx
-     37a:	56                   	push   %esi
-     37b:	8b 75 0c             	mov    0xc(%ebp),%esi
+    1430:	55                   	push   %ebp
+    1431:	89 e5                	mov    %esp,%ebp
+    1433:	57                   	push   %edi
+    1434:	8b 45 10             	mov    0x10(%ebp),%eax
+    1437:	8b 55 08             	mov    0x8(%ebp),%edx
+    143a:	56                   	push   %esi
+    143b:	8b 75 0c             	mov    0xc(%ebp),%esi
   char *dst;
   const char *src;
 
   dst = vdst;
   src = vsrc;
   while(n-- > 0)
-     37e:	85 c0                	test   %eax,%eax
-     380:	7e 13                	jle    395 <memmove+0x25>
-     382:	01 d0                	add    %edx,%eax
+    143e:	85 c0                	test   %eax,%eax
+    1440:	7e 13                	jle    1455 <memmove+0x25>
+    1442:	01 d0                	add    %edx,%eax
   dst = vdst;
-     384:	89 d7                	mov    %edx,%edi
-     386:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     38d:	00 
-     38e:	66 90                	xchg   %ax,%ax
+    1444:	89 d7                	mov    %edx,%edi
+    1446:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    144d:	00 
+    144e:	66 90                	xchg   %ax,%ax
     *dst++ = *src++;
-     390:	a4                   	movsb  %ds:(%esi),%es:(%edi)
+    1450:	a4                   	movsb  %ds:(%esi),%es:(%edi)
   while(n-- > 0)
-     391:	39 f8                	cmp    %edi,%eax
-     393:	75 fb                	jne    390 <memmove+0x20>
+    1451:	39 f8                	cmp    %edi,%eax
+    1453:	75 fb                	jne    1450 <memmove+0x20>
   return vdst;
 }
-     395:	5e                   	pop    %esi
-     396:	89 d0                	mov    %edx,%eax
-     398:	5f                   	pop    %edi
-     399:	5d                   	pop    %ebp
-     39a:	c3                   	ret
+    1455:	5e                   	pop    %esi
+    1456:	89 d0                	mov    %edx,%eax
+    1458:	5f                   	pop    %edi
+    1459:	5d                   	pop    %ebp
+    145a:	c3                   	ret
 
-0000039b <fork>:
+0000145b <fork>:
   name: \
     movl $SYS_ ## name, %eax; \
     int $T_SYSCALL; \
     ret
 
 SYSCALL(fork)
-     39b:	b8 01 00 00 00       	mov    $0x1,%eax
-     3a0:	cd 40                	int    $0x40
-     3a2:	c3                   	ret
+    145b:	b8 01 00 00 00       	mov    $0x1,%eax
+    1460:	cd 40                	int    $0x40
+    1462:	c3                   	ret
 
-000003a3 <exit>:
+00001463 <exit>:
 SYSCALL(exit)
-     3a3:	b8 02 00 00 00       	mov    $0x2,%eax
-     3a8:	cd 40                	int    $0x40
-     3aa:	c3                   	ret
+    1463:	b8 02 00 00 00       	mov    $0x2,%eax
+    1468:	cd 40                	int    $0x40
+    146a:	c3                   	ret
 
-000003ab <wait>:
+0000146b <wait>:
 SYSCALL(wait)
-     3ab:	b8 03 00 00 00       	mov    $0x3,%eax
-     3b0:	cd 40                	int    $0x40
-     3b2:	c3                   	ret
+    146b:	b8 03 00 00 00       	mov    $0x3,%eax
+    1470:	cd 40                	int    $0x40
+    1472:	c3                   	ret
 
-000003b3 <pipe>:
+00001473 <pipe>:
 SYSCALL(pipe)
-     3b3:	b8 04 00 00 00       	mov    $0x4,%eax
-     3b8:	cd 40                	int    $0x40
-     3ba:	c3                   	ret
+    1473:	b8 04 00 00 00       	mov    $0x4,%eax
+    1478:	cd 40                	int    $0x40
+    147a:	c3                   	ret
 
-000003bb <read>:
+0000147b <read>:
 SYSCALL(read)
-     3bb:	b8 05 00 00 00       	mov    $0x5,%eax
-     3c0:	cd 40                	int    $0x40
-     3c2:	c3                   	ret
+    147b:	b8 05 00 00 00       	mov    $0x5,%eax
+    1480:	cd 40                	int    $0x40
+    1482:	c3                   	ret
 
-000003c3 <write>:
+00001483 <write>:
 SYSCALL(write)
-     3c3:	b8 10 00 00 00       	mov    $0x10,%eax
-     3c8:	cd 40                	int    $0x40
-     3ca:	c3                   	ret
+    1483:	b8 10 00 00 00       	mov    $0x10,%eax
+    1488:	cd 40                	int    $0x40
+    148a:	c3                   	ret
 
-000003cb <close>:
+0000148b <close>:
 SYSCALL(close)
-     3cb:	b8 15 00 00 00       	mov    $0x15,%eax
-     3d0:	cd 40                	int    $0x40
-     3d2:	c3                   	ret
+    148b:	b8 15 00 00 00       	mov    $0x15,%eax
+    1490:	cd 40                	int    $0x40
+    1492:	c3                   	ret
 
-000003d3 <kill>:
+00001493 <kill>:
 SYSCALL(kill)
-     3d3:	b8 06 00 00 00       	mov    $0x6,%eax
-     3d8:	cd 40                	int    $0x40
-     3da:	c3                   	ret
+    1493:	b8 06 00 00 00       	mov    $0x6,%eax
+    1498:	cd 40                	int    $0x40
+    149a:	c3                   	ret
 
-000003db <exec>:
+0000149b <exec>:
 SYSCALL(exec)
-     3db:	b8 07 00 00 00       	mov    $0x7,%eax
-     3e0:	cd 40                	int    $0x40
-     3e2:	c3                   	ret
+    149b:	b8 07 00 00 00       	mov    $0x7,%eax
+    14a0:	cd 40                	int    $0x40
+    14a2:	c3                   	ret
 
-000003e3 <open>:
+000014a3 <open>:
 SYSCALL(open)
-     3e3:	b8 0f 00 00 00       	mov    $0xf,%eax
-     3e8:	cd 40                	int    $0x40
-     3ea:	c3                   	ret
+    14a3:	b8 0f 00 00 00       	mov    $0xf,%eax
+    14a8:	cd 40                	int    $0x40
+    14aa:	c3                   	ret
 
-000003eb <mknod>:
+000014ab <mknod>:
 SYSCALL(mknod)
-     3eb:	b8 11 00 00 00       	mov    $0x11,%eax
-     3f0:	cd 40                	int    $0x40
-     3f2:	c3                   	ret
+    14ab:	b8 11 00 00 00       	mov    $0x11,%eax
+    14b0:	cd 40                	int    $0x40
+    14b2:	c3                   	ret
 
-000003f3 <unlink>:
+000014b3 <unlink>:
 SYSCALL(unlink)
-     3f3:	b8 12 00 00 00       	mov    $0x12,%eax
-     3f8:	cd 40                	int    $0x40
-     3fa:	c3                   	ret
+    14b3:	b8 12 00 00 00       	mov    $0x12,%eax
+    14b8:	cd 40                	int    $0x40
+    14ba:	c3                   	ret
 
-000003fb <fstat>:
+000014bb <fstat>:
 SYSCALL(fstat)
-     3fb:	b8 08 00 00 00       	mov    $0x8,%eax
-     400:	cd 40                	int    $0x40
-     402:	c3                   	ret
+    14bb:	b8 08 00 00 00       	mov    $0x8,%eax
+    14c0:	cd 40                	int    $0x40
+    14c2:	c3                   	ret
 
-00000403 <link>:
+000014c3 <link>:
 SYSCALL(link)
-     403:	b8 13 00 00 00       	mov    $0x13,%eax
-     408:	cd 40                	int    $0x40
-     40a:	c3                   	ret
+    14c3:	b8 13 00 00 00       	mov    $0x13,%eax
+    14c8:	cd 40                	int    $0x40
+    14ca:	c3                   	ret
 
-0000040b <mkdir>:
+000014cb <mkdir>:
 SYSCALL(mkdir)
-     40b:	b8 14 00 00 00       	mov    $0x14,%eax
-     410:	cd 40                	int    $0x40
-     412:	c3                   	ret
+    14cb:	b8 14 00 00 00       	mov    $0x14,%eax
+    14d0:	cd 40                	int    $0x40
+    14d2:	c3                   	ret
 
-00000413 <chdir>:
+000014d3 <chdir>:
 SYSCALL(chdir)
-     413:	b8 09 00 00 00       	mov    $0x9,%eax
-     418:	cd 40                	int    $0x40
-     41a:	c3                   	ret
+    14d3:	b8 09 00 00 00       	mov    $0x9,%eax
+    14d8:	cd 40                	int    $0x40
+    14da:	c3                   	ret
 
-0000041b <dup>:
+000014db <dup>:
 SYSCALL(dup)
-     41b:	b8 0a 00 00 00       	mov    $0xa,%eax
-     420:	cd 40                	int    $0x40
-     422:	c3                   	ret
+    14db:	b8 0a 00 00 00       	mov    $0xa,%eax
+    14e0:	cd 40                	int    $0x40
+    14e2:	c3                   	ret
 
-00000423 <getpid>:
+000014e3 <getpid>:
 SYSCALL(getpid)
-     423:	b8 0b 00 00 00       	mov    $0xb,%eax
-     428:	cd 40                	int    $0x40
-     42a:	c3                   	ret
+    14e3:	b8 0b 00 00 00       	mov    $0xb,%eax
+    14e8:	cd 40                	int    $0x40
+    14ea:	c3                   	ret
 
-0000042b <sbrk>:
+000014eb <sbrk>:
 SYSCALL(sbrk)
-     42b:	b8 0c 00 00 00       	mov    $0xc,%eax
-     430:	cd 40                	int    $0x40
-     432:	c3                   	ret
+    14eb:	b8 0c 00 00 00       	mov    $0xc,%eax
+    14f0:	cd 40                	int    $0x40
+    14f2:	c3                   	ret
 
-00000433 <sleep>:
+000014f3 <sleep>:
 SYSCALL(sleep)
-     433:	b8 0d 00 00 00       	mov    $0xd,%eax
-     438:	cd 40                	int    $0x40
-     43a:	c3                   	ret
+    14f3:	b8 0d 00 00 00       	mov    $0xd,%eax
+    14f8:	cd 40                	int    $0x40
+    14fa:	c3                   	ret
 
-0000043b <uptime>:
+000014fb <uptime>:
 SYSCALL(uptime)
-     43b:	b8 0e 00 00 00       	mov    $0xe,%eax
-     440:	cd 40                	int    $0x40
-     442:	c3                   	ret
+    14fb:	b8 0e 00 00 00       	mov    $0xe,%eax
+    1500:	cd 40                	int    $0x40
+    1502:	c3                   	ret
 
-00000443 <getnice>:
+00001503 <getnice>:
 SYSCALL(getnice)
-     443:	b8 16 00 00 00       	mov    $0x16,%eax
-     448:	cd 40                	int    $0x40
-     44a:	c3                   	ret
+    1503:	b8 16 00 00 00       	mov    $0x16,%eax
+    1508:	cd 40                	int    $0x40
+    150a:	c3                   	ret
 
-0000044b <lock>:
+0000150b <lock>:
 SYSCALL(lock)
-     44b:	b8 17 00 00 00       	mov    $0x17,%eax
-     450:	cd 40                	int    $0x40
-     452:	c3                   	ret
+    150b:	b8 17 00 00 00       	mov    $0x17,%eax
+    1510:	cd 40                	int    $0x40
+    1512:	c3                   	ret
 
-00000453 <release>:
+00001513 <release>:
 SYSCALL(release)
-     453:	b8 18 00 00 00       	mov    $0x18,%eax
-     458:	cd 40                	int    $0x40
-     45a:	c3                   	ret
+    1513:	b8 18 00 00 00       	mov    $0x18,%eax
+    1518:	cd 40                	int    $0x40
+    151a:	c3                   	ret
 
-0000045b <setnice>:
+0000151b <setnice>:
 SYSCALL(setnice)
-     45b:	b8 19 00 00 00       	mov    $0x19,%eax
-     460:	cd 40                	int    $0x40
-     462:	c3                   	ret
-     463:	66 90                	xchg   %ax,%ax
-     465:	66 90                	xchg   %ax,%ax
-     467:	66 90                	xchg   %ax,%ax
-     469:	66 90                	xchg   %ax,%ax
-     46b:	66 90                	xchg   %ax,%ax
-     46d:	66 90                	xchg   %ax,%ax
-     46f:	90                   	nop
+    151b:	b8 19 00 00 00       	mov    $0x19,%eax
+    1520:	cd 40                	int    $0x40
+    1522:	c3                   	ret
+    1523:	66 90                	xchg   %ax,%ax
+    1525:	66 90                	xchg   %ax,%ax
+    1527:	66 90                	xchg   %ax,%ax
+    1529:	66 90                	xchg   %ax,%ax
+    152b:	66 90                	xchg   %ax,%ax
+    152d:	66 90                	xchg   %ax,%ax
+    152f:	90                   	nop
 
-00000470 <printint>:
+00001530 <printint>:
   write(fd, &c, 1);
 }
 
 static void
 printint(int fd, int xx, int base, int sgn)
 {
-     470:	55                   	push   %ebp
-     471:	89 e5                	mov    %esp,%ebp
-     473:	57                   	push   %edi
-     474:	56                   	push   %esi
-     475:	53                   	push   %ebx
-     476:	89 cb                	mov    %ecx,%ebx
+    1530:	55                   	push   %ebp
+    1531:	89 e5                	mov    %esp,%ebp
+    1533:	57                   	push   %edi
+    1534:	56                   	push   %esi
+    1535:	53                   	push   %ebx
+    1536:	89 cb                	mov    %ecx,%ebx
   uint x;
 
   neg = 0;
   if(sgn && xx < 0){
     neg = 1;
     x = -xx;
-     478:	89 d1                	mov    %edx,%ecx
+    1538:	89 d1                	mov    %edx,%ecx
 {
-     47a:	83 ec 3c             	sub    $0x3c,%esp
-     47d:	89 45 c0             	mov    %eax,-0x40(%ebp)
+    153a:	83 ec 3c             	sub    $0x3c,%esp
+    153d:	89 45 c0             	mov    %eax,-0x40(%ebp)
   if(sgn && xx < 0){
-     480:	85 d2                	test   %edx,%edx
-     482:	0f 89 80 00 00 00    	jns    508 <printint+0x98>
-     488:	f6 45 08 01          	testb  $0x1,0x8(%ebp)
-     48c:	74 7a                	je     508 <printint+0x98>
+    1540:	85 d2                	test   %edx,%edx
+    1542:	0f 89 80 00 00 00    	jns    15c8 <printint+0x98>
+    1548:	f6 45 08 01          	testb  $0x1,0x8(%ebp)
+    154c:	74 7a                	je     15c8 <printint+0x98>
     x = -xx;
-     48e:	f7 d9                	neg    %ecx
+    154e:	f7 d9                	neg    %ecx
     neg = 1;
-     490:	b8 01 00 00 00       	mov    $0x1,%eax
+    1550:	b8 01 00 00 00       	mov    $0x1,%eax
   } else {
     x = xx;
   }
 
   i = 0;
-     495:	89 45 c4             	mov    %eax,-0x3c(%ebp)
-     498:	31 f6                	xor    %esi,%esi
-     49a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+    1555:	89 45 c4             	mov    %eax,-0x3c(%ebp)
+    1558:	31 f6                	xor    %esi,%esi
+    155a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
   do{
     buf[i++] = digits[x % base];
-     4a0:	89 c8                	mov    %ecx,%eax
-     4a2:	31 d2                	xor    %edx,%edx
-     4a4:	89 f7                	mov    %esi,%edi
-     4a6:	f7 f3                	div    %ebx
-     4a8:	8d 76 01             	lea    0x1(%esi),%esi
-     4ab:	0f b6 92 88 18 00 00 	movzbl 0x1888(%edx),%edx
-     4b2:	88 54 35 d7          	mov    %dl,-0x29(%ebp,%esi,1)
+    1560:	89 c8                	mov    %ecx,%eax
+    1562:	31 d2                	xor    %edx,%edx
+    1564:	89 f7                	mov    %esi,%edi
+    1566:	f7 f3                	div    %ebx
+    1568:	8d 76 01             	lea    0x1(%esi),%esi
+    156b:	0f b6 92 6c 37 00 00 	movzbl 0x376c(%edx),%edx
+    1572:	88 54 35 d7          	mov    %dl,-0x29(%ebp,%esi,1)
   }while((x /= base) != 0);
-     4b6:	89 ca                	mov    %ecx,%edx
-     4b8:	89 c1                	mov    %eax,%ecx
-     4ba:	39 da                	cmp    %ebx,%edx
-     4bc:	73 e2                	jae    4a0 <printint+0x30>
+    1576:	89 ca                	mov    %ecx,%edx
+    1578:	89 c1                	mov    %eax,%ecx
+    157a:	39 da                	cmp    %ebx,%edx
+    157c:	73 e2                	jae    1560 <printint+0x30>
   if(neg)
-     4be:	8b 45 c4             	mov    -0x3c(%ebp),%eax
-     4c1:	85 c0                	test   %eax,%eax
-     4c3:	74 07                	je     4cc <printint+0x5c>
+    157e:	8b 45 c4             	mov    -0x3c(%ebp),%eax
+    1581:	85 c0                	test   %eax,%eax
+    1583:	74 07                	je     158c <printint+0x5c>
     buf[i++] = '-';
-     4c5:	c6 44 35 d8 2d       	movb   $0x2d,-0x28(%ebp,%esi,1)
+    1585:	c6 44 35 d8 2d       	movb   $0x2d,-0x28(%ebp,%esi,1)
 
   while(--i >= 0)
-     4ca:	89 f7                	mov    %esi,%edi
-     4cc:	8d 5d d8             	lea    -0x28(%ebp),%ebx
-     4cf:	8b 75 c0             	mov    -0x40(%ebp),%esi
-     4d2:	01 df                	add    %ebx,%edi
-     4d4:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    158a:	89 f7                	mov    %esi,%edi
+    158c:	8d 5d d8             	lea    -0x28(%ebp),%ebx
+    158f:	8b 75 c0             	mov    -0x40(%ebp),%esi
+    1592:	01 df                	add    %ebx,%edi
+    1594:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
     putc(fd, buf[i]);
-     4d8:	0f b6 07             	movzbl (%edi),%eax
+    1598:	0f b6 07             	movzbl (%edi),%eax
   write(fd, &c, 1);
-     4db:	83 ec 04             	sub    $0x4,%esp
-     4de:	88 45 d7             	mov    %al,-0x29(%ebp)
-     4e1:	8d 45 d7             	lea    -0x29(%ebp),%eax
-     4e4:	6a 01                	push   $0x1
-     4e6:	50                   	push   %eax
-     4e7:	56                   	push   %esi
-     4e8:	e8 d6 fe ff ff       	call   3c3 <write>
+    159b:	83 ec 04             	sub    $0x4,%esp
+    159e:	88 45 d7             	mov    %al,-0x29(%ebp)
+    15a1:	8d 45 d7             	lea    -0x29(%ebp),%eax
+    15a4:	6a 01                	push   $0x1
+    15a6:	50                   	push   %eax
+    15a7:	56                   	push   %esi
+    15a8:	e8 d6 fe ff ff       	call   1483 <write>
   while(--i >= 0)
-     4ed:	89 f8                	mov    %edi,%eax
-     4ef:	83 c4 10             	add    $0x10,%esp
-     4f2:	83 ef 01             	sub    $0x1,%edi
-     4f5:	39 c3                	cmp    %eax,%ebx
-     4f7:	75 df                	jne    4d8 <printint+0x68>
+    15ad:	89 f8                	mov    %edi,%eax
+    15af:	83 c4 10             	add    $0x10,%esp
+    15b2:	83 ef 01             	sub    $0x1,%edi
+    15b5:	39 c3                	cmp    %eax,%ebx
+    15b7:	75 df                	jne    1598 <printint+0x68>
 }
-     4f9:	8d 65 f4             	lea    -0xc(%ebp),%esp
-     4fc:	5b                   	pop    %ebx
-     4fd:	5e                   	pop    %esi
-     4fe:	5f                   	pop    %edi
-     4ff:	5d                   	pop    %ebp
-     500:	c3                   	ret
-     501:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    15b9:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    15bc:	5b                   	pop    %ebx
+    15bd:	5e                   	pop    %esi
+    15be:	5f                   	pop    %edi
+    15bf:	5d                   	pop    %ebp
+    15c0:	c3                   	ret
+    15c1:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
   neg = 0;
-     508:	31 c0                	xor    %eax,%eax
-     50a:	eb 89                	jmp    495 <printint+0x25>
-     50c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    15c8:	31 c0                	xor    %eax,%eax
+    15ca:	eb 89                	jmp    1555 <printint+0x25>
+    15cc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-00000510 <printf>:
+000015d0 <printf>:
 
 // Print to the given fd. Only understands %d, %x, %p, %s.
 void
 printf(int fd, const char *fmt, ...)
 {
-     510:	55                   	push   %ebp
-     511:	89 e5                	mov    %esp,%ebp
-     513:	57                   	push   %edi
-     514:	56                   	push   %esi
-     515:	53                   	push   %ebx
-     516:	83 ec 2c             	sub    $0x2c,%esp
+    15d0:	55                   	push   %ebp
+    15d1:	89 e5                	mov    %esp,%ebp
+    15d3:	57                   	push   %edi
+    15d4:	56                   	push   %esi
+    15d5:	53                   	push   %ebx
+    15d6:	83 ec 2c             	sub    $0x2c,%esp
   int c, i, state;
   uint *ap;
 
   state = 0;
   ap = (uint*)(void*)&fmt + 1;
   for(i = 0; fmt[i]; i++){
-     519:	8b 75 0c             	mov    0xc(%ebp),%esi
+    15d9:	8b 75 0c             	mov    0xc(%ebp),%esi
 {
-     51c:	8b 7d 08             	mov    0x8(%ebp),%edi
+    15dc:	8b 7d 08             	mov    0x8(%ebp),%edi
   for(i = 0; fmt[i]; i++){
-     51f:	0f b6 1e             	movzbl (%esi),%ebx
-     522:	83 c6 01             	add    $0x1,%esi
-     525:	84 db                	test   %bl,%bl
-     527:	74 67                	je     590 <printf+0x80>
-     529:	8d 4d 10             	lea    0x10(%ebp),%ecx
-     52c:	31 d2                	xor    %edx,%edx
-     52e:	89 4d d0             	mov    %ecx,-0x30(%ebp)
-     531:	eb 34                	jmp    567 <printf+0x57>
-     533:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
-     538:	89 55 d4             	mov    %edx,-0x2c(%ebp)
+    15df:	0f b6 1e             	movzbl (%esi),%ebx
+    15e2:	83 c6 01             	add    $0x1,%esi
+    15e5:	84 db                	test   %bl,%bl
+    15e7:	74 67                	je     1650 <printf+0x80>
+    15e9:	8d 4d 10             	lea    0x10(%ebp),%ecx
+    15ec:	31 d2                	xor    %edx,%edx
+    15ee:	89 4d d0             	mov    %ecx,-0x30(%ebp)
+    15f1:	eb 34                	jmp    1627 <printf+0x57>
+    15f3:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+    15f8:	89 55 d4             	mov    %edx,-0x2c(%ebp)
     c = fmt[i] & 0xff;
     if(state == 0){
       if(c == '%'){
         state = '%';
-     53b:	ba 25 00 00 00       	mov    $0x25,%edx
+    15fb:	ba 25 00 00 00       	mov    $0x25,%edx
       if(c == '%'){
-     540:	83 f8 25             	cmp    $0x25,%eax
-     543:	74 18                	je     55d <printf+0x4d>
+    1600:	83 f8 25             	cmp    $0x25,%eax
+    1603:	74 18                	je     161d <printf+0x4d>
   write(fd, &c, 1);
-     545:	83 ec 04             	sub    $0x4,%esp
-     548:	8d 45 e7             	lea    -0x19(%ebp),%eax
-     54b:	88 5d e7             	mov    %bl,-0x19(%ebp)
-     54e:	6a 01                	push   $0x1
-     550:	50                   	push   %eax
-     551:	57                   	push   %edi
-     552:	e8 6c fe ff ff       	call   3c3 <write>
-     557:	8b 55 d4             	mov    -0x2c(%ebp),%edx
+    1605:	83 ec 04             	sub    $0x4,%esp
+    1608:	8d 45 e7             	lea    -0x19(%ebp),%eax
+    160b:	88 5d e7             	mov    %bl,-0x19(%ebp)
+    160e:	6a 01                	push   $0x1
+    1610:	50                   	push   %eax
+    1611:	57                   	push   %edi
+    1612:	e8 6c fe ff ff       	call   1483 <write>
+    1617:	8b 55 d4             	mov    -0x2c(%ebp),%edx
       } else {
         putc(fd, c);
-     55a:	83 c4 10             	add    $0x10,%esp
+    161a:	83 c4 10             	add    $0x10,%esp
   for(i = 0; fmt[i]; i++){
-     55d:	0f b6 1e             	movzbl (%esi),%ebx
-     560:	83 c6 01             	add    $0x1,%esi
-     563:	84 db                	test   %bl,%bl
-     565:	74 29                	je     590 <printf+0x80>
+    161d:	0f b6 1e             	movzbl (%esi),%ebx
+    1620:	83 c6 01             	add    $0x1,%esi
+    1623:	84 db                	test   %bl,%bl
+    1625:	74 29                	je     1650 <printf+0x80>
     c = fmt[i] & 0xff;
-     567:	0f b6 c3             	movzbl %bl,%eax
+    1627:	0f b6 c3             	movzbl %bl,%eax
     if(state == 0){
-     56a:	85 d2                	test   %edx,%edx
-     56c:	74 ca                	je     538 <printf+0x28>
+    162a:	85 d2                	test   %edx,%edx
+    162c:	74 ca                	je     15f8 <printf+0x28>
       }
     } else if(state == '%'){
-     56e:	83 fa 25             	cmp    $0x25,%edx
-     571:	75 ea                	jne    55d <printf+0x4d>
+    162e:	83 fa 25             	cmp    $0x25,%edx
+    1631:	75 ea                	jne    161d <printf+0x4d>
       if(c == 'd'){
-     573:	83 f8 25             	cmp    $0x25,%eax
-     576:	0f 84 04 01 00 00    	je     680 <printf+0x170>
-     57c:	83 e8 63             	sub    $0x63,%eax
-     57f:	83 f8 15             	cmp    $0x15,%eax
-     582:	77 1c                	ja     5a0 <printf+0x90>
-     584:	ff 24 85 30 18 00 00 	jmp    *0x1830(,%eax,4)
-     58b:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1633:	83 f8 25             	cmp    $0x25,%eax
+    1636:	0f 84 04 01 00 00    	je     1740 <printf+0x170>
+    163c:	83 e8 63             	sub    $0x63,%eax
+    163f:	83 f8 15             	cmp    $0x15,%eax
+    1642:	77 1c                	ja     1660 <printf+0x90>
+    1644:	ff 24 85 14 37 00 00 	jmp    *0x3714(,%eax,4)
+    164b:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
         putc(fd, c);
       }
       state = 0;
     }
   }
 }
-     590:	8d 65 f4             	lea    -0xc(%ebp),%esp
-     593:	5b                   	pop    %ebx
-     594:	5e                   	pop    %esi
-     595:	5f                   	pop    %edi
-     596:	5d                   	pop    %ebp
-     597:	c3                   	ret
-     598:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     59f:	00 
+    1650:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    1653:	5b                   	pop    %ebx
+    1654:	5e                   	pop    %esi
+    1655:	5f                   	pop    %edi
+    1656:	5d                   	pop    %ebp
+    1657:	c3                   	ret
+    1658:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    165f:	00 
   write(fd, &c, 1);
-     5a0:	83 ec 04             	sub    $0x4,%esp
-     5a3:	8d 55 e7             	lea    -0x19(%ebp),%edx
-     5a6:	c6 45 e7 25          	movb   $0x25,-0x19(%ebp)
-     5aa:	6a 01                	push   $0x1
-     5ac:	52                   	push   %edx
-     5ad:	89 55 d4             	mov    %edx,-0x2c(%ebp)
-     5b0:	57                   	push   %edi
-     5b1:	e8 0d fe ff ff       	call   3c3 <write>
-     5b6:	83 c4 0c             	add    $0xc,%esp
-     5b9:	88 5d e7             	mov    %bl,-0x19(%ebp)
-     5bc:	6a 01                	push   $0x1
-     5be:	8b 55 d4             	mov    -0x2c(%ebp),%edx
-     5c1:	52                   	push   %edx
-     5c2:	57                   	push   %edi
-     5c3:	e8 fb fd ff ff       	call   3c3 <write>
+    1660:	83 ec 04             	sub    $0x4,%esp
+    1663:	8d 55 e7             	lea    -0x19(%ebp),%edx
+    1666:	c6 45 e7 25          	movb   $0x25,-0x19(%ebp)
+    166a:	6a 01                	push   $0x1
+    166c:	52                   	push   %edx
+    166d:	89 55 d4             	mov    %edx,-0x2c(%ebp)
+    1670:	57                   	push   %edi
+    1671:	e8 0d fe ff ff       	call   1483 <write>
+    1676:	83 c4 0c             	add    $0xc,%esp
+    1679:	88 5d e7             	mov    %bl,-0x19(%ebp)
+    167c:	6a 01                	push   $0x1
+    167e:	8b 55 d4             	mov    -0x2c(%ebp),%edx
+    1681:	52                   	push   %edx
+    1682:	57                   	push   %edi
+    1683:	e8 fb fd ff ff       	call   1483 <write>
         putc(fd, c);
-     5c8:	83 c4 10             	add    $0x10,%esp
+    1688:	83 c4 10             	add    $0x10,%esp
       state = 0;
-     5cb:	31 d2                	xor    %edx,%edx
-     5cd:	eb 8e                	jmp    55d <printf+0x4d>
-     5cf:	90                   	nop
+    168b:	31 d2                	xor    %edx,%edx
+    168d:	eb 8e                	jmp    161d <printf+0x4d>
+    168f:	90                   	nop
         printint(fd, *ap, 16, 0);
-     5d0:	8b 5d d0             	mov    -0x30(%ebp),%ebx
-     5d3:	83 ec 0c             	sub    $0xc,%esp
-     5d6:	b9 10 00 00 00       	mov    $0x10,%ecx
-     5db:	8b 13                	mov    (%ebx),%edx
-     5dd:	6a 00                	push   $0x0
-     5df:	89 f8                	mov    %edi,%eax
+    1690:	8b 5d d0             	mov    -0x30(%ebp),%ebx
+    1693:	83 ec 0c             	sub    $0xc,%esp
+    1696:	b9 10 00 00 00       	mov    $0x10,%ecx
+    169b:	8b 13                	mov    (%ebx),%edx
+    169d:	6a 00                	push   $0x0
+    169f:	89 f8                	mov    %edi,%eax
         ap++;
-     5e1:	83 c3 04             	add    $0x4,%ebx
+    16a1:	83 c3 04             	add    $0x4,%ebx
         printint(fd, *ap, 16, 0);
-     5e4:	e8 87 fe ff ff       	call   470 <printint>
+    16a4:	e8 87 fe ff ff       	call   1530 <printint>
         ap++;
-     5e9:	89 5d d0             	mov    %ebx,-0x30(%ebp)
-     5ec:	83 c4 10             	add    $0x10,%esp
+    16a9:	89 5d d0             	mov    %ebx,-0x30(%ebp)
+    16ac:	83 c4 10             	add    $0x10,%esp
       state = 0;
-     5ef:	31 d2                	xor    %edx,%edx
-     5f1:	e9 67 ff ff ff       	jmp    55d <printf+0x4d>
+    16af:	31 d2                	xor    %edx,%edx
+    16b1:	e9 67 ff ff ff       	jmp    161d <printf+0x4d>
         s = (char*)*ap;
-     5f6:	8b 45 d0             	mov    -0x30(%ebp),%eax
-     5f9:	8b 18                	mov    (%eax),%ebx
+    16b6:	8b 45 d0             	mov    -0x30(%ebp),%eax
+    16b9:	8b 18                	mov    (%eax),%ebx
         ap++;
-     5fb:	83 c0 04             	add    $0x4,%eax
-     5fe:	89 45 d0             	mov    %eax,-0x30(%ebp)
+    16bb:	83 c0 04             	add    $0x4,%eax
+    16be:	89 45 d0             	mov    %eax,-0x30(%ebp)
         if(s == 0)
-     601:	85 db                	test   %ebx,%ebx
-     603:	0f 84 87 00 00 00    	je     690 <printf+0x180>
+    16c1:	85 db                	test   %ebx,%ebx
+    16c3:	0f 84 87 00 00 00    	je     1750 <printf+0x180>
         while(*s != 0){
-     609:	0f b6 03             	movzbl (%ebx),%eax
+    16c9:	0f b6 03             	movzbl (%ebx),%eax
       state = 0;
-     60c:	31 d2                	xor    %edx,%edx
+    16cc:	31 d2                	xor    %edx,%edx
         while(*s != 0){
-     60e:	84 c0                	test   %al,%al
-     610:	0f 84 47 ff ff ff    	je     55d <printf+0x4d>
-     616:	8d 55 e7             	lea    -0x19(%ebp),%edx
-     619:	89 75 d4             	mov    %esi,-0x2c(%ebp)
-     61c:	89 de                	mov    %ebx,%esi
-     61e:	89 d3                	mov    %edx,%ebx
+    16ce:	84 c0                	test   %al,%al
+    16d0:	0f 84 47 ff ff ff    	je     161d <printf+0x4d>
+    16d6:	8d 55 e7             	lea    -0x19(%ebp),%edx
+    16d9:	89 75 d4             	mov    %esi,-0x2c(%ebp)
+    16dc:	89 de                	mov    %ebx,%esi
+    16de:	89 d3                	mov    %edx,%ebx
   write(fd, &c, 1);
-     620:	83 ec 04             	sub    $0x4,%esp
-     623:	88 45 e7             	mov    %al,-0x19(%ebp)
+    16e0:	83 ec 04             	sub    $0x4,%esp
+    16e3:	88 45 e7             	mov    %al,-0x19(%ebp)
           s++;
-     626:	83 c6 01             	add    $0x1,%esi
+    16e6:	83 c6 01             	add    $0x1,%esi
   write(fd, &c, 1);
-     629:	6a 01                	push   $0x1
-     62b:	53                   	push   %ebx
-     62c:	57                   	push   %edi
-     62d:	e8 91 fd ff ff       	call   3c3 <write>
+    16e9:	6a 01                	push   $0x1
+    16eb:	53                   	push   %ebx
+    16ec:	57                   	push   %edi
+    16ed:	e8 91 fd ff ff       	call   1483 <write>
         while(*s != 0){
-     632:	0f b6 06             	movzbl (%esi),%eax
-     635:	83 c4 10             	add    $0x10,%esp
-     638:	84 c0                	test   %al,%al
-     63a:	75 e4                	jne    620 <printf+0x110>
+    16f2:	0f b6 06             	movzbl (%esi),%eax
+    16f5:	83 c4 10             	add    $0x10,%esp
+    16f8:	84 c0                	test   %al,%al
+    16fa:	75 e4                	jne    16e0 <printf+0x110>
       state = 0;
-     63c:	8b 75 d4             	mov    -0x2c(%ebp),%esi
-     63f:	31 d2                	xor    %edx,%edx
-     641:	e9 17 ff ff ff       	jmp    55d <printf+0x4d>
+    16fc:	8b 75 d4             	mov    -0x2c(%ebp),%esi
+    16ff:	31 d2                	xor    %edx,%edx
+    1701:	e9 17 ff ff ff       	jmp    161d <printf+0x4d>
         printint(fd, *ap, 10, 1);
-     646:	8b 5d d0             	mov    -0x30(%ebp),%ebx
-     649:	83 ec 0c             	sub    $0xc,%esp
-     64c:	b9 0a 00 00 00       	mov    $0xa,%ecx
-     651:	8b 13                	mov    (%ebx),%edx
-     653:	6a 01                	push   $0x1
-     655:	eb 88                	jmp    5df <printf+0xcf>
+    1706:	8b 5d d0             	mov    -0x30(%ebp),%ebx
+    1709:	83 ec 0c             	sub    $0xc,%esp
+    170c:	b9 0a 00 00 00       	mov    $0xa,%ecx
+    1711:	8b 13                	mov    (%ebx),%edx
+    1713:	6a 01                	push   $0x1
+    1715:	eb 88                	jmp    169f <printf+0xcf>
         putc(fd, *ap);
-     657:	8b 5d d0             	mov    -0x30(%ebp),%ebx
+    1717:	8b 5d d0             	mov    -0x30(%ebp),%ebx
   write(fd, &c, 1);
-     65a:	83 ec 04             	sub    $0x4,%esp
-     65d:	8d 55 e7             	lea    -0x19(%ebp),%edx
+    171a:	83 ec 04             	sub    $0x4,%esp
+    171d:	8d 55 e7             	lea    -0x19(%ebp),%edx
         putc(fd, *ap);
-     660:	8b 03                	mov    (%ebx),%eax
+    1720:	8b 03                	mov    (%ebx),%eax
         ap++;
-     662:	83 c3 04             	add    $0x4,%ebx
+    1722:	83 c3 04             	add    $0x4,%ebx
         putc(fd, *ap);
-     665:	88 45 e7             	mov    %al,-0x19(%ebp)
+    1725:	88 45 e7             	mov    %al,-0x19(%ebp)
   write(fd, &c, 1);
-     668:	6a 01                	push   $0x1
-     66a:	52                   	push   %edx
-     66b:	57                   	push   %edi
-     66c:	e8 52 fd ff ff       	call   3c3 <write>
+    1728:	6a 01                	push   $0x1
+    172a:	52                   	push   %edx
+    172b:	57                   	push   %edi
+    172c:	e8 52 fd ff ff       	call   1483 <write>
         ap++;
-     671:	89 5d d0             	mov    %ebx,-0x30(%ebp)
-     674:	83 c4 10             	add    $0x10,%esp
+    1731:	89 5d d0             	mov    %ebx,-0x30(%ebp)
+    1734:	83 c4 10             	add    $0x10,%esp
       state = 0;
-     677:	31 d2                	xor    %edx,%edx
-     679:	e9 df fe ff ff       	jmp    55d <printf+0x4d>
-     67e:	66 90                	xchg   %ax,%ax
+    1737:	31 d2                	xor    %edx,%edx
+    1739:	e9 df fe ff ff       	jmp    161d <printf+0x4d>
+    173e:	66 90                	xchg   %ax,%ax
   write(fd, &c, 1);
-     680:	83 ec 04             	sub    $0x4,%esp
-     683:	88 5d e7             	mov    %bl,-0x19(%ebp)
-     686:	8d 55 e7             	lea    -0x19(%ebp),%edx
-     689:	6a 01                	push   $0x1
-     68b:	e9 31 ff ff ff       	jmp    5c1 <printf+0xb1>
-     690:	b8 28 00 00 00       	mov    $0x28,%eax
+    1740:	83 ec 04             	sub    $0x4,%esp
+    1743:	88 5d e7             	mov    %bl,-0x19(%ebp)
+    1746:	8d 55 e7             	lea    -0x19(%ebp),%edx
+    1749:	6a 01                	push   $0x1
+    174b:	e9 31 ff ff ff       	jmp    1681 <printf+0xb1>
+    1750:	b8 28 00 00 00       	mov    $0x28,%eax
           s = "(null)";
-     695:	bb 45 14 00 00       	mov    $0x1445,%ebx
-     69a:	e9 77 ff ff ff       	jmp    616 <printf+0x106>
-     69f:	90                   	nop
+    1755:	bb 73 26 00 00       	mov    $0x2673,%ebx
+    175a:	e9 77 ff ff ff       	jmp    16d6 <printf+0x106>
+    175f:	90                   	nop
 
-000006a0 <free>:
+00001760 <free>:
 static Header base;
 static Header *freep;
 
 void
 free(void *ap)
 {
-     6a0:	55                   	push   %ebp
+    1760:	55                   	push   %ebp
   Header *bp, *p;
 
   bp = (Header*)ap - 1;
   for(p = freep; !(bp > p && bp < p->s.ptr); p = p->s.ptr)
-     6a1:	a1 00 1f 00 00       	mov    0x1f00,%eax
+    1761:	a1 24 43 00 00       	mov    0x4324,%eax
 {
-     6a6:	89 e5                	mov    %esp,%ebp
-     6a8:	57                   	push   %edi
-     6a9:	56                   	push   %esi
-     6aa:	53                   	push   %ebx
-     6ab:	8b 5d 08             	mov    0x8(%ebp),%ebx
+    1766:	89 e5                	mov    %esp,%ebp
+    1768:	57                   	push   %edi
+    1769:	56                   	push   %esi
+    176a:	53                   	push   %ebx
+    176b:	8b 5d 08             	mov    0x8(%ebp),%ebx
   bp = (Header*)ap - 1;
-     6ae:	8d 4b f8             	lea    -0x8(%ebx),%ecx
+    176e:	8d 4b f8             	lea    -0x8(%ebx),%ecx
   for(p = freep; !(bp > p && bp < p->s.ptr); p = p->s.ptr)
-     6b1:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    1771:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
     if(p >= p->s.ptr && (bp > p || bp < p->s.ptr))
-     6b8:	8b 10                	mov    (%eax),%edx
+    1778:	8b 10                	mov    (%eax),%edx
   for(p = freep; !(bp > p && bp < p->s.ptr); p = p->s.ptr)
-     6ba:	39 c8                	cmp    %ecx,%eax
-     6bc:	73 32                	jae    6f0 <free+0x50>
-     6be:	39 d1                	cmp    %edx,%ecx
-     6c0:	72 04                	jb     6c6 <free+0x26>
+    177a:	39 c8                	cmp    %ecx,%eax
+    177c:	73 32                	jae    17b0 <free+0x50>
+    177e:	39 d1                	cmp    %edx,%ecx
+    1780:	72 04                	jb     1786 <free+0x26>
     if(p >= p->s.ptr && (bp > p || bp < p->s.ptr))
-     6c2:	39 d0                	cmp    %edx,%eax
-     6c4:	72 32                	jb     6f8 <free+0x58>
+    1782:	39 d0                	cmp    %edx,%eax
+    1784:	72 32                	jb     17b8 <free+0x58>
       break;
   if(bp + bp->s.size == p->s.ptr){
-     6c6:	8b 73 fc             	mov    -0x4(%ebx),%esi
-     6c9:	8d 3c f1             	lea    (%ecx,%esi,8),%edi
-     6cc:	39 fa                	cmp    %edi,%edx
-     6ce:	74 30                	je     700 <free+0x60>
+    1786:	8b 73 fc             	mov    -0x4(%ebx),%esi
+    1789:	8d 3c f1             	lea    (%ecx,%esi,8),%edi
+    178c:	39 fa                	cmp    %edi,%edx
+    178e:	74 30                	je     17c0 <free+0x60>
     bp->s.size += p->s.ptr->s.size;
     bp->s.ptr = p->s.ptr->s.ptr;
-     6d0:	89 53 f8             	mov    %edx,-0x8(%ebx)
+    1790:	89 53 f8             	mov    %edx,-0x8(%ebx)
   } else
     bp->s.ptr = p->s.ptr;
   if(p + p->s.size == bp){
-     6d3:	8b 50 04             	mov    0x4(%eax),%edx
-     6d6:	8d 34 d0             	lea    (%eax,%edx,8),%esi
-     6d9:	39 f1                	cmp    %esi,%ecx
-     6db:	74 3a                	je     717 <free+0x77>
+    1793:	8b 50 04             	mov    0x4(%eax),%edx
+    1796:	8d 34 d0             	lea    (%eax,%edx,8),%esi
+    1799:	39 f1                	cmp    %esi,%ecx
+    179b:	74 3a                	je     17d7 <free+0x77>
     p->s.size += bp->s.size;
     p->s.ptr = bp->s.ptr;
-     6dd:	89 08                	mov    %ecx,(%eax)
+    179d:	89 08                	mov    %ecx,(%eax)
   } else
     p->s.ptr = bp;
   freep = p;
 }
-     6df:	5b                   	pop    %ebx
+    179f:	5b                   	pop    %ebx
   freep = p;
-     6e0:	a3 00 1f 00 00       	mov    %eax,0x1f00
+    17a0:	a3 24 43 00 00       	mov    %eax,0x4324
 }
-     6e5:	5e                   	pop    %esi
-     6e6:	5f                   	pop    %edi
-     6e7:	5d                   	pop    %ebp
-     6e8:	c3                   	ret
-     6e9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    17a5:	5e                   	pop    %esi
+    17a6:	5f                   	pop    %edi
+    17a7:	5d                   	pop    %ebp
+    17a8:	c3                   	ret
+    17a9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
     if(p >= p->s.ptr && (bp > p || bp < p->s.ptr))
-     6f0:	39 d0                	cmp    %edx,%eax
-     6f2:	72 04                	jb     6f8 <free+0x58>
-     6f4:	39 d1                	cmp    %edx,%ecx
-     6f6:	72 ce                	jb     6c6 <free+0x26>
+    17b0:	39 d0                	cmp    %edx,%eax
+    17b2:	72 04                	jb     17b8 <free+0x58>
+    17b4:	39 d1                	cmp    %edx,%ecx
+    17b6:	72 ce                	jb     1786 <free+0x26>
 {
-     6f8:	89 d0                	mov    %edx,%eax
-     6fa:	eb bc                	jmp    6b8 <free+0x18>
-     6fc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    17b8:	89 d0                	mov    %edx,%eax
+    17ba:	eb bc                	jmp    1778 <free+0x18>
+    17bc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
     bp->s.size += p->s.ptr->s.size;
-     700:	03 72 04             	add    0x4(%edx),%esi
-     703:	89 73 fc             	mov    %esi,-0x4(%ebx)
+    17c0:	03 72 04             	add    0x4(%edx),%esi
+    17c3:	89 73 fc             	mov    %esi,-0x4(%ebx)
     bp->s.ptr = p->s.ptr->s.ptr;
-     706:	8b 10                	mov    (%eax),%edx
-     708:	8b 12                	mov    (%edx),%edx
-     70a:	89 53 f8             	mov    %edx,-0x8(%ebx)
+    17c6:	8b 10                	mov    (%eax),%edx
+    17c8:	8b 12                	mov    (%edx),%edx
+    17ca:	89 53 f8             	mov    %edx,-0x8(%ebx)
   if(p + p->s.size == bp){
-     70d:	8b 50 04             	mov    0x4(%eax),%edx
-     710:	8d 34 d0             	lea    (%eax,%edx,8),%esi
-     713:	39 f1                	cmp    %esi,%ecx
-     715:	75 c6                	jne    6dd <free+0x3d>
+    17cd:	8b 50 04             	mov    0x4(%eax),%edx
+    17d0:	8d 34 d0             	lea    (%eax,%edx,8),%esi
+    17d3:	39 f1                	cmp    %esi,%ecx
+    17d5:	75 c6                	jne    179d <free+0x3d>
     p->s.size += bp->s.size;
-     717:	03 53 fc             	add    -0x4(%ebx),%edx
+    17d7:	03 53 fc             	add    -0x4(%ebx),%edx
   freep = p;
-     71a:	a3 00 1f 00 00       	mov    %eax,0x1f00
+    17da:	a3 24 43 00 00       	mov    %eax,0x4324
     p->s.size += bp->s.size;
-     71f:	89 50 04             	mov    %edx,0x4(%eax)
+    17df:	89 50 04             	mov    %edx,0x4(%eax)
     p->s.ptr = bp->s.ptr;
-     722:	8b 4b f8             	mov    -0x8(%ebx),%ecx
-     725:	89 08                	mov    %ecx,(%eax)
+    17e2:	8b 4b f8             	mov    -0x8(%ebx),%ecx
+    17e5:	89 08                	mov    %ecx,(%eax)
 }
-     727:	5b                   	pop    %ebx
-     728:	5e                   	pop    %esi
-     729:	5f                   	pop    %edi
-     72a:	5d                   	pop    %ebp
-     72b:	c3                   	ret
-     72c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    17e7:	5b                   	pop    %ebx
+    17e8:	5e                   	pop    %esi
+    17e9:	5f                   	pop    %edi
+    17ea:	5d                   	pop    %ebp
+    17eb:	c3                   	ret
+    17ec:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-00000730 <malloc>:
+000017f0 <malloc>:
   return freep;
 }
 
 void*
 malloc(uint nbytes)
 {
-     730:	55                   	push   %ebp
-     731:	89 e5                	mov    %esp,%ebp
-     733:	57                   	push   %edi
-     734:	56                   	push   %esi
-     735:	53                   	push   %ebx
-     736:	83 ec 0c             	sub    $0xc,%esp
+    17f0:	55                   	push   %ebp
+    17f1:	89 e5                	mov    %esp,%ebp
+    17f3:	57                   	push   %edi
+    17f4:	56                   	push   %esi
+    17f5:	53                   	push   %ebx
+    17f6:	83 ec 0c             	sub    $0xc,%esp
   Header *p, *prevp;
   uint nunits;
 
   nunits = (nbytes + sizeof(Header) - 1)/sizeof(Header) + 1;
-     739:	8b 45 08             	mov    0x8(%ebp),%eax
+    17f9:	8b 45 08             	mov    0x8(%ebp),%eax
   if((prevp = freep) == 0){
-     73c:	8b 15 00 1f 00 00    	mov    0x1f00,%edx
+    17fc:	8b 15 24 43 00 00    	mov    0x4324,%edx
   nunits = (nbytes + sizeof(Header) - 1)/sizeof(Header) + 1;
-     742:	8d 78 07             	lea    0x7(%eax),%edi
-     745:	c1 ef 03             	shr    $0x3,%edi
-     748:	83 c7 01             	add    $0x1,%edi
+    1802:	8d 78 07             	lea    0x7(%eax),%edi
+    1805:	c1 ef 03             	shr    $0x3,%edi
+    1808:	83 c7 01             	add    $0x1,%edi
   if((prevp = freep) == 0){
-     74b:	85 d2                	test   %edx,%edx
-     74d:	0f 84 8d 00 00 00    	je     7e0 <malloc+0xb0>
+    180b:	85 d2                	test   %edx,%edx
+    180d:	0f 84 8d 00 00 00    	je     18a0 <malloc+0xb0>
     base.s.ptr = freep = prevp = &base;
     base.s.size = 0;
   }
   for(p = prevp->s.ptr; ; prevp = p, p = p->s.ptr){
-     753:	8b 02                	mov    (%edx),%eax
+    1813:	8b 02                	mov    (%edx),%eax
     if(p->s.size >= nunits){
-     755:	8b 48 04             	mov    0x4(%eax),%ecx
-     758:	39 f9                	cmp    %edi,%ecx
-     75a:	73 64                	jae    7c0 <malloc+0x90>
+    1815:	8b 48 04             	mov    0x4(%eax),%ecx
+    1818:	39 f9                	cmp    %edi,%ecx
+    181a:	73 64                	jae    1880 <malloc+0x90>
   if(nu < 4096)
-     75c:	bb 00 10 00 00       	mov    $0x1000,%ebx
-     761:	39 df                	cmp    %ebx,%edi
-     763:	0f 43 df             	cmovae %edi,%ebx
+    181c:	bb 00 10 00 00       	mov    $0x1000,%ebx
+    1821:	39 df                	cmp    %ebx,%edi
+    1823:	0f 43 df             	cmovae %edi,%ebx
   p = sbrk(nu * sizeof(Header));
-     766:	8d 34 dd 00 00 00 00 	lea    0x0(,%ebx,8),%esi
-     76d:	eb 0a                	jmp    779 <malloc+0x49>
-     76f:	90                   	nop
+    1826:	8d 34 dd 00 00 00 00 	lea    0x0(,%ebx,8),%esi
+    182d:	eb 0a                	jmp    1839 <malloc+0x49>
+    182f:	90                   	nop
   for(p = prevp->s.ptr; ; prevp = p, p = p->s.ptr){
-     770:	8b 02                	mov    (%edx),%eax
+    1830:	8b 02                	mov    (%edx),%eax
     if(p->s.size >= nunits){
-     772:	8b 48 04             	mov    0x4(%eax),%ecx
-     775:	39 f9                	cmp    %edi,%ecx
-     777:	73 47                	jae    7c0 <malloc+0x90>
+    1832:	8b 48 04             	mov    0x4(%eax),%ecx
+    1835:	39 f9                	cmp    %edi,%ecx
+    1837:	73 47                	jae    1880 <malloc+0x90>
         p->s.size = nunits;
       }
       freep = prevp;
       return (void*)(p + 1);
     }
     if(p == freep)
-     779:	89 c2                	mov    %eax,%edx
-     77b:	3b 05 00 1f 00 00    	cmp    0x1f00,%eax
-     781:	75 ed                	jne    770 <malloc+0x40>
+    1839:	89 c2                	mov    %eax,%edx
+    183b:	3b 05 24 43 00 00    	cmp    0x4324,%eax
+    1841:	75 ed                	jne    1830 <malloc+0x40>
   p = sbrk(nu * sizeof(Header));
-     783:	83 ec 0c             	sub    $0xc,%esp
-     786:	56                   	push   %esi
-     787:	e8 9f fc ff ff       	call   42b <sbrk>
+    1843:	83 ec 0c             	sub    $0xc,%esp
+    1846:	56                   	push   %esi
+    1847:	e8 9f fc ff ff       	call   14eb <sbrk>
   if(p == (char*)-1)
-     78c:	83 c4 10             	add    $0x10,%esp
-     78f:	83 f8 ff             	cmp    $0xffffffff,%eax
-     792:	74 1c                	je     7b0 <malloc+0x80>
+    184c:	83 c4 10             	add    $0x10,%esp
+    184f:	83 f8 ff             	cmp    $0xffffffff,%eax
+    1852:	74 1c                	je     1870 <malloc+0x80>
   hp->s.size = nu;
-     794:	89 58 04             	mov    %ebx,0x4(%eax)
+    1854:	89 58 04             	mov    %ebx,0x4(%eax)
   free((void*)(hp + 1));
-     797:	83 ec 0c             	sub    $0xc,%esp
-     79a:	83 c0 08             	add    $0x8,%eax
-     79d:	50                   	push   %eax
-     79e:	e8 fd fe ff ff       	call   6a0 <free>
+    1857:	83 ec 0c             	sub    $0xc,%esp
+    185a:	83 c0 08             	add    $0x8,%eax
+    185d:	50                   	push   %eax
+    185e:	e8 fd fe ff ff       	call   1760 <free>
   return freep;
-     7a3:	8b 15 00 1f 00 00    	mov    0x1f00,%edx
+    1863:	8b 15 24 43 00 00    	mov    0x4324,%edx
       if((p = morecore(nunits)) == 0)
-     7a9:	83 c4 10             	add    $0x10,%esp
-     7ac:	85 d2                	test   %edx,%edx
-     7ae:	75 c0                	jne    770 <malloc+0x40>
+    1869:	83 c4 10             	add    $0x10,%esp
+    186c:	85 d2                	test   %edx,%edx
+    186e:	75 c0                	jne    1830 <malloc+0x40>
         return 0;
   }
 }
-     7b0:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    1870:	8d 65 f4             	lea    -0xc(%ebp),%esp
         return 0;
-     7b3:	31 c0                	xor    %eax,%eax
+    1873:	31 c0                	xor    %eax,%eax
 }
-     7b5:	5b                   	pop    %ebx
-     7b6:	5e                   	pop    %esi
-     7b7:	5f                   	pop    %edi
-     7b8:	5d                   	pop    %ebp
-     7b9:	c3                   	ret
-     7ba:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+    1875:	5b                   	pop    %ebx
+    1876:	5e                   	pop    %esi
+    1877:	5f                   	pop    %edi
+    1878:	5d                   	pop    %ebp
+    1879:	c3                   	ret
+    187a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
       if(p->s.size == nunits)
-     7c0:	39 cf                	cmp    %ecx,%edi
-     7c2:	74 4c                	je     810 <malloc+0xe0>
+    1880:	39 cf                	cmp    %ecx,%edi
+    1882:	74 4c                	je     18d0 <malloc+0xe0>
         p->s.size -= nunits;
-     7c4:	29 f9                	sub    %edi,%ecx
-     7c6:	89 48 04             	mov    %ecx,0x4(%eax)
+    1884:	29 f9                	sub    %edi,%ecx
+    1886:	89 48 04             	mov    %ecx,0x4(%eax)
         p += p->s.size;
-     7c9:	8d 04 c8             	lea    (%eax,%ecx,8),%eax
+    1889:	8d 04 c8             	lea    (%eax,%ecx,8),%eax
         p->s.size = nunits;
-     7cc:	89 78 04             	mov    %edi,0x4(%eax)
+    188c:	89 78 04             	mov    %edi,0x4(%eax)
       freep = prevp;
-     7cf:	89 15 00 1f 00 00    	mov    %edx,0x1f00
+    188f:	89 15 24 43 00 00    	mov    %edx,0x4324
 }
-     7d5:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    1895:	8d 65 f4             	lea    -0xc(%ebp),%esp
       return (void*)(p + 1);
-     7d8:	83 c0 08             	add    $0x8,%eax
+    1898:	83 c0 08             	add    $0x8,%eax
 }
-     7db:	5b                   	pop    %ebx
-     7dc:	5e                   	pop    %esi
-     7dd:	5f                   	pop    %edi
-     7de:	5d                   	pop    %ebp
-     7df:	c3                   	ret
+    189b:	5b                   	pop    %ebx
+    189c:	5e                   	pop    %esi
+    189d:	5f                   	pop    %edi
+    189e:	5d                   	pop    %ebp
+    189f:	c3                   	ret
     base.s.ptr = freep = prevp = &base;
-     7e0:	c7 05 00 1f 00 00 04 	movl   $0x1f04,0x1f00
-     7e7:	1f 00 00 
+    18a0:	c7 05 24 43 00 00 28 	movl   $0x4328,0x4324
+    18a7:	43 00 00 
     base.s.size = 0;
-     7ea:	b8 04 1f 00 00       	mov    $0x1f04,%eax
+    18aa:	b8 28 43 00 00       	mov    $0x4328,%eax
     base.s.ptr = freep = prevp = &base;
-     7ef:	c7 05 04 1f 00 00 04 	movl   $0x1f04,0x1f04
-     7f6:	1f 00 00 
+    18af:	c7 05 28 43 00 00 28 	movl   $0x4328,0x4328
+    18b6:	43 00 00 
     base.s.size = 0;
-     7f9:	c7 05 08 1f 00 00 00 	movl   $0x0,0x1f08
-     800:	00 00 00 
+    18b9:	c7 05 2c 43 00 00 00 	movl   $0x0,0x432c
+    18c0:	00 00 00 
     if(p->s.size >= nunits){
-     803:	e9 54 ff ff ff       	jmp    75c <malloc+0x2c>
-     808:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     80f:	00 
+    18c3:	e9 54 ff ff ff       	jmp    181c <malloc+0x2c>
+    18c8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    18cf:	00 
         prevp->s.ptr = p->s.ptr;
-     810:	8b 08                	mov    (%eax),%ecx
-     812:	89 0a                	mov    %ecx,(%edx)
-     814:	eb b9                	jmp    7cf <malloc+0x9f>
-     816:	66 90                	xchg   %ax,%ax
-     818:	66 90                	xchg   %ax,%ax
-     81a:	66 90                	xchg   %ax,%ax
-     81c:	66 90                	xchg   %ax,%ax
-     81e:	66 90                	xchg   %ax,%ax
+    18d0:	8b 08                	mov    (%eax),%ecx
+    18d2:	89 0a                	mov    %ecx,(%edx)
+    18d4:	eb b9                	jmp    188f <malloc+0x9f>
+    18d6:	66 90                	xchg   %ax,%ax
+    18d8:	66 90                	xchg   %ax,%ax
+    18da:	66 90                	xchg   %ax,%ax
+    18dc:	66 90                	xchg   %ax,%ax
+    18de:	66 90                	xchg   %ax,%ax
 
-00000820 <thread_init>:
+000018e0 <thread_init>:
+    if (threads[tid].state == T_UNUSED)
         return 0;
     return &threads[tid];
 }
 
-/* 初始化线程库 */
 void thread_init(void) {
-     820:	55                   	push   %ebp
-     821:	b8 40 1f 00 00       	mov    $0x1f40,%eax
+    18e0:	55                   	push   %ebp
+    18e1:	b8 60 43 00 00       	mov    $0x4360,%eax
     int i;
     
-    // 初始化线程表
     for (i = 0; i < MAX_THREADS; i++) {
-     826:	31 d2                	xor    %edx,%edx
+    18e6:	31 d2                	xor    %edx,%edx
 void thread_init(void) {
-     828:	89 e5                	mov    %esp,%ebp
-     82a:	83 ec 08             	sub    $0x8,%esp
-     82d:	8d 76 00             	lea    0x0(%esi),%esi
+    18e8:	89 e5                	mov    %esp,%ebp
+    18ea:	83 ec 08             	sub    $0x8,%esp
+    18ed:	8d 76 00             	lea    0x0(%esi),%esi
         threads[i].state = T_UNUSED;
         threads[i].tid = i;
-     830:	89 10                	mov    %edx,(%eax)
+    18f0:	89 10                	mov    %edx,(%eax)
     for (i = 0; i < MAX_THREADS; i++) {
-     832:	83 c2 01             	add    $0x1,%edx
-     835:	83 c0 44             	add    $0x44,%eax
+    18f2:	83 c2 01             	add    $0x1,%edx
+    18f5:	83 c0 44             	add    $0x44,%eax
         threads[i].state = T_UNUSED;
-     838:	c7 40 c0 00 00 00 00 	movl   $0x0,-0x40(%eax)
+    18f8:	c7 40 c0 00 00 00 00 	movl   $0x0,-0x40(%eax)
         threads[i].stack = 0;
-     83f:	c7 40 c4 00 00 00 00 	movl   $0x0,-0x3c(%eax)
+    18ff:	c7 40 c4 00 00 00 00 	movl   $0x0,-0x3c(%eax)
         threads[i].start_routine = 0;
-     846:	c7 40 ec 00 00 00 00 	movl   $0x0,-0x14(%eax)
+    1906:	c7 40 ec 00 00 00 00 	movl   $0x0,-0x14(%eax)
         threads[i].arg = 0;
-     84d:	c7 40 f0 00 00 00 00 	movl   $0x0,-0x10(%eax)
+    190d:	c7 40 f0 00 00 00 00 	movl   $0x0,-0x10(%eax)
         threads[i].retval = 0;
-     854:	c7 40 f4 00 00 00 00 	movl   $0x0,-0xc(%eax)
+    1914:	c7 40 f4 00 00 00 00 	movl   $0x0,-0xc(%eax)
         threads[i].join_waiter = 0;
-     85b:	c7 40 f8 00 00 00 00 	movl   $0x0,-0x8(%eax)
+    191b:	c7 40 f8 00 00 00 00 	movl   $0x0,-0x8(%eax)
         threads[i].sleep_chan = 0;
-     862:	c7 40 fc 00 00 00 00 	movl   $0x0,-0x4(%eax)
+    1922:	c7 40 fc 00 00 00 00 	movl   $0x0,-0x4(%eax)
     for (i = 0; i < MAX_THREADS; i++) {
-     869:	83 fa 40             	cmp    $0x40,%edx
-     86c:	75 c2                	jne    830 <thread_init+0x10>
+    1929:	83 fa 40             	cmp    $0x40,%edx
+    192c:	75 c2                	jne    18f0 <thread_init+0x10>
     }
     
-    // 主线程
     threads[0].state = T_RUNNING;
-     86e:	c7 05 44 1f 00 00 02 	movl   $0x2,0x1f44
-     875:	00 00 00 
+    192e:	c7 05 64 43 00 00 02 	movl   $0x2,0x4364
+    1935:	00 00 00 
     threads[0].tid = 0;
     current_thread = &threads[0];
     next_tid = 1;
     
-    printf(1, "[uthreads] 线程库初始化完成，主线程 tid=0\n");
-     878:	83 ec 08             	sub    $0x8,%esp
-     87b:	68 3c 15 00 00       	push   $0x153c
-     880:	6a 01                	push   $0x1
+    printf(1, "[uthreads] Thread library initialized, main thread tid=0\n");
+    1938:	83 ec 08             	sub    $0x8,%esp
+    193b:	68 f4 33 00 00       	push   $0x33f4
+    1940:	6a 01                	push   $0x1
     threads[0].tid = 0;
-     882:	c7 05 40 1f 00 00 00 	movl   $0x0,0x1f40
-     889:	00 00 00 
+    1942:	c7 05 60 43 00 00 00 	movl   $0x0,0x4360
+    1949:	00 00 00 
     current_thread = &threads[0];
-     88c:	c7 05 24 1f 00 00 40 	movl   $0x1f40,0x1f24
-     893:	1f 00 00 
+    194c:	c7 05 44 43 00 00 60 	movl   $0x4360,0x4344
+    1953:	43 00 00 
     next_tid = 1;
-     896:	c7 05 20 1f 00 00 01 	movl   $0x1,0x1f20
-     89d:	00 00 00 
-    printf(1, "[uthreads] 线程库初始化完成，主线程 tid=0\n");
-     8a0:	e8 6b fc ff ff       	call   510 <printf>
+    1956:	c7 05 40 43 00 00 01 	movl   $0x1,0x4340
+    195d:	00 00 00 
+    printf(1, "[uthreads] Thread library initialized, main thread tid=0\n");
+    1960:	e8 6b fc ff ff       	call   15d0 <printf>
 }
-     8a5:	83 c4 10             	add    $0x10,%esp
-     8a8:	c9                   	leave
-     8a9:	c3                   	ret
-     8aa:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+    1965:	83 c4 10             	add    $0x10,%esp
+    1968:	c9                   	leave
+    1969:	c3                   	ret
+    196a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
 
-000008b0 <thread_create>:
+00001970 <thread_create>:
 
-/* 创建线程 */
 int thread_create(void *(*start_routine)(void*), void *arg) {
-     8b0:	55                   	push   %ebp
-     8b1:	89 e5                	mov    %esp,%ebp
-     8b3:	57                   	push   %edi
-     8b4:	56                   	push   %esi
-     8b5:	53                   	push   %ebx
-     8b6:	83 ec 0c             	sub    $0xc,%esp
-     8b9:	8b 75 08             	mov    0x8(%ebp),%esi
+    1970:	55                   	push   %ebp
+    1971:	89 e5                	mov    %esp,%ebp
+    1973:	57                   	push   %edi
+    1974:	56                   	push   %esi
+    1975:	53                   	push   %ebx
+    1976:	83 ec 0c             	sub    $0xc,%esp
+    1979:	8b 75 08             	mov    0x8(%ebp),%esi
     thread_t *t;
     int i;
     uint *sp;
     
     if (!start_routine)
-     8bc:	85 f6                	test   %esi,%esi
-     8be:	0f 84 d6 00 00 00    	je     99a <thread_create+0xea>
-     8c4:	b8 44 1f 00 00       	mov    $0x1f44,%eax
+    197c:	85 f6                	test   %esi,%esi
+    197e:	0f 84 d6 00 00 00    	je     1a5a <thread_create+0xea>
+    1984:	b8 64 43 00 00       	mov    $0x4364,%eax
         return -1;
     
-    // 查找空闲线程槽
     t = 0;
     for (i = 0; i < MAX_THREADS; i++) {
-     8c9:	31 db                	xor    %ebx,%ebx
-     8cb:	eb 12                	jmp    8df <thread_create+0x2f>
-     8cd:	8d 76 00             	lea    0x0(%esi),%esi
-     8d0:	83 c3 01             	add    $0x1,%ebx
-     8d3:	83 c0 44             	add    $0x44,%eax
-     8d6:	83 fb 40             	cmp    $0x40,%ebx
-     8d9:	0f 84 a9 00 00 00    	je     988 <thread_create+0xd8>
+    1989:	31 db                	xor    %ebx,%ebx
+    198b:	eb 12                	jmp    199f <thread_create+0x2f>
+    198d:	8d 76 00             	lea    0x0(%esi),%esi
+    1990:	83 c3 01             	add    $0x1,%ebx
+    1993:	83 c0 44             	add    $0x44,%eax
+    1996:	83 fb 40             	cmp    $0x40,%ebx
+    1999:	0f 84 a9 00 00 00    	je     1a48 <thread_create+0xd8>
         if (threads[i].state == T_UNUSED) {
-     8df:	8b 10                	mov    (%eax),%edx
-     8e1:	85 d2                	test   %edx,%edx
-     8e3:	75 eb                	jne    8d0 <thread_create+0x20>
-        printf(2, "[uthreads] 错误：线程数已达上限\n");
+    199f:	8b 10                	mov    (%eax),%edx
+    19a1:	85 d2                	test   %edx,%edx
+    19a3:	75 eb                	jne    1990 <thread_create+0x20>
+    if (!t) {
+        printf(2, "[uthreads] Error: Thread limit reached\n");
         return -1;
     }
     
-    // 分配栈
     t->stack = malloc(STACK_SIZE);
-     8e5:	83 ec 0c             	sub    $0xc,%esp
-     8e8:	6b db 44             	imul   $0x44,%ebx,%ebx
-     8eb:	68 00 10 00 00       	push   $0x1000
-     8f0:	8d bb 40 1f 00 00    	lea    0x1f40(%ebx),%edi
-     8f6:	e8 35 fe ff ff       	call   730 <malloc>
+    19a5:	83 ec 0c             	sub    $0xc,%esp
+    19a8:	6b db 44             	imul   $0x44,%ebx,%ebx
+    19ab:	68 00 10 00 00       	push   $0x1000
+    19b0:	8d bb 60 43 00 00    	lea    0x4360(%ebx),%edi
+    19b6:	e8 35 fe ff ff       	call   17f0 <malloc>
     if (!t->stack) {
-     8fb:	83 c4 10             	add    $0x10,%esp
+    19bb:	83 c4 10             	add    $0x10,%esp
     t->stack = malloc(STACK_SIZE);
-     8fe:	89 47 08             	mov    %eax,0x8(%edi)
+    19be:	89 47 08             	mov    %eax,0x8(%edi)
     if (!t->stack) {
-     901:	85 c0                	test   %eax,%eax
-     903:	0f 84 9e 00 00 00    	je     9a7 <thread_create+0xf7>
+    19c1:	85 c0                	test   %eax,%eax
+    19c3:	0f 84 9e 00 00 00    	je     1a67 <thread_create+0xf7>
+        return -1;
     }
     
-    // 初始化 TCB
     t->state = T_RUNNABLE;
     t->start_routine = start_routine;
     t->arg = arg;
-     909:	8b 45 0c             	mov    0xc(%ebp),%eax
+    19c9:	8b 45 0c             	mov    0xc(%ebp),%eax
     t->retval = 0;
     t->join_waiter = 0;
     t->sleep_chan = 0;
     
-    // 初始化上下文
     memset(&t->context, 0, sizeof(thread_context_t));
-     90c:	83 ec 04             	sub    $0x4,%esp
+    19cc:	83 ec 04             	sub    $0x4,%esp
     t->start_routine = start_routine;
-     90f:	89 77 30             	mov    %esi,0x30(%edi)
+    19cf:	89 77 30             	mov    %esi,0x30(%edi)
     t->state = T_RUNNABLE;
-     912:	c7 47 04 01 00 00 00 	movl   $0x1,0x4(%edi)
+    19d2:	c7 47 04 01 00 00 00 	movl   $0x1,0x4(%edi)
     t->arg = arg;
-     919:	89 47 34             	mov    %eax,0x34(%edi)
+    19d9:	89 47 34             	mov    %eax,0x34(%edi)
     memset(&t->context, 0, sizeof(thread_context_t));
-     91c:	8d 83 4c 1f 00 00    	lea    0x1f4c(%ebx),%eax
+    19dc:	8d 83 6c 43 00 00    	lea    0x436c(%ebx),%eax
     t->retval = 0;
-     922:	c7 47 38 00 00 00 00 	movl   $0x0,0x38(%edi)
+    19e2:	c7 47 38 00 00 00 00 	movl   $0x0,0x38(%edi)
     t->join_waiter = 0;
-     929:	c7 47 3c 00 00 00 00 	movl   $0x0,0x3c(%edi)
+    19e9:	c7 47 3c 00 00 00 00 	movl   $0x0,0x3c(%edi)
     t->sleep_chan = 0;
-     930:	c7 47 40 00 00 00 00 	movl   $0x0,0x40(%edi)
+    19f0:	c7 47 40 00 00 00 00 	movl   $0x0,0x40(%edi)
     memset(&t->context, 0, sizeof(thread_context_t));
-     937:	6a 24                	push   $0x24
-     939:	6a 00                	push   $0x0
-     93b:	50                   	push   %eax
-     93c:	e8 df f8 ff ff       	call   220 <memset>
+    19f7:	6a 24                	push   $0x24
+    19f9:	6a 00                	push   $0x0
+    19fb:	50                   	push   %eax
+    19fc:	e8 df f8 ff ff       	call   12e0 <memset>
     
-    // 设置栈顶
     sp = (uint*)((char*)t->stack + STACK_SIZE);
-     941:	8b 47 08             	mov    0x8(%edi),%eax
+    1a01:	8b 47 08             	mov    0x8(%edi),%eax
+    *sp = (uint)thread_entry;
     
-    // 设置 esp 和 eip
     t->context.esp = (uint)sp;
     t->context.eip = (uint)thread_entry;
     
-    printf(1, "[uthreads] 创建线程 tid=%d\n", t->tid);
-     944:	83 c4 0c             	add    $0xc,%esp
+    printf(1, "[uthreads] Created thread tid=%d\n", t->tid);
+    1a04:	83 c4 0c             	add    $0xc,%esp
     *sp = (uint)thread_entry;
-     947:	c7 80 fc 0f 00 00 10 	movl   $0xb10,0xffc(%eax)
-     94e:	0b 00 00 
+    1a07:	c7 80 fc 0f 00 00 d0 	movl   $0x1bd0,0xffc(%eax)
+    1a0e:	1b 00 00 
     sp--;
-     951:	05 fc 0f 00 00       	add    $0xffc,%eax
-     956:	89 47 28             	mov    %eax,0x28(%edi)
+    1a11:	05 fc 0f 00 00       	add    $0xffc,%eax
+    1a16:	89 47 28             	mov    %eax,0x28(%edi)
     t->context.eip = (uint)thread_entry;
-     959:	c7 47 2c 10 0b 00 00 	movl   $0xb10,0x2c(%edi)
-    printf(1, "[uthreads] 创建线程 tid=%d\n", t->tid);
-     960:	ff b3 40 1f 00 00    	push   0x1f40(%ebx)
-     966:	68 c8 15 00 00       	push   $0x15c8
-     96b:	6a 01                	push   $0x1
-     96d:	e8 9e fb ff ff       	call   510 <printf>
+    1a19:	c7 47 2c d0 1b 00 00 	movl   $0x1bd0,0x2c(%edi)
+    printf(1, "[uthreads] Created thread tid=%d\n", t->tid);
+    1a20:	ff b3 60 43 00 00    	push   0x4360(%ebx)
+    1a26:	68 84 34 00 00       	push   $0x3484
+    1a2b:	6a 01                	push   $0x1
+    1a2d:	e8 9e fb ff ff       	call   15d0 <printf>
     return t->tid;
-     972:	8b 83 40 1f 00 00    	mov    0x1f40(%ebx),%eax
-     978:	83 c4 10             	add    $0x10,%esp
+    1a32:	8b 83 60 43 00 00    	mov    0x4360(%ebx),%eax
+    1a38:	83 c4 10             	add    $0x10,%esp
 }
-     97b:	8d 65 f4             	lea    -0xc(%ebp),%esp
-     97e:	5b                   	pop    %ebx
-     97f:	5e                   	pop    %esi
-     980:	5f                   	pop    %edi
-     981:	5d                   	pop    %ebp
-     982:	c3                   	ret
-     983:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
-        printf(2, "[uthreads] 错误：线程数已达上限\n");
-     988:	83 ec 08             	sub    $0x8,%esp
-     98b:	68 74 15 00 00       	push   $0x1574
-     990:	6a 02                	push   $0x2
-     992:	e8 79 fb ff ff       	call   510 <printf>
+    1a3b:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    1a3e:	5b                   	pop    %ebx
+    1a3f:	5e                   	pop    %esi
+    1a40:	5f                   	pop    %edi
+    1a41:	5d                   	pop    %ebp
+    1a42:	c3                   	ret
+    1a43:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+        printf(2, "[uthreads] Error: Thread limit reached\n");
+    1a48:	83 ec 08             	sub    $0x8,%esp
+    1a4b:	68 30 34 00 00       	push   $0x3430
+    1a50:	6a 02                	push   $0x2
+    1a52:	e8 79 fb ff ff       	call   15d0 <printf>
         return -1;
-     997:	83 c4 10             	add    $0x10,%esp
+    1a57:	83 c4 10             	add    $0x10,%esp
 }
-     99a:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    1a5a:	8d 65 f4             	lea    -0xc(%ebp),%esp
         return -1;
-     99d:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+    1a5d:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
 }
-     9a2:	5b                   	pop    %ebx
-     9a3:	5e                   	pop    %esi
-     9a4:	5f                   	pop    %edi
-     9a5:	5d                   	pop    %ebp
-     9a6:	c3                   	ret
-        printf(2, "[uthreads] 错误：栈分配失败\n");
-     9a7:	83 ec 08             	sub    $0x8,%esp
-     9aa:	68 a0 15 00 00       	push   $0x15a0
-     9af:	6a 02                	push   $0x2
-     9b1:	e8 5a fb ff ff       	call   510 <printf>
+    1a62:	5b                   	pop    %ebx
+    1a63:	5e                   	pop    %esi
+    1a64:	5f                   	pop    %edi
+    1a65:	5d                   	pop    %ebp
+    1a66:	c3                   	ret
+        printf(2, "[uthreads] Error: Stack allocation failed\n");
+    1a67:	83 ec 08             	sub    $0x8,%esp
+    1a6a:	68 58 34 00 00       	push   $0x3458
+    1a6f:	6a 02                	push   $0x2
+    1a71:	e8 5a fb ff ff       	call   15d0 <printf>
         return -1;
-     9b6:	83 c4 10             	add    $0x10,%esp
-     9b9:	eb df                	jmp    99a <thread_create+0xea>
-     9bb:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1a76:	83 c4 10             	add    $0x10,%esp
+    1a79:	eb df                	jmp    1a5a <thread_create+0xea>
+    1a7b:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
 
-000009c0 <thread_self>:
+00001a80 <thread_self>:
+    current_thread->state = T_RUNNABLE;
     thread_schedule();
 }
 
-/* 获取当前线程 ID */
 int thread_self(void) {
     return current_thread->tid;
-     9c0:	a1 24 1f 00 00       	mov    0x1f24,%eax
-     9c5:	8b 00                	mov    (%eax),%eax
+    1a80:	a1 44 43 00 00       	mov    0x4344,%eax
+    1a85:	8b 00                	mov    (%eax),%eax
 }
-     9c7:	c3                   	ret
-     9c8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     9cf:	00 
+    1a87:	c3                   	ret
+    1a88:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1a8f:	00 
 
-000009d0 <thread_schedule>:
+00001a90 <thread_schedule>:
 
-/* 调度器 */
 void thread_schedule(void) {
-     9d0:	55                   	push   %ebp
-     9d1:	89 e5                	mov    %esp,%ebp
-     9d3:	57                   	push   %edi
-     9d4:	56                   	push   %esi
-     9d5:	53                   	push   %ebx
-     9d6:	83 ec 0c             	sub    $0xc,%esp
+    1a90:	55                   	push   %ebp
+    1a91:	89 e5                	mov    %esp,%ebp
+    1a93:	57                   	push   %edi
+    1a94:	56                   	push   %esi
+    1a95:	53                   	push   %ebx
+    1a96:	83 ec 0c             	sub    $0xc,%esp
     thread_t *old_thread, *new_thread;
     int start, i, idx;
     
     old_thread = current_thread;
-     9d9:	8b 35 24 1f 00 00    	mov    0x1f24,%esi
+    1a99:	8b 35 44 43 00 00    	mov    0x4344,%esi
     new_thread = 0;
     
-    // Round-robin 调度
     start = (current_thread->tid + 1) % MAX_THREADS;
-     9df:	8b 06                	mov    (%esi),%eax
-     9e1:	8d 50 01             	lea    0x1(%eax),%edx
-     9e4:	89 d0                	mov    %edx,%eax
-     9e6:	c1 f8 1f             	sar    $0x1f,%eax
-     9e9:	c1 e8 1a             	shr    $0x1a,%eax
-     9ec:	01 c2                	add    %eax,%edx
-     9ee:	83 e2 3f             	and    $0x3f,%edx
-     9f1:	29 c2                	sub    %eax,%edx
-     9f3:	8d 5a 40             	lea    0x40(%edx),%ebx
-     9f6:	eb 0f                	jmp    a07 <thread_schedule+0x37>
-     9f8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     9ff:	00 
+    1a9f:	8b 06                	mov    (%esi),%eax
+    1aa1:	8d 50 01             	lea    0x1(%eax),%edx
+    1aa4:	89 d0                	mov    %edx,%eax
+    1aa6:	c1 f8 1f             	sar    $0x1f,%eax
+    1aa9:	c1 e8 1a             	shr    $0x1a,%eax
+    1aac:	01 c2                	add    %eax,%edx
+    1aae:	83 e2 3f             	and    $0x3f,%edx
+    1ab1:	29 c2                	sub    %eax,%edx
+    1ab3:	8d 5a 40             	lea    0x40(%edx),%ebx
+    1ab6:	eb 0f                	jmp    1ac7 <thread_schedule+0x37>
+    1ab8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1abf:	00 
     for (i = 0; i < MAX_THREADS; i++) {
-     a00:	83 c2 01             	add    $0x1,%edx
-     a03:	39 da                	cmp    %ebx,%edx
-     a05:	74 71                	je     a78 <thread_schedule+0xa8>
+    1ac0:	83 c2 01             	add    $0x1,%edx
+    1ac3:	39 da                	cmp    %ebx,%edx
+    1ac5:	74 71                	je     1b38 <thread_schedule+0xa8>
         idx = (start + i) % MAX_THREADS;
-     a07:	89 d1                	mov    %edx,%ecx
-     a09:	c1 f9 1f             	sar    $0x1f,%ecx
-     a0c:	c1 e9 1a             	shr    $0x1a,%ecx
-     a0f:	8d 04 0a             	lea    (%edx,%ecx,1),%eax
-     a12:	83 e0 3f             	and    $0x3f,%eax
-     a15:	29 c8                	sub    %ecx,%eax
+    1ac7:	89 d1                	mov    %edx,%ecx
+    1ac9:	c1 f9 1f             	sar    $0x1f,%ecx
+    1acc:	c1 e9 1a             	shr    $0x1a,%ecx
+    1acf:	8d 04 0a             	lea    (%edx,%ecx,1),%eax
+    1ad2:	83 e0 3f             	and    $0x3f,%eax
+    1ad5:	29 c8                	sub    %ecx,%eax
         if (threads[idx].state == T_RUNNABLE) {
-     a17:	6b c8 44             	imul   $0x44,%eax,%ecx
-     a1a:	83 b9 44 1f 00 00 01 	cmpl   $0x1,0x1f44(%ecx)
-     a21:	8d b9 40 1f 00 00    	lea    0x1f40(%ecx),%edi
-     a27:	75 d7                	jne    a00 <thread_schedule+0x30>
-        printf(1, "[uthreads] 所有线程已结束或阻塞\n");
+    1ad7:	6b c8 44             	imul   $0x44,%eax,%ecx
+    1ada:	83 b9 64 43 00 00 01 	cmpl   $0x1,0x4364(%ecx)
+    1ae1:	8d b9 60 43 00 00    	lea    0x4360(%ecx),%edi
+    1ae7:	75 d7                	jne    1ac0 <thread_schedule+0x30>
+        
+        printf(1, "[uthreads] All threads finished or blocked\n");
         exit();
     }
     
-    // 同一个线程
     if (new_thread == old_thread) {
-     a29:	39 fe                	cmp    %edi,%esi
-     a2b:	74 6b                	je     a98 <thread_schedule+0xc8>
+    1ae9:	39 fe                	cmp    %edi,%esi
+    1aeb:	74 6b                	je     1b58 <thread_schedule+0xc8>
+            old_thread->state = T_RUNNING;
         }
         return;
     }
     
-    // 更新状态
     if (old_thread->state == T_RUNNING) {
-     a2d:	83 7e 04 02          	cmpl   $0x2,0x4(%esi)
-     a31:	74 35                	je     a68 <thread_schedule+0x98>
+    1aed:	83 7e 04 02          	cmpl   $0x2,0x4(%esi)
+    1af1:	74 35                	je     1b28 <thread_schedule+0x98>
         old_thread->state = T_RUNNABLE;
     }
     new_thread->state = T_RUNNING;
-     a33:	6b c0 44             	imul   $0x44,%eax,%eax
+    1af3:	6b c0 44             	imul   $0x44,%eax,%eax
     current_thread = new_thread;
     
-    // 上下文切换
     thread_switch(&old_thread->context, &new_thread->context);
-     a36:	83 ec 08             	sub    $0x8,%esp
-     a39:	81 c1 4c 1f 00 00    	add    $0x1f4c,%ecx
-     a3f:	83 c6 0c             	add    $0xc,%esi
+    1af6:	83 ec 08             	sub    $0x8,%esp
+    1af9:	81 c1 6c 43 00 00    	add    $0x436c,%ecx
+    1aff:	83 c6 0c             	add    $0xc,%esi
     current_thread = new_thread;
-     a42:	89 3d 24 1f 00 00    	mov    %edi,0x1f24
+    1b02:	89 3d 44 43 00 00    	mov    %edi,0x4344
     new_thread->state = T_RUNNING;
-     a48:	c7 80 44 1f 00 00 02 	movl   $0x2,0x1f44(%eax)
-     a4f:	00 00 00 
+    1b08:	c7 80 64 43 00 00 02 	movl   $0x2,0x4364(%eax)
+    1b0f:	00 00 00 
     thread_switch(&old_thread->context, &new_thread->context);
-     a52:	51                   	push   %ecx
-     a53:	56                   	push   %esi
-     a54:	e8 3c 09 00 00       	call   1395 <thread_switch>
-     a59:	83 c4 10             	add    $0x10,%esp
+    1b12:	51                   	push   %ecx
+    1b13:	56                   	push   %esi
+    1b14:	e8 3c 09 00 00       	call   2455 <thread_switch>
+    1b19:	83 c4 10             	add    $0x10,%esp
 }
-     a5c:	8d 65 f4             	lea    -0xc(%ebp),%esp
-     a5f:	5b                   	pop    %ebx
-     a60:	5e                   	pop    %esi
-     a61:	5f                   	pop    %edi
-     a62:	5d                   	pop    %ebp
-     a63:	c3                   	ret
-     a64:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    1b1c:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    1b1f:	5b                   	pop    %ebx
+    1b20:	5e                   	pop    %esi
+    1b21:	5f                   	pop    %edi
+    1b22:	5d                   	pop    %ebp
+    1b23:	c3                   	ret
+    1b24:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
         old_thread->state = T_RUNNABLE;
-     a68:	c7 46 04 01 00 00 00 	movl   $0x1,0x4(%esi)
-     a6f:	eb c2                	jmp    a33 <thread_schedule+0x63>
-     a71:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    1b28:	c7 46 04 01 00 00 00 	movl   $0x1,0x4(%esi)
+    1b2f:	eb c2                	jmp    1af3 <thread_schedule+0x63>
+    1b31:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
         if (current_thread->state == T_RUNNING) {
-     a78:	83 7e 04 02          	cmpl   $0x2,0x4(%esi)
-     a7c:	74 de                	je     a5c <thread_schedule+0x8c>
-        printf(1, "[uthreads] 所有线程已结束或阻塞\n");
-     a7e:	50                   	push   %eax
-     a7f:	50                   	push   %eax
-     a80:	68 e8 15 00 00       	push   $0x15e8
-     a85:	6a 01                	push   $0x1
-     a87:	e8 84 fa ff ff       	call   510 <printf>
+    1b38:	83 7e 04 02          	cmpl   $0x2,0x4(%esi)
+    1b3c:	74 de                	je     1b1c <thread_schedule+0x8c>
+        printf(1, "[uthreads] All threads finished or blocked\n");
+    1b3e:	50                   	push   %eax
+    1b3f:	50                   	push   %eax
+    1b40:	68 a8 34 00 00       	push   $0x34a8
+    1b45:	6a 01                	push   $0x1
+    1b47:	e8 84 fa ff ff       	call   15d0 <printf>
         exit();
-     a8c:	e8 12 f9 ff ff       	call   3a3 <exit>
-     a91:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    1b4c:	e8 12 f9 ff ff       	call   1463 <exit>
+    1b51:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
             old_thread->state = T_RUNNING;
-     a98:	c7 46 04 02 00 00 00 	movl   $0x2,0x4(%esi)
-     a9f:	eb bb                	jmp    a5c <thread_schedule+0x8c>
-     aa1:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     aa8:	00 
-     aa9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    1b58:	c7 46 04 02 00 00 00 	movl   $0x2,0x4(%esi)
+    1b5f:	eb bb                	jmp    1b1c <thread_schedule+0x8c>
+    1b61:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1b68:	00 
+    1b69:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
-00000ab0 <thread_exit>:
+00001b70 <thread_exit>:
 void thread_exit(void *retval) {
-     ab0:	55                   	push   %ebp
-     ab1:	89 e5                	mov    %esp,%ebp
-     ab3:	83 ec 0c             	sub    $0xc,%esp
+    1b70:	55                   	push   %ebp
+    1b71:	89 e5                	mov    %esp,%ebp
+    1b73:	83 ec 0c             	sub    $0xc,%esp
     current_thread->retval = retval;
-     ab6:	a1 24 1f 00 00       	mov    0x1f24,%eax
-     abb:	8b 55 08             	mov    0x8(%ebp),%edx
+    1b76:	a1 44 43 00 00       	mov    0x4344,%eax
+    1b7b:	8b 55 08             	mov    0x8(%ebp),%edx
     current_thread->state = T_ZOMBIE;
-     abe:	c7 40 04 04 00 00 00 	movl   $0x4,0x4(%eax)
+    1b7e:	c7 40 04 04 00 00 00 	movl   $0x4,0x4(%eax)
     current_thread->retval = retval;
-     ac5:	89 50 38             	mov    %edx,0x38(%eax)
-    printf(1, "[uthreads] 线程 tid=%d 退出\n", current_thread->tid);
-     ac8:	ff 30                	push   (%eax)
-     aca:	68 14 16 00 00       	push   $0x1614
-     acf:	6a 01                	push   $0x1
-     ad1:	e8 3a fa ff ff       	call   510 <printf>
+    1b85:	89 50 38             	mov    %edx,0x38(%eax)
+    printf(1, "[uthreads] Thread tid=%d exiting\n", current_thread->tid);
+    1b88:	ff 30                	push   (%eax)
+    1b8a:	68 d4 34 00 00       	push   $0x34d4
+    1b8f:	6a 01                	push   $0x1
+    1b91:	e8 3a fa ff ff       	call   15d0 <printf>
     if (current_thread->join_waiter) {
-     ad6:	a1 24 1f 00 00       	mov    0x1f24,%eax
-     adb:	83 c4 10             	add    $0x10,%esp
-     ade:	8b 50 3c             	mov    0x3c(%eax),%edx
-     ae1:	85 d2                	test   %edx,%edx
-     ae3:	74 11                	je     af6 <thread_exit+0x46>
+    1b96:	a1 44 43 00 00       	mov    0x4344,%eax
+    1b9b:	83 c4 10             	add    $0x10,%esp
+    1b9e:	8b 50 3c             	mov    0x3c(%eax),%edx
+    1ba1:	85 d2                	test   %edx,%edx
+    1ba3:	74 11                	je     1bb6 <thread_exit+0x46>
         current_thread->join_waiter->state = T_RUNNABLE;
-     ae5:	c7 42 04 01 00 00 00 	movl   $0x1,0x4(%edx)
+    1ba5:	c7 42 04 01 00 00 00 	movl   $0x1,0x4(%edx)
         current_thread->join_waiter->sleep_chan = 0;
-     aec:	8b 40 3c             	mov    0x3c(%eax),%eax
-     aef:	c7 40 40 00 00 00 00 	movl   $0x0,0x40(%eax)
+    1bac:	8b 40 3c             	mov    0x3c(%eax),%eax
+    1baf:	c7 40 40 00 00 00 00 	movl   $0x0,0x40(%eax)
     thread_schedule();
-     af6:	e8 d5 fe ff ff       	call   9d0 <thread_schedule>
-    printf(2, "[uthreads] 错误：thread_exit 不应返回\n");
-     afb:	83 ec 08             	sub    $0x8,%esp
-     afe:	68 38 16 00 00       	push   $0x1638
-     b03:	6a 02                	push   $0x2
-     b05:	e8 06 fa ff ff       	call   510 <printf>
+    1bb6:	e8 d5 fe ff ff       	call   1a90 <thread_schedule>
+    printf(2, "[uthreads] Error: thread_exit should not return\n");
+    1bbb:	83 ec 08             	sub    $0x8,%esp
+    1bbe:	68 f8 34 00 00       	push   $0x34f8
+    1bc3:	6a 02                	push   $0x2
+    1bc5:	e8 06 fa ff ff       	call   15d0 <printf>
     exit();
-     b0a:	e8 94 f8 ff ff       	call   3a3 <exit>
-     b0f:	90                   	nop
+    1bca:	e8 94 f8 ff ff       	call   1463 <exit>
+    1bcf:	90                   	nop
 
-00000b10 <thread_entry>:
+00001bd0 <thread_entry>:
 static void thread_entry(void) {
-     b10:	55                   	push   %ebp
-     b11:	89 e5                	mov    %esp,%ebp
-     b13:	83 ec 14             	sub    $0x14,%esp
+    1bd0:	55                   	push   %ebp
+    1bd1:	89 e5                	mov    %esp,%ebp
+    1bd3:	83 ec 14             	sub    $0x14,%esp
     void *ret = current_thread->start_routine(current_thread->arg);
-     b16:	a1 24 1f 00 00       	mov    0x1f24,%eax
-     b1b:	ff 70 34             	push   0x34(%eax)
-     b1e:	ff 50 30             	call   *0x30(%eax)
+    1bd6:	a1 44 43 00 00       	mov    0x4344,%eax
+    1bdb:	ff 70 34             	push   0x34(%eax)
+    1bde:	ff 50 30             	call   *0x30(%eax)
     thread_exit(ret);
-     b21:	89 04 24             	mov    %eax,(%esp)
-     b24:	e8 87 ff ff ff       	call   ab0 <thread_exit>
-     b29:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    1be1:	89 04 24             	mov    %eax,(%esp)
+    1be4:	e8 87 ff ff ff       	call   1b70 <thread_exit>
+    1be9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
-00000b30 <thread_join>:
+00001bf0 <thread_join>:
 void *thread_join(int tid) {
-     b30:	55                   	push   %ebp
-     b31:	89 e5                	mov    %esp,%ebp
-     b33:	57                   	push   %edi
-     b34:	56                   	push   %esi
-     b35:	53                   	push   %ebx
-     b36:	83 ec 0c             	sub    $0xc,%esp
-     b39:	8b 75 08             	mov    0x8(%ebp),%esi
+    1bf0:	55                   	push   %ebp
+    1bf1:	89 e5                	mov    %esp,%ebp
+    1bf3:	57                   	push   %edi
+    1bf4:	56                   	push   %esi
+    1bf5:	53                   	push   %ebx
+    1bf6:	83 ec 0c             	sub    $0xc,%esp
+    1bf9:	8b 75 08             	mov    0x8(%ebp),%esi
     if (tid < 0 || tid >= MAX_THREADS)
-     b3c:	83 fe 3f             	cmp    $0x3f,%esi
-     b3f:	77 67                	ja     ba8 <thread_join+0x78>
+    1bfc:	83 fe 3f             	cmp    $0x3f,%esi
+    1bff:	77 67                	ja     1c68 <thread_join+0x78>
     if (threads[tid].state == T_UNUSED)
-     b41:	6b de 44             	imul   $0x44,%esi,%ebx
-     b44:	81 c3 40 1f 00 00    	add    $0x1f40,%ebx
-     b4a:	8b 43 04             	mov    0x4(%ebx),%eax
-     b4d:	85 c0                	test   %eax,%eax
-     b4f:	74 57                	je     ba8 <thread_join+0x78>
+    1c01:	6b de 44             	imul   $0x44,%esi,%ebx
+    1c04:	81 c3 60 43 00 00    	add    $0x4360,%ebx
+    1c0a:	8b 43 04             	mov    0x4(%ebx),%eax
+    1c0d:	85 c0                	test   %eax,%eax
+    1c0f:	74 57                	je     1c68 <thread_join+0x78>
     if (!t || t == current_thread) {
-     b51:	39 1d 24 1f 00 00    	cmp    %ebx,0x1f24
-     b57:	74 4f                	je     ba8 <thread_join+0x78>
+    1c11:	39 1d 44 43 00 00    	cmp    %ebx,0x4344
+    1c17:	74 4f                	je     1c68 <thread_join+0x78>
     while (t->state != T_ZOMBIE) {
-     b59:	83 f8 04             	cmp    $0x4,%eax
-     b5c:	75 1f                	jne    b7d <thread_join+0x4d>
-     b5e:	eb 60                	jmp    bc0 <thread_join+0x90>
+    1c19:	83 f8 04             	cmp    $0x4,%eax
+    1c1c:	75 1f                	jne    1c3d <thread_join+0x4d>
+    1c1e:	eb 60                	jmp    1c80 <thread_join+0x90>
         t->join_waiter = current_thread;
-     b60:	a1 24 1f 00 00       	mov    0x1f24,%eax
-     b65:	89 43 3c             	mov    %eax,0x3c(%ebx)
+    1c20:	a1 44 43 00 00       	mov    0x4344,%eax
+    1c25:	89 43 3c             	mov    %eax,0x3c(%ebx)
         current_thread->sleep_chan = t;
-     b68:	89 58 40             	mov    %ebx,0x40(%eax)
+    1c28:	89 58 40             	mov    %ebx,0x40(%eax)
         current_thread->state = T_SLEEPING;
-     b6b:	c7 40 04 03 00 00 00 	movl   $0x3,0x4(%eax)
+    1c2b:	c7 40 04 03 00 00 00 	movl   $0x3,0x4(%eax)
         thread_schedule();
-     b72:	e8 59 fe ff ff       	call   9d0 <thread_schedule>
+    1c32:	e8 59 fe ff ff       	call   1a90 <thread_schedule>
     while (t->state != T_ZOMBIE) {
-     b77:	83 7b 04 04          	cmpl   $0x4,0x4(%ebx)
-     b7b:	74 43                	je     bc0 <thread_join+0x90>
+    1c37:	83 7b 04 04          	cmpl   $0x4,0x4(%ebx)
+    1c3b:	74 43                	je     1c80 <thread_join+0x90>
         if (t->join_waiter) {
-     b7d:	8b 43 3c             	mov    0x3c(%ebx),%eax
-     b80:	85 c0                	test   %eax,%eax
-     b82:	74 dc                	je     b60 <thread_join+0x30>
-            printf(2, "[uthreads] 错误：线程 tid=%d 已被其他线程 join\n", tid);
-     b84:	83 ec 04             	sub    $0x4,%esp
-     b87:	56                   	push   %esi
-     b88:	68 9c 16 00 00       	push   $0x169c
-     b8d:	6a 02                	push   $0x2
-     b8f:	e8 7c f9 ff ff       	call   510 <printf>
+    1c3d:	8b 43 3c             	mov    0x3c(%ebx),%eax
+    1c40:	85 c0                	test   %eax,%eax
+    1c42:	74 dc                	je     1c20 <thread_join+0x30>
+            printf(2, "[uthreads] Error: Thread tid=%d already being joined\n", tid);
+    1c44:	83 ec 04             	sub    $0x4,%esp
+    1c47:	56                   	push   %esi
+    1c48:	68 5c 35 00 00       	push   $0x355c
+    1c4d:	6a 02                	push   $0x2
+    1c4f:	e8 7c f9 ff ff       	call   15d0 <printf>
             return 0;
-     b94:	83 c4 10             	add    $0x10,%esp
+    1c54:	83 c4 10             	add    $0x10,%esp
 }
-     b97:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    1c57:	8d 65 f4             	lea    -0xc(%ebp),%esp
         return 0;
-     b9a:	31 ff                	xor    %edi,%edi
+    1c5a:	31 ff                	xor    %edi,%edi
 }
-     b9c:	5b                   	pop    %ebx
-     b9d:	89 f8                	mov    %edi,%eax
-     b9f:	5e                   	pop    %esi
-     ba0:	5f                   	pop    %edi
-     ba1:	5d                   	pop    %ebp
-     ba2:	c3                   	ret
-     ba3:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
-        printf(2, "[uthreads] 错误：无效的 join 目标 tid=%d\n", tid);
-     ba8:	83 ec 04             	sub    $0x4,%esp
-     bab:	56                   	push   %esi
-     bac:	68 68 16 00 00       	push   $0x1668
-     bb1:	6a 02                	push   $0x2
-     bb3:	e8 58 f9 ff ff       	call   510 <printf>
+    1c5c:	5b                   	pop    %ebx
+    1c5d:	89 f8                	mov    %edi,%eax
+    1c5f:	5e                   	pop    %esi
+    1c60:	5f                   	pop    %edi
+    1c61:	5d                   	pop    %ebp
+    1c62:	c3                   	ret
+    1c63:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+        printf(2, "[uthreads] Error: Invalid join target tid=%d\n", tid);
+    1c68:	83 ec 04             	sub    $0x4,%esp
+    1c6b:	56                   	push   %esi
+    1c6c:	68 2c 35 00 00       	push   $0x352c
+    1c71:	6a 02                	push   $0x2
+    1c73:	e8 58 f9 ff ff       	call   15d0 <printf>
         return 0;
-     bb8:	83 c4 10             	add    $0x10,%esp
-     bbb:	eb da                	jmp    b97 <thread_join+0x67>
-     bbd:	8d 76 00             	lea    0x0(%esi),%esi
+    1c78:	83 c4 10             	add    $0x10,%esp
+    1c7b:	eb da                	jmp    1c57 <thread_join+0x67>
+    1c7d:	8d 76 00             	lea    0x0(%esi),%esi
     retval = t->retval;
-     bc0:	6b de 44             	imul   $0x44,%esi,%ebx
-     bc3:	81 c3 40 1f 00 00    	add    $0x1f40,%ebx
+    1c80:	6b de 44             	imul   $0x44,%esi,%ebx
+    1c83:	81 c3 60 43 00 00    	add    $0x4360,%ebx
     if (t->stack) {
-     bc9:	8b 43 08             	mov    0x8(%ebx),%eax
+    1c89:	8b 43 08             	mov    0x8(%ebx),%eax
     retval = t->retval;
-     bcc:	8b 7b 38             	mov    0x38(%ebx),%edi
+    1c8c:	8b 7b 38             	mov    0x38(%ebx),%edi
     if (t->stack) {
-     bcf:	85 c0                	test   %eax,%eax
-     bd1:	74 13                	je     be6 <thread_join+0xb6>
+    1c8f:	85 c0                	test   %eax,%eax
+    1c91:	74 13                	je     1ca6 <thread_join+0xb6>
         free(t->stack);
-     bd3:	83 ec 0c             	sub    $0xc,%esp
-     bd6:	50                   	push   %eax
-     bd7:	e8 c4 fa ff ff       	call   6a0 <free>
+    1c93:	83 ec 0c             	sub    $0xc,%esp
+    1c96:	50                   	push   %eax
+    1c97:	e8 c4 fa ff ff       	call   1760 <free>
         t->stack = 0;
-     bdc:	c7 43 08 00 00 00 00 	movl   $0x0,0x8(%ebx)
-     be3:	83 c4 10             	add    $0x10,%esp
+    1c9c:	c7 43 08 00 00 00 00 	movl   $0x0,0x8(%ebx)
+    1ca3:	83 c4 10             	add    $0x10,%esp
     t->state = T_UNUSED;
-     be6:	6b c6 44             	imul   $0x44,%esi,%eax
-    printf(1, "[uthreads] 线程 tid=%d join 完成\n", tid);
-     be9:	83 ec 04             	sub    $0x4,%esp
+    1ca6:	6b c6 44             	imul   $0x44,%esi,%eax
+    printf(1, "[uthreads] Thread tid=%d joined\n", tid);
+    1ca9:	83 ec 04             	sub    $0x4,%esp
     t->state = T_UNUSED;
-     bec:	c7 80 44 1f 00 00 00 	movl   $0x0,0x1f44(%eax)
-     bf3:	00 00 00 
-    printf(1, "[uthreads] 线程 tid=%d join 完成\n", tid);
-     bf6:	56                   	push   %esi
-     bf7:	68 d8 16 00 00       	push   $0x16d8
-     bfc:	6a 01                	push   $0x1
-     bfe:	e8 0d f9 ff ff       	call   510 <printf>
+    1cac:	c7 80 64 43 00 00 00 	movl   $0x0,0x4364(%eax)
+    1cb3:	00 00 00 
+    printf(1, "[uthreads] Thread tid=%d joined\n", tid);
+    1cb6:	56                   	push   %esi
+    1cb7:	68 94 35 00 00       	push   $0x3594
+    1cbc:	6a 01                	push   $0x1
+    1cbe:	e8 0d f9 ff ff       	call   15d0 <printf>
     return retval;
-     c03:	83 c4 10             	add    $0x10,%esp
+    1cc3:	83 c4 10             	add    $0x10,%esp
 }
-     c06:	8d 65 f4             	lea    -0xc(%ebp),%esp
-     c09:	89 f8                	mov    %edi,%eax
-     c0b:	5b                   	pop    %ebx
-     c0c:	5e                   	pop    %esi
-     c0d:	5f                   	pop    %edi
-     c0e:	5d                   	pop    %ebp
-     c0f:	c3                   	ret
+    1cc6:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    1cc9:	89 f8                	mov    %edi,%eax
+    1ccb:	5b                   	pop    %ebx
+    1ccc:	5e                   	pop    %esi
+    1ccd:	5f                   	pop    %edi
+    1cce:	5d                   	pop    %ebp
+    1ccf:	c3                   	ret
 
-00000c10 <thread_yield>:
+00001cd0 <thread_yield>:
     current_thread->state = T_RUNNABLE;
-     c10:	a1 24 1f 00 00       	mov    0x1f24,%eax
-     c15:	c7 40 04 01 00 00 00 	movl   $0x1,0x4(%eax)
+    1cd0:	a1 44 43 00 00       	mov    0x4344,%eax
+    1cd5:	c7 40 04 01 00 00 00 	movl   $0x1,0x4(%eax)
     thread_schedule();
-     c1c:	e9 af fd ff ff       	jmp    9d0 <thread_schedule>
-     c21:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     c28:	00 
-     c29:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    1cdc:	e9 af fd ff ff       	jmp    1a90 <thread_schedule>
+    1ce1:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1ce8:	00 
+    1ce9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
-00000c30 <thread_sleep>:
+00001cf0 <thread_sleep>:
 
-/* 线程睡眠 */
 void thread_sleep(void *chan) {
-     c30:	55                   	push   %ebp
+    1cf0:	55                   	push   %ebp
     current_thread->sleep_chan = chan;
-     c31:	a1 24 1f 00 00       	mov    0x1f24,%eax
+    1cf1:	a1 44 43 00 00       	mov    0x4344,%eax
     current_thread->state = T_SLEEPING;
-     c36:	c7 40 04 03 00 00 00 	movl   $0x3,0x4(%eax)
+    1cf6:	c7 40 04 03 00 00 00 	movl   $0x3,0x4(%eax)
 void thread_sleep(void *chan) {
-     c3d:	89 e5                	mov    %esp,%ebp
+    1cfd:	89 e5                	mov    %esp,%ebp
     current_thread->sleep_chan = chan;
-     c3f:	8b 55 08             	mov    0x8(%ebp),%edx
-     c42:	89 50 40             	mov    %edx,0x40(%eax)
+    1cff:	8b 55 08             	mov    0x8(%ebp),%edx
+    1d02:	89 50 40             	mov    %edx,0x40(%eax)
     thread_schedule();
 }
-     c45:	5d                   	pop    %ebp
+    1d05:	5d                   	pop    %ebp
     thread_schedule();
-     c46:	e9 85 fd ff ff       	jmp    9d0 <thread_schedule>
-     c4b:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1d06:	e9 85 fd ff ff       	jmp    1a90 <thread_schedule>
+    1d0b:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
 
-00000c50 <thread_wakeup>:
+00001d10 <thread_wakeup>:
 
-/* 唤醒线程 */
 void thread_wakeup(void *chan) {
-     c50:	55                   	push   %ebp
-     c51:	b8 44 1f 00 00       	mov    $0x1f44,%eax
-     c56:	ba 44 30 00 00       	mov    $0x3044,%edx
-     c5b:	89 e5                	mov    %esp,%ebp
-     c5d:	8b 4d 08             	mov    0x8(%ebp),%ecx
-     c60:	eb 0d                	jmp    c6f <thread_wakeup+0x1f>
-     c62:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+    1d10:	55                   	push   %ebp
+    1d11:	b8 64 43 00 00       	mov    $0x4364,%eax
+    1d16:	ba 64 54 00 00       	mov    $0x5464,%edx
+    1d1b:	89 e5                	mov    %esp,%ebp
+    1d1d:	8b 4d 08             	mov    0x8(%ebp),%ecx
+    1d20:	eb 0d                	jmp    1d2f <thread_wakeup+0x1f>
+    1d22:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
     int i;
     
     for (i = 0; i < MAX_THREADS; i++) {
-     c68:	83 c0 44             	add    $0x44,%eax
-     c6b:	39 c2                	cmp    %eax,%edx
-     c6d:	74 1e                	je     c8d <thread_wakeup+0x3d>
+    1d28:	83 c0 44             	add    $0x44,%eax
+    1d2b:	39 c2                	cmp    %eax,%edx
+    1d2d:	74 1e                	je     1d4d <thread_wakeup+0x3d>
         if (threads[i].state == T_SLEEPING && threads[i].sleep_chan == chan) {
-     c6f:	83 38 03             	cmpl   $0x3,(%eax)
-     c72:	75 f4                	jne    c68 <thread_wakeup+0x18>
-     c74:	39 48 3c             	cmp    %ecx,0x3c(%eax)
-     c77:	75 ef                	jne    c68 <thread_wakeup+0x18>
+    1d2f:	83 38 03             	cmpl   $0x3,(%eax)
+    1d32:	75 f4                	jne    1d28 <thread_wakeup+0x18>
+    1d34:	39 48 3c             	cmp    %ecx,0x3c(%eax)
+    1d37:	75 ef                	jne    1d28 <thread_wakeup+0x18>
             threads[i].state = T_RUNNABLE;
-     c79:	c7 00 01 00 00 00    	movl   $0x1,(%eax)
+    1d39:	c7 00 01 00 00 00    	movl   $0x1,(%eax)
     for (i = 0; i < MAX_THREADS; i++) {
-     c7f:	83 c0 44             	add    $0x44,%eax
+    1d3f:	83 c0 44             	add    $0x44,%eax
             threads[i].sleep_chan = 0;
-     c82:	c7 40 f8 00 00 00 00 	movl   $0x0,-0x8(%eax)
+    1d42:	c7 40 f8 00 00 00 00 	movl   $0x0,-0x8(%eax)
     for (i = 0; i < MAX_THREADS; i++) {
-     c89:	39 c2                	cmp    %eax,%edx
-     c8b:	75 e2                	jne    c6f <thread_wakeup+0x1f>
+    1d49:	39 c2                	cmp    %eax,%edx
+    1d4b:	75 e2                	jne    1d2f <thread_wakeup+0x1f>
         }
     }
 }
-     c8d:	5d                   	pop    %ebp
-     c8e:	c3                   	ret
-     c8f:	90                   	nop
+    1d4d:	5d                   	pop    %ebp
+    1d4e:	c3                   	ret
+    1d4f:	90                   	nop
 
-00000c90 <mutex_init>:
+00001d50 <mutex_init>:
+#include "types.h"
 #include "user.h"
 #include "user_threading_library_core/src/uthreads.h"
 
-/* ========== 互斥锁实现 ========== */
-
 void mutex_init(mutex_t *m) {
-     c90:	55                   	push   %ebp
-     c91:	89 e5                	mov    %esp,%ebp
-     c93:	8b 45 08             	mov    0x8(%ebp),%eax
+    1d50:	55                   	push   %ebp
+    1d51:	89 e5                	mov    %esp,%ebp
+    1d53:	8b 45 08             	mov    0x8(%ebp),%eax
     m->locked = 0;
-     c96:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
+    1d56:	c7 00 00 00 00 00    	movl   $0x0,(%eax)
     m->owner = -1;
-     c9c:	c7 40 04 ff ff ff ff 	movl   $0xffffffff,0x4(%eax)
+    1d5c:	c7 40 04 ff ff ff ff 	movl   $0xffffffff,0x4(%eax)
     m->wait_chan = m;
-     ca3:	89 40 08             	mov    %eax,0x8(%eax)
+    1d63:	89 40 08             	mov    %eax,0x8(%eax)
 }
-     ca6:	5d                   	pop    %ebp
-     ca7:	c3                   	ret
-     ca8:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     caf:	00 
+    1d66:	5d                   	pop    %ebp
+    1d67:	c3                   	ret
+    1d68:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1d6f:	00 
 
-00000cb0 <mutex_lock>:
+00001d70 <mutex_lock>:
 
 void mutex_lock(mutex_t *m) {
-     cb0:	55                   	push   %ebp
-     cb1:	89 e5                	mov    %esp,%ebp
-     cb3:	53                   	push   %ebx
-     cb4:	83 ec 04             	sub    $0x4,%esp
-     cb7:	8b 5d 08             	mov    0x8(%ebp),%ebx
+    1d70:	55                   	push   %ebp
+    1d71:	89 e5                	mov    %esp,%ebp
+    1d73:	53                   	push   %ebx
+    1d74:	83 ec 04             	sub    $0x4,%esp
+    1d77:	8b 5d 08             	mov    0x8(%ebp),%ebx
     while (m->locked) {
-     cba:	8b 13                	mov    (%ebx),%edx
-     cbc:	85 d2                	test   %edx,%edx
-     cbe:	74 14                	je     cd4 <mutex_lock+0x24>
+    1d7a:	8b 13                	mov    (%ebx),%edx
+    1d7c:	85 d2                	test   %edx,%edx
+    1d7e:	74 14                	je     1d94 <mutex_lock+0x24>
         thread_sleep(m->wait_chan);
-     cc0:	83 ec 0c             	sub    $0xc,%esp
-     cc3:	ff 73 08             	push   0x8(%ebx)
-     cc6:	e8 65 ff ff ff       	call   c30 <thread_sleep>
+    1d80:	83 ec 0c             	sub    $0xc,%esp
+    1d83:	ff 73 08             	push   0x8(%ebx)
+    1d86:	e8 65 ff ff ff       	call   1cf0 <thread_sleep>
     while (m->locked) {
-     ccb:	8b 03                	mov    (%ebx),%eax
-     ccd:	83 c4 10             	add    $0x10,%esp
-     cd0:	85 c0                	test   %eax,%eax
-     cd2:	75 ec                	jne    cc0 <mutex_lock+0x10>
+    1d8b:	8b 03                	mov    (%ebx),%eax
+    1d8d:	83 c4 10             	add    $0x10,%esp
+    1d90:	85 c0                	test   %eax,%eax
+    1d92:	75 ec                	jne    1d80 <mutex_lock+0x10>
     }
     
     m->locked = 1;
-     cd4:	c7 03 01 00 00 00    	movl   $0x1,(%ebx)
+    1d94:	c7 03 01 00 00 00    	movl   $0x1,(%ebx)
     m->owner = thread_self();
-     cda:	e8 e1 fc ff ff       	call   9c0 <thread_self>
-     cdf:	89 43 04             	mov    %eax,0x4(%ebx)
+    1d9a:	e8 e1 fc ff ff       	call   1a80 <thread_self>
+    1d9f:	89 43 04             	mov    %eax,0x4(%ebx)
 }
-     ce2:	8b 5d fc             	mov    -0x4(%ebp),%ebx
-     ce5:	c9                   	leave
-     ce6:	c3                   	ret
-     ce7:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     cee:	00 
-     cef:	90                   	nop
+    1da2:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+    1da5:	c9                   	leave
+    1da6:	c3                   	ret
+    1da7:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1dae:	00 
+    1daf:	90                   	nop
 
-00000cf0 <mutex_unlock>:
+00001db0 <mutex_unlock>:
 
 void mutex_unlock(mutex_t *m) {
-     cf0:	55                   	push   %ebp
-     cf1:	89 e5                	mov    %esp,%ebp
-     cf3:	56                   	push   %esi
-     cf4:	53                   	push   %ebx
-     cf5:	8b 5d 08             	mov    0x8(%ebp),%ebx
+    1db0:	55                   	push   %ebp
+    1db1:	89 e5                	mov    %esp,%ebp
+    1db3:	56                   	push   %esi
+    1db4:	53                   	push   %ebx
+    1db5:	8b 5d 08             	mov    0x8(%ebp),%ebx
     if (m->owner != thread_self()) {
-     cf8:	8b 73 04             	mov    0x4(%ebx),%esi
-     cfb:	e8 c0 fc ff ff       	call   9c0 <thread_self>
-     d00:	39 c6                	cmp    %eax,%esi
-     d02:	74 1c                	je     d20 <mutex_unlock+0x30>
-        printf(2, "[uthreads] 错误：试图解锁不属于自己的锁\n");
-     d04:	83 ec 08             	sub    $0x8,%esp
-     d07:	68 00 17 00 00       	push   $0x1700
-     d0c:	6a 02                	push   $0x2
-     d0e:	e8 fd f7 ff ff       	call   510 <printf>
+    1db8:	8b 73 04             	mov    0x4(%ebx),%esi
+    1dbb:	e8 c0 fc ff ff       	call   1a80 <thread_self>
+    1dc0:	39 c6                	cmp    %eax,%esi
+    1dc2:	74 1c                	je     1de0 <mutex_unlock+0x30>
+        printf(2, "[uthreads] Error: Trying to unlock mutex not owned by current thread\n");
+    1dc4:	83 ec 08             	sub    $0x8,%esp
+    1dc7:	68 b8 35 00 00       	push   $0x35b8
+    1dcc:	6a 02                	push   $0x2
+    1dce:	e8 fd f7 ff ff       	call   15d0 <printf>
         return;
-     d13:	83 c4 10             	add    $0x10,%esp
+    1dd3:	83 c4 10             	add    $0x10,%esp
     
     m->locked = 0;
     m->owner = -1;
     
     thread_wakeup(m->wait_chan);
 }
-     d16:	8d 65 f8             	lea    -0x8(%ebp),%esp
-     d19:	5b                   	pop    %ebx
-     d1a:	5e                   	pop    %esi
-     d1b:	5d                   	pop    %ebp
-     d1c:	c3                   	ret
-     d1d:	8d 76 00             	lea    0x0(%esi),%esi
+    1dd6:	8d 65 f8             	lea    -0x8(%ebp),%esp
+    1dd9:	5b                   	pop    %ebx
+    1dda:	5e                   	pop    %esi
+    1ddb:	5d                   	pop    %ebp
+    1ddc:	c3                   	ret
+    1ddd:	8d 76 00             	lea    0x0(%esi),%esi
     thread_wakeup(m->wait_chan);
-     d20:	8b 43 08             	mov    0x8(%ebx),%eax
+    1de0:	8b 43 08             	mov    0x8(%ebx),%eax
     m->locked = 0;
-     d23:	c7 03 00 00 00 00    	movl   $0x0,(%ebx)
+    1de3:	c7 03 00 00 00 00    	movl   $0x0,(%ebx)
     m->owner = -1;
-     d29:	c7 43 04 ff ff ff ff 	movl   $0xffffffff,0x4(%ebx)
+    1de9:	c7 43 04 ff ff ff ff 	movl   $0xffffffff,0x4(%ebx)
     thread_wakeup(m->wait_chan);
-     d30:	89 45 08             	mov    %eax,0x8(%ebp)
+    1df0:	89 45 08             	mov    %eax,0x8(%ebp)
 }
-     d33:	8d 65 f8             	lea    -0x8(%ebp),%esp
-     d36:	5b                   	pop    %ebx
-     d37:	5e                   	pop    %esi
-     d38:	5d                   	pop    %ebp
+    1df3:	8d 65 f8             	lea    -0x8(%ebp),%esp
+    1df6:	5b                   	pop    %ebx
+    1df7:	5e                   	pop    %esi
+    1df8:	5d                   	pop    %ebp
     thread_wakeup(m->wait_chan);
-     d39:	e9 12 ff ff ff       	jmp    c50 <thread_wakeup>
-     d3e:	66 90                	xchg   %ax,%ax
+    1df9:	e9 12 ff ff ff       	jmp    1d10 <thread_wakeup>
+    1dfe:	66 90                	xchg   %ax,%ax
 
-00000d40 <mutex_trylock>:
+00001e00 <mutex_trylock>:
 
 int mutex_trylock(mutex_t *m) {
-     d40:	55                   	push   %ebp
-     d41:	89 e5                	mov    %esp,%ebp
-     d43:	53                   	push   %ebx
-     d44:	83 ec 04             	sub    $0x4,%esp
-     d47:	8b 5d 08             	mov    0x8(%ebp),%ebx
+    1e00:	55                   	push   %ebp
+    1e01:	89 e5                	mov    %esp,%ebp
+    1e03:	53                   	push   %ebx
+    1e04:	83 ec 04             	sub    $0x4,%esp
+    1e07:	8b 5d 08             	mov    0x8(%ebp),%ebx
     if (m->locked) {
-     d4a:	8b 03                	mov    (%ebx),%eax
-     d4c:	85 c0                	test   %eax,%eax
-     d4e:	74 10                	je     d60 <mutex_trylock+0x20>
+    1e0a:	8b 03                	mov    (%ebx),%eax
+    1e0c:	85 c0                	test   %eax,%eax
+    1e0e:	74 10                	je     1e20 <mutex_trylock+0x20>
     }
     
     m->locked = 1;
     m->owner = thread_self();
     return 1;
 }
-     d50:	8b 5d fc             	mov    -0x4(%ebp),%ebx
-     d53:	31 c0                	xor    %eax,%eax
-     d55:	c9                   	leave
-     d56:	c3                   	ret
-     d57:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     d5e:	00 
-     d5f:	90                   	nop
+    1e10:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+    1e13:	31 c0                	xor    %eax,%eax
+    1e15:	c9                   	leave
+    1e16:	c3                   	ret
+    1e17:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1e1e:	00 
+    1e1f:	90                   	nop
     m->locked = 1;
-     d60:	c7 03 01 00 00 00    	movl   $0x1,(%ebx)
+    1e20:	c7 03 01 00 00 00    	movl   $0x1,(%ebx)
     m->owner = thread_self();
-     d66:	e8 55 fc ff ff       	call   9c0 <thread_self>
-     d6b:	89 43 04             	mov    %eax,0x4(%ebx)
+    1e26:	e8 55 fc ff ff       	call   1a80 <thread_self>
+    1e2b:	89 43 04             	mov    %eax,0x4(%ebx)
     return 1;
-     d6e:	b8 01 00 00 00       	mov    $0x1,%eax
+    1e2e:	b8 01 00 00 00       	mov    $0x1,%eax
 }
-     d73:	8b 5d fc             	mov    -0x4(%ebp),%ebx
-     d76:	c9                   	leave
-     d77:	c3                   	ret
-     d78:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     d7f:	00 
+    1e33:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+    1e36:	c9                   	leave
+    1e37:	c3                   	ret
+    1e38:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1e3f:	00 
 
-00000d80 <cond_init>:
-
-/* ========== 条件变量实现 ========== */
+00001e40 <cond_init>:
 
 void cond_init(cond_t *c) {
-     d80:	55                   	push   %ebp
-     d81:	89 e5                	mov    %esp,%ebp
-     d83:	8b 45 08             	mov    0x8(%ebp),%eax
+    1e40:	55                   	push   %ebp
+    1e41:	89 e5                	mov    %esp,%ebp
+    1e43:	8b 45 08             	mov    0x8(%ebp),%eax
     c->wait_chan = c;
-     d86:	89 00                	mov    %eax,(%eax)
+    1e46:	89 00                	mov    %eax,(%eax)
 }
-     d88:	5d                   	pop    %ebp
-     d89:	c3                   	ret
-     d8a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+    1e48:	5d                   	pop    %ebp
+    1e49:	c3                   	ret
+    1e4a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
 
-00000d90 <cond_wait>:
+00001e50 <cond_wait>:
 
 void cond_wait(cond_t *c, mutex_t *m) {
-     d90:	55                   	push   %ebp
-     d91:	89 e5                	mov    %esp,%ebp
-     d93:	57                   	push   %edi
-     d94:	56                   	push   %esi
-     d95:	53                   	push   %ebx
-     d96:	83 ec 0c             	sub    $0xc,%esp
-     d99:	8b 5d 0c             	mov    0xc(%ebp),%ebx
-     d9c:	8b 7d 08             	mov    0x8(%ebp),%edi
+    1e50:	55                   	push   %ebp
+    1e51:	89 e5                	mov    %esp,%ebp
+    1e53:	57                   	push   %edi
+    1e54:	56                   	push   %esi
+    1e55:	53                   	push   %ebx
+    1e56:	83 ec 0c             	sub    $0xc,%esp
+    1e59:	8b 5d 0c             	mov    0xc(%ebp),%ebx
+    1e5c:	8b 7d 08             	mov    0x8(%ebp),%edi
     if (m->owner != thread_self()) {
-     d9f:	8b 73 04             	mov    0x4(%ebx),%esi
-     da2:	e8 19 fc ff ff       	call   9c0 <thread_self>
-     da7:	39 c6                	cmp    %eax,%esi
-     da9:	74 1d                	je     dc8 <cond_wait+0x38>
-        printf(2, "[uthreads] 错误：cond_wait 时未持有 mutex\n");
-     dab:	c7 45 0c 38 17 00 00 	movl   $0x1738,0xc(%ebp)
-     db2:	c7 45 08 02 00 00 00 	movl   $0x2,0x8(%ebp)
-    // 在条件变量上睡眠
+    1e5f:	8b 73 04             	mov    0x4(%ebx),%esi
+    1e62:	e8 19 fc ff ff       	call   1a80 <thread_self>
+    1e67:	39 c6                	cmp    %eax,%esi
+    1e69:	74 1d                	je     1e88 <cond_wait+0x38>
+        printf(2, "[uthreads] Error: cond_wait called without holding mutex\n");
+    1e6b:	c7 45 0c 00 36 00 00 	movl   $0x3600,0xc(%ebp)
+    1e72:	c7 45 08 02 00 00 00 	movl   $0x2,0x8(%ebp)
+    thread_wakeup(m->wait_chan);
+    
     thread_sleep(c->wait_chan);
     
-    // 被唤醒后重新获取 mutex
     mutex_lock(m);
 }
-     db9:	8d 65 f4             	lea    -0xc(%ebp),%esp
-     dbc:	5b                   	pop    %ebx
-     dbd:	5e                   	pop    %esi
-     dbe:	5f                   	pop    %edi
-     dbf:	5d                   	pop    %ebp
-        printf(2, "[uthreads] 错误：cond_wait 时未持有 mutex\n");
-     dc0:	e9 4b f7 ff ff       	jmp    510 <printf>
-     dc5:	8d 76 00             	lea    0x0(%esi),%esi
+    1e79:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    1e7c:	5b                   	pop    %ebx
+    1e7d:	5e                   	pop    %esi
+    1e7e:	5f                   	pop    %edi
+    1e7f:	5d                   	pop    %ebp
+        printf(2, "[uthreads] Error: cond_wait called without holding mutex\n");
+    1e80:	e9 4b f7 ff ff       	jmp    15d0 <printf>
+    1e85:	8d 76 00             	lea    0x0(%esi),%esi
     thread_wakeup(m->wait_chan);
-     dc8:	83 ec 0c             	sub    $0xc,%esp
+    1e88:	83 ec 0c             	sub    $0xc,%esp
     m->locked = 0;
-     dcb:	c7 03 00 00 00 00    	movl   $0x0,(%ebx)
+    1e8b:	c7 03 00 00 00 00    	movl   $0x0,(%ebx)
     m->owner = -1;
-     dd1:	c7 43 04 ff ff ff ff 	movl   $0xffffffff,0x4(%ebx)
+    1e91:	c7 43 04 ff ff ff ff 	movl   $0xffffffff,0x4(%ebx)
     thread_wakeup(m->wait_chan);
-     dd8:	ff 73 08             	push   0x8(%ebx)
-     ddb:	e8 70 fe ff ff       	call   c50 <thread_wakeup>
+    1e98:	ff 73 08             	push   0x8(%ebx)
+    1e9b:	e8 70 fe ff ff       	call   1d10 <thread_wakeup>
     thread_sleep(c->wait_chan);
-     de0:	5a                   	pop    %edx
-     de1:	ff 37                	push   (%edi)
-     de3:	e8 48 fe ff ff       	call   c30 <thread_sleep>
+    1ea0:	5a                   	pop    %edx
+    1ea1:	ff 37                	push   (%edi)
+    1ea3:	e8 48 fe ff ff       	call   1cf0 <thread_sleep>
     while (m->locked) {
-     de8:	8b 0b                	mov    (%ebx),%ecx
-     dea:	83 c4 10             	add    $0x10,%esp
-     ded:	85 c9                	test   %ecx,%ecx
-     def:	74 1b                	je     e0c <cond_wait+0x7c>
-     df1:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    1ea8:	8b 0b                	mov    (%ebx),%ecx
+    1eaa:	83 c4 10             	add    $0x10,%esp
+    1ead:	85 c9                	test   %ecx,%ecx
+    1eaf:	74 1b                	je     1ecc <cond_wait+0x7c>
+    1eb1:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
         thread_sleep(m->wait_chan);
-     df8:	83 ec 0c             	sub    $0xc,%esp
-     dfb:	ff 73 08             	push   0x8(%ebx)
-     dfe:	e8 2d fe ff ff       	call   c30 <thread_sleep>
+    1eb8:	83 ec 0c             	sub    $0xc,%esp
+    1ebb:	ff 73 08             	push   0x8(%ebx)
+    1ebe:	e8 2d fe ff ff       	call   1cf0 <thread_sleep>
     while (m->locked) {
-     e03:	8b 03                	mov    (%ebx),%eax
-     e05:	83 c4 10             	add    $0x10,%esp
-     e08:	85 c0                	test   %eax,%eax
-     e0a:	75 ec                	jne    df8 <cond_wait+0x68>
+    1ec3:	8b 03                	mov    (%ebx),%eax
+    1ec5:	83 c4 10             	add    $0x10,%esp
+    1ec8:	85 c0                	test   %eax,%eax
+    1eca:	75 ec                	jne    1eb8 <cond_wait+0x68>
     m->locked = 1;
-     e0c:	c7 03 01 00 00 00    	movl   $0x1,(%ebx)
+    1ecc:	c7 03 01 00 00 00    	movl   $0x1,(%ebx)
     m->owner = thread_self();
-     e12:	e8 a9 fb ff ff       	call   9c0 <thread_self>
-     e17:	89 43 04             	mov    %eax,0x4(%ebx)
+    1ed2:	e8 a9 fb ff ff       	call   1a80 <thread_self>
+    1ed7:	89 43 04             	mov    %eax,0x4(%ebx)
 }
-     e1a:	8d 65 f4             	lea    -0xc(%ebp),%esp
-     e1d:	5b                   	pop    %ebx
-     e1e:	5e                   	pop    %esi
-     e1f:	5f                   	pop    %edi
-     e20:	5d                   	pop    %ebp
-     e21:	c3                   	ret
-     e22:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     e29:	00 
-     e2a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+    1eda:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    1edd:	5b                   	pop    %ebx
+    1ede:	5e                   	pop    %esi
+    1edf:	5f                   	pop    %edi
+    1ee0:	5d                   	pop    %ebp
+    1ee1:	c3                   	ret
+    1ee2:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1ee9:	00 
+    1eea:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
 
-00000e30 <cond_signal>:
+00001ef0 <cond_signal>:
 
 void cond_signal(cond_t *c) {
-     e30:	55                   	push   %ebp
-     e31:	89 e5                	mov    %esp,%ebp
+    1ef0:	55                   	push   %ebp
+    1ef1:	89 e5                	mov    %esp,%ebp
     thread_wakeup(c->wait_chan);
-     e33:	8b 45 08             	mov    0x8(%ebp),%eax
-     e36:	8b 00                	mov    (%eax),%eax
-     e38:	89 45 08             	mov    %eax,0x8(%ebp)
+    1ef3:	8b 45 08             	mov    0x8(%ebp),%eax
+    1ef6:	8b 00                	mov    (%eax),%eax
+    1ef8:	89 45 08             	mov    %eax,0x8(%ebp)
 }
-     e3b:	5d                   	pop    %ebp
+    1efb:	5d                   	pop    %ebp
     thread_wakeup(c->wait_chan);
-     e3c:	e9 0f fe ff ff       	jmp    c50 <thread_wakeup>
-     e41:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     e48:	00 
-     e49:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    1efc:	e9 0f fe ff ff       	jmp    1d10 <thread_wakeup>
+    1f01:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1f08:	00 
+    1f09:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
-00000e50 <cond_broadcast>:
+00001f10 <cond_broadcast>:
 
 void cond_broadcast(cond_t *c) {
-     e50:	55                   	push   %ebp
-     e51:	89 e5                	mov    %esp,%ebp
-     e53:	8b 45 08             	mov    0x8(%ebp),%eax
-     e56:	8b 00                	mov    (%eax),%eax
-     e58:	89 45 08             	mov    %eax,0x8(%ebp)
-     e5b:	5d                   	pop    %ebp
-     e5c:	e9 ef fd ff ff       	jmp    c50 <thread_wakeup>
-     e61:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     e68:	00 
-     e69:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    1f10:	55                   	push   %ebp
+    1f11:	89 e5                	mov    %esp,%ebp
+    1f13:	8b 45 08             	mov    0x8(%ebp),%eax
+    1f16:	8b 00                	mov    (%eax),%eax
+    1f18:	89 45 08             	mov    %eax,0x8(%ebp)
+    1f1b:	5d                   	pop    %ebp
+    1f1c:	e9 ef fd ff ff       	jmp    1d10 <thread_wakeup>
+    1f21:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1f28:	00 
+    1f29:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
-00000e70 <channel_create>:
+00001f30 <channel_create>:
     thread_wakeup(c->wait_chan);
 }
 
-/* ========== Channel 实现 ========== */
-
 channel_t *channel_create(int capacity) {
-     e70:	55                   	push   %ebp
-     e71:	89 e5                	mov    %esp,%ebp
-     e73:	56                   	push   %esi
-     e74:	53                   	push   %ebx
-     e75:	8b 75 08             	mov    0x8(%ebp),%esi
+    1f30:	55                   	push   %ebp
+    1f31:	89 e5                	mov    %esp,%ebp
+    1f33:	56                   	push   %esi
+    1f34:	53                   	push   %ebx
+    1f35:	8b 75 08             	mov    0x8(%ebp),%esi
     channel_t *ch;
     
     if (capacity <= 0) {
-     e78:	85 f6                	test   %esi,%esi
-     e7a:	0f 8e 90 00 00 00    	jle    f10 <channel_create+0xa0>
-        printf(2, "[uthreads] 错误：channel 容量必须大于 0\n");
+    1f38:	85 f6                	test   %esi,%esi
+    1f3a:	0f 8e 90 00 00 00    	jle    1fd0 <channel_create+0xa0>
+        printf(2, "[uthreads] Error: Channel capacity must be greater than 0\n");
         return 0;
     }
     
     ch = (channel_t*)malloc(sizeof(channel_t));
-     e80:	83 ec 0c             	sub    $0xc,%esp
-     e83:	6a 2c                	push   $0x2c
-     e85:	e8 a6 f8 ff ff       	call   730 <malloc>
+    1f40:	83 ec 0c             	sub    $0xc,%esp
+    1f43:	6a 2c                	push   $0x2c
+    1f45:	e8 a6 f8 ff ff       	call   17f0 <malloc>
     if (!ch) {
-     e8a:	83 c4 10             	add    $0x10,%esp
+    1f4a:	83 c4 10             	add    $0x10,%esp
     ch = (channel_t*)malloc(sizeof(channel_t));
-     e8d:	89 c3                	mov    %eax,%ebx
+    1f4d:	89 c3                	mov    %eax,%ebx
     if (!ch) {
-     e8f:	85 c0                	test   %eax,%eax
-     e91:	0f 84 99 00 00 00    	je     f30 <channel_create+0xc0>
-        printf(2, "[uthreads] 错误：channel 分配失败\n");
+    1f4f:	85 c0                	test   %eax,%eax
+    1f51:	0f 84 99 00 00 00    	je     1ff0 <channel_create+0xc0>
+        printf(2, "[uthreads] Error: Channel allocation failed\n");
         return 0;
     }
     
     ch->buffer = (void**)malloc(sizeof(void*) * capacity);
-     e97:	83 ec 0c             	sub    $0xc,%esp
-     e9a:	8d 04 b5 00 00 00 00 	lea    0x0(,%esi,4),%eax
-     ea1:	50                   	push   %eax
-     ea2:	e8 89 f8 ff ff       	call   730 <malloc>
+    1f57:	83 ec 0c             	sub    $0xc,%esp
+    1f5a:	8d 04 b5 00 00 00 00 	lea    0x0(,%esi,4),%eax
+    1f61:	50                   	push   %eax
+    1f62:	e8 89 f8 ff ff       	call   17f0 <malloc>
     if (!ch->buffer) {
-     ea7:	83 c4 10             	add    $0x10,%esp
+    1f67:	83 c4 10             	add    $0x10,%esp
     ch->buffer = (void**)malloc(sizeof(void*) * capacity);
-     eaa:	89 03                	mov    %eax,(%ebx)
+    1f6a:	89 03                	mov    %eax,(%ebx)
     if (!ch->buffer) {
-     eac:	85 c0                	test   %eax,%eax
-     eae:	0f 84 9c 00 00 00    	je     f50 <channel_create+0xe0>
+    1f6c:	85 c0                	test   %eax,%eax
+    1f6e:	0f 84 9c 00 00 00    	je     2010 <channel_create+0xe0>
     ch->count = 0;
     ch->read_idx = 0;
     ch->write_idx = 0;
     ch->is_closed = 0;
     
     mutex_init(&ch->lock);
-     eb4:	8d 43 18             	lea    0x18(%ebx),%eax
+    1f74:	8d 43 18             	lea    0x18(%ebx),%eax
     cond_init(&ch->not_empty);
     cond_init(&ch->not_full);
     
-    printf(1, "[uthreads] Channel 创建成功，容量=%d\n", capacity);
-     eb7:	83 ec 04             	sub    $0x4,%esp
+    printf(1, "[uthreads] Channel created successfully, capacity=%d\n", capacity);
+    1f77:	83 ec 04             	sub    $0x4,%esp
     ch->capacity = capacity;
-     eba:	89 73 04             	mov    %esi,0x4(%ebx)
+    1f7a:	89 73 04             	mov    %esi,0x4(%ebx)
     mutex_init(&ch->lock);
-     ebd:	89 43 20             	mov    %eax,0x20(%ebx)
+    1f7d:	89 43 20             	mov    %eax,0x20(%ebx)
     cond_init(&ch->not_empty);
-     ec0:	8d 43 24             	lea    0x24(%ebx),%eax
-     ec3:	89 43 24             	mov    %eax,0x24(%ebx)
+    1f80:	8d 43 24             	lea    0x24(%ebx),%eax
+    1f83:	89 43 24             	mov    %eax,0x24(%ebx)
     cond_init(&ch->not_full);
-     ec6:	8d 43 28             	lea    0x28(%ebx),%eax
+    1f86:	8d 43 28             	lea    0x28(%ebx),%eax
     ch->count = 0;
-     ec9:	c7 43 08 00 00 00 00 	movl   $0x0,0x8(%ebx)
+    1f89:	c7 43 08 00 00 00 00 	movl   $0x0,0x8(%ebx)
     ch->read_idx = 0;
-     ed0:	c7 43 0c 00 00 00 00 	movl   $0x0,0xc(%ebx)
+    1f90:	c7 43 0c 00 00 00 00 	movl   $0x0,0xc(%ebx)
     ch->write_idx = 0;
-     ed7:	c7 43 10 00 00 00 00 	movl   $0x0,0x10(%ebx)
+    1f97:	c7 43 10 00 00 00 00 	movl   $0x0,0x10(%ebx)
     ch->is_closed = 0;
-     ede:	c7 43 14 00 00 00 00 	movl   $0x0,0x14(%ebx)
+    1f9e:	c7 43 14 00 00 00 00 	movl   $0x0,0x14(%ebx)
     m->locked = 0;
-     ee5:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
+    1fa5:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
     m->owner = -1;
-     eec:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
+    1fac:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
     cond_init(&ch->not_full);
-     ef3:	89 43 28             	mov    %eax,0x28(%ebx)
-    printf(1, "[uthreads] Channel 创建成功，容量=%d\n", capacity);
-     ef6:	56                   	push   %esi
-     ef7:	68 00 18 00 00       	push   $0x1800
-     efc:	6a 01                	push   $0x1
-     efe:	e8 0d f6 ff ff       	call   510 <printf>
+    1fb3:	89 43 28             	mov    %eax,0x28(%ebx)
+    printf(1, "[uthreads] Channel created successfully, capacity=%d\n", capacity);
+    1fb6:	56                   	push   %esi
+    1fb7:	68 dc 36 00 00       	push   $0x36dc
+    1fbc:	6a 01                	push   $0x1
+    1fbe:	e8 0d f6 ff ff       	call   15d0 <printf>
     return ch;
-     f03:	83 c4 10             	add    $0x10,%esp
+    1fc3:	83 c4 10             	add    $0x10,%esp
 }
-     f06:	8d 65 f8             	lea    -0x8(%ebp),%esp
-     f09:	89 d8                	mov    %ebx,%eax
-     f0b:	5b                   	pop    %ebx
-     f0c:	5e                   	pop    %esi
-     f0d:	5d                   	pop    %ebp
-     f0e:	c3                   	ret
-     f0f:	90                   	nop
-        printf(2, "[uthreads] 错误：channel 容量必须大于 0\n");
-     f10:	83 ec 08             	sub    $0x8,%esp
+    1fc6:	8d 65 f8             	lea    -0x8(%ebp),%esp
+    1fc9:	89 d8                	mov    %ebx,%eax
+    1fcb:	5b                   	pop    %ebx
+    1fcc:	5e                   	pop    %esi
+    1fcd:	5d                   	pop    %ebp
+    1fce:	c3                   	ret
+    1fcf:	90                   	nop
+        printf(2, "[uthreads] Error: Channel capacity must be greater than 0\n");
+    1fd0:	83 ec 08             	sub    $0x8,%esp
         return 0;
-     f13:	31 db                	xor    %ebx,%ebx
-        printf(2, "[uthreads] 错误：channel 容量必须大于 0\n");
-     f15:	68 6c 17 00 00       	push   $0x176c
-     f1a:	6a 02                	push   $0x2
-     f1c:	e8 ef f5 ff ff       	call   510 <printf>
+    1fd3:	31 db                	xor    %ebx,%ebx
+        printf(2, "[uthreads] Error: Channel capacity must be greater than 0\n");
+    1fd5:	68 3c 36 00 00       	push   $0x363c
+    1fda:	6a 02                	push   $0x2
+    1fdc:	e8 ef f5 ff ff       	call   15d0 <printf>
         return 0;
-     f21:	83 c4 10             	add    $0x10,%esp
-     f24:	eb e0                	jmp    f06 <channel_create+0x96>
-     f26:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     f2d:	00 
-     f2e:	66 90                	xchg   %ax,%ax
-        printf(2, "[uthreads] 错误：channel 分配失败\n");
-     f30:	83 ec 08             	sub    $0x8,%esp
+    1fe1:	83 c4 10             	add    $0x10,%esp
+    1fe4:	eb e0                	jmp    1fc6 <channel_create+0x96>
+    1fe6:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    1fed:	00 
+    1fee:	66 90                	xchg   %ax,%ax
+        printf(2, "[uthreads] Error: Channel allocation failed\n");
+    1ff0:	83 ec 08             	sub    $0x8,%esp
         return 0;
-     f33:	31 db                	xor    %ebx,%ebx
-        printf(2, "[uthreads] 错误：channel 分配失败\n");
-     f35:	68 a0 17 00 00       	push   $0x17a0
-     f3a:	6a 02                	push   $0x2
-     f3c:	e8 cf f5 ff ff       	call   510 <printf>
+    1ff3:	31 db                	xor    %ebx,%ebx
+        printf(2, "[uthreads] Error: Channel allocation failed\n");
+    1ff5:	68 78 36 00 00       	push   $0x3678
+    1ffa:	6a 02                	push   $0x2
+    1ffc:	e8 cf f5 ff ff       	call   15d0 <printf>
         return 0;
-     f41:	83 c4 10             	add    $0x10,%esp
-     f44:	eb c0                	jmp    f06 <channel_create+0x96>
-     f46:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     f4d:	00 
-     f4e:	66 90                	xchg   %ax,%ax
-        printf(2, "[uthreads] 错误：channel 缓冲区分配失败\n");
-     f50:	83 ec 08             	sub    $0x8,%esp
-     f53:	68 cc 17 00 00       	push   $0x17cc
-     f58:	6a 02                	push   $0x2
-     f5a:	e8 b1 f5 ff ff       	call   510 <printf>
+    2001:	83 c4 10             	add    $0x10,%esp
+    2004:	eb c0                	jmp    1fc6 <channel_create+0x96>
+    2006:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    200d:	00 
+    200e:	66 90                	xchg   %ax,%ax
+        printf(2, "[uthreads] Error: Channel buffer allocation failed\n");
+    2010:	83 ec 08             	sub    $0x8,%esp
+    2013:	68 a8 36 00 00       	push   $0x36a8
+    2018:	6a 02                	push   $0x2
+    201a:	e8 b1 f5 ff ff       	call   15d0 <printf>
         free(ch);
-     f5f:	89 1c 24             	mov    %ebx,(%esp)
+    201f:	89 1c 24             	mov    %ebx,(%esp)
         return 0;
-     f62:	31 db                	xor    %ebx,%ebx
+    2022:	31 db                	xor    %ebx,%ebx
         free(ch);
-     f64:	e8 37 f7 ff ff       	call   6a0 <free>
+    2024:	e8 37 f7 ff ff       	call   1760 <free>
         return 0;
-     f69:	83 c4 10             	add    $0x10,%esp
-     f6c:	eb 98                	jmp    f06 <channel_create+0x96>
-     f6e:	66 90                	xchg   %ax,%ax
+    2029:	83 c4 10             	add    $0x10,%esp
+    202c:	eb 98                	jmp    1fc6 <channel_create+0x96>
+    202e:	66 90                	xchg   %ax,%ax
 
-00000f70 <channel_send>:
+00002030 <channel_send>:
 
 int channel_send(channel_t *ch, void *data) {
-     f70:	55                   	push   %ebp
-     f71:	89 e5                	mov    %esp,%ebp
-     f73:	57                   	push   %edi
-     f74:	56                   	push   %esi
-     f75:	53                   	push   %ebx
-     f76:	83 ec 0c             	sub    $0xc,%esp
-     f79:	8b 5d 08             	mov    0x8(%ebp),%ebx
+    2030:	55                   	push   %ebp
+    2031:	89 e5                	mov    %esp,%ebp
+    2033:	57                   	push   %edi
+    2034:	56                   	push   %esi
+    2035:	53                   	push   %ebx
+    2036:	83 ec 0c             	sub    $0xc,%esp
+    2039:	8b 5d 08             	mov    0x8(%ebp),%ebx
     while (m->locked) {
-     f7c:	8b 7b 18             	mov    0x18(%ebx),%edi
-     f7f:	85 ff                	test   %edi,%edi
-     f81:	74 1a                	je     f9d <channel_send+0x2d>
-     f83:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
+    203c:	8b 7b 18             	mov    0x18(%ebx),%edi
+    203f:	85 ff                	test   %edi,%edi
+    2041:	74 1a                	je     205d <channel_send+0x2d>
+    2043:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
         thread_sleep(m->wait_chan);
-     f88:	83 ec 0c             	sub    $0xc,%esp
-     f8b:	ff 73 20             	push   0x20(%ebx)
-     f8e:	e8 9d fc ff ff       	call   c30 <thread_sleep>
+    2048:	83 ec 0c             	sub    $0xc,%esp
+    204b:	ff 73 20             	push   0x20(%ebx)
+    204e:	e8 9d fc ff ff       	call   1cf0 <thread_sleep>
     while (m->locked) {
-     f93:	8b 73 18             	mov    0x18(%ebx),%esi
-     f96:	83 c4 10             	add    $0x10,%esp
-     f99:	85 f6                	test   %esi,%esi
-     f9b:	75 eb                	jne    f88 <channel_send+0x18>
+    2053:	8b 73 18             	mov    0x18(%ebx),%esi
+    2056:	83 c4 10             	add    $0x10,%esp
+    2059:	85 f6                	test   %esi,%esi
+    205b:	75 eb                	jne    2048 <channel_send+0x18>
     m->locked = 1;
-     f9d:	c7 43 18 01 00 00 00 	movl   $0x1,0x18(%ebx)
+    205d:	c7 43 18 01 00 00 00 	movl   $0x1,0x18(%ebx)
     m->owner = thread_self();
-     fa4:	e8 17 fa ff ff       	call   9c0 <thread_self>
+    2064:	e8 17 fa ff ff       	call   1a80 <thread_self>
     mutex_lock(&ch->lock);
     
     if (ch->is_closed) {
-     fa9:	8b 73 14             	mov    0x14(%ebx),%esi
+    2069:	8b 73 14             	mov    0x14(%ebx),%esi
     m->owner = thread_self();
-     fac:	89 43 1c             	mov    %eax,0x1c(%ebx)
-     faf:	89 c7                	mov    %eax,%edi
+    206c:	89 43 1c             	mov    %eax,0x1c(%ebx)
+    206f:	89 c7                	mov    %eax,%edi
     if (ch->is_closed) {
-     fb1:	85 f6                	test   %esi,%esi
-     fb3:	0f 85 56 01 00 00    	jne    110f <channel_send+0x19f>
+    2071:	85 f6                	test   %esi,%esi
+    2073:	0f 85 56 01 00 00    	jne    21cf <channel_send+0x19f>
         mutex_unlock(&ch->lock);
         return -1;
     }
     
-    // 等待非满
     while (ch->count == ch->capacity && !ch->is_closed) {
-     fb9:	8b 43 04             	mov    0x4(%ebx),%eax
-     fbc:	39 43 08             	cmp    %eax,0x8(%ebx)
-     fbf:	74 34                	je     ff5 <channel_send+0x85>
-     fc1:	e9 9d 00 00 00       	jmp    1063 <channel_send+0xf3>
-     fc6:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
-     fcd:	00 
-     fce:	66 90                	xchg   %ax,%ax
-        printf(2, "[uthreads] 错误：cond_wait 时未持有 mutex\n");
-     fd0:	83 ec 08             	sub    $0x8,%esp
-     fd3:	68 38 17 00 00       	push   $0x1738
-     fd8:	6a 02                	push   $0x2
-     fda:	e8 31 f5 ff ff       	call   510 <printf>
+    2079:	8b 43 04             	mov    0x4(%ebx),%eax
+    207c:	39 43 08             	cmp    %eax,0x8(%ebx)
+    207f:	74 34                	je     20b5 <channel_send+0x85>
+    2081:	e9 9d 00 00 00       	jmp    2123 <channel_send+0xf3>
+    2086:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
+    208d:	00 
+    208e:	66 90                	xchg   %ax,%ax
+        printf(2, "[uthreads] Error: cond_wait called without holding mutex\n");
+    2090:	83 ec 08             	sub    $0x8,%esp
+    2093:	68 00 36 00 00       	push   $0x3600
+    2098:	6a 02                	push   $0x2
+    209a:	e8 31 f5 ff ff       	call   15d0 <printf>
         cond_wait(&ch->not_full, &ch->lock);
     }
     
     if (ch->is_closed) {
-     fdf:	8b 43 14             	mov    0x14(%ebx),%eax
+    209f:	8b 43 14             	mov    0x14(%ebx),%eax
     while (ch->count == ch->capacity && !ch->is_closed) {
-     fe2:	8b 4b 04             	mov    0x4(%ebx),%ecx
+    20a2:	8b 4b 04             	mov    0x4(%ebx),%ecx
         return;
-     fe5:	83 c4 10             	add    $0x10,%esp
+    20a5:	83 c4 10             	add    $0x10,%esp
     while (ch->count == ch->capacity && !ch->is_closed) {
-     fe8:	39 4b 08             	cmp    %ecx,0x8(%ebx)
-     feb:	75 72                	jne    105f <channel_send+0xef>
-     fed:	85 c0                	test   %eax,%eax
-     fef:	0f 85 eb 00 00 00    	jne    10e0 <channel_send+0x170>
+    20a8:	39 4b 08             	cmp    %ecx,0x8(%ebx)
+    20ab:	75 72                	jne    211f <channel_send+0xef>
+    20ad:	85 c0                	test   %eax,%eax
+    20af:	0f 85 eb 00 00 00    	jne    21a0 <channel_send+0x170>
     if (m->owner != thread_self()) {
-     ff5:	8b 7b 1c             	mov    0x1c(%ebx),%edi
-     ff8:	e8 c3 f9 ff ff       	call   9c0 <thread_self>
-     ffd:	39 c7                	cmp    %eax,%edi
-     fff:	75 cf                	jne    fd0 <channel_send+0x60>
+    20b5:	8b 7b 1c             	mov    0x1c(%ebx),%edi
+    20b8:	e8 c3 f9 ff ff       	call   1a80 <thread_self>
+    20bd:	39 c7                	cmp    %eax,%edi
+    20bf:	75 cf                	jne    2090 <channel_send+0x60>
     thread_wakeup(m->wait_chan);
-    1001:	83 ec 0c             	sub    $0xc,%esp
+    20c1:	83 ec 0c             	sub    $0xc,%esp
     m->locked = 0;
-    1004:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
+    20c4:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
     m->owner = -1;
-    100b:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
+    20cb:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
     thread_wakeup(m->wait_chan);
-    1012:	ff 73 20             	push   0x20(%ebx)
-    1015:	e8 36 fc ff ff       	call   c50 <thread_wakeup>
+    20d2:	ff 73 20             	push   0x20(%ebx)
+    20d5:	e8 36 fc ff ff       	call   1d10 <thread_wakeup>
     thread_sleep(c->wait_chan);
-    101a:	5a                   	pop    %edx
-    101b:	ff 73 28             	push   0x28(%ebx)
-    101e:	e8 0d fc ff ff       	call   c30 <thread_sleep>
+    20da:	5a                   	pop    %edx
+    20db:	ff 73 28             	push   0x28(%ebx)
+    20de:	e8 0d fc ff ff       	call   1cf0 <thread_sleep>
     while (m->locked) {
-    1023:	8b 4b 18             	mov    0x18(%ebx),%ecx
-    1026:	83 c4 10             	add    $0x10,%esp
-    1029:	85 c9                	test   %ecx,%ecx
-    102b:	74 18                	je     1045 <channel_send+0xd5>
-    102d:	8d 76 00             	lea    0x0(%esi),%esi
+    20e3:	8b 4b 18             	mov    0x18(%ebx),%ecx
+    20e6:	83 c4 10             	add    $0x10,%esp
+    20e9:	85 c9                	test   %ecx,%ecx
+    20eb:	74 18                	je     2105 <channel_send+0xd5>
+    20ed:	8d 76 00             	lea    0x0(%esi),%esi
         thread_sleep(m->wait_chan);
-    1030:	83 ec 0c             	sub    $0xc,%esp
-    1033:	ff 73 20             	push   0x20(%ebx)
-    1036:	e8 f5 fb ff ff       	call   c30 <thread_sleep>
+    20f0:	83 ec 0c             	sub    $0xc,%esp
+    20f3:	ff 73 20             	push   0x20(%ebx)
+    20f6:	e8 f5 fb ff ff       	call   1cf0 <thread_sleep>
     while (m->locked) {
-    103b:	8b 43 18             	mov    0x18(%ebx),%eax
-    103e:	83 c4 10             	add    $0x10,%esp
-    1041:	85 c0                	test   %eax,%eax
-    1043:	75 eb                	jne    1030 <channel_send+0xc0>
+    20fb:	8b 43 18             	mov    0x18(%ebx),%eax
+    20fe:	83 c4 10             	add    $0x10,%esp
+    2101:	85 c0                	test   %eax,%eax
+    2103:	75 eb                	jne    20f0 <channel_send+0xc0>
     m->locked = 1;
-    1045:	c7 43 18 01 00 00 00 	movl   $0x1,0x18(%ebx)
+    2105:	c7 43 18 01 00 00 00 	movl   $0x1,0x18(%ebx)
     m->owner = thread_self();
-    104c:	e8 6f f9 ff ff       	call   9c0 <thread_self>
+    210c:	e8 6f f9 ff ff       	call   1a80 <thread_self>
     while (ch->count == ch->capacity && !ch->is_closed) {
-    1051:	8b 4b 04             	mov    0x4(%ebx),%ecx
+    2111:	8b 4b 04             	mov    0x4(%ebx),%ecx
     m->owner = thread_self();
-    1054:	89 43 1c             	mov    %eax,0x1c(%ebx)
+    2114:	89 43 1c             	mov    %eax,0x1c(%ebx)
     if (ch->is_closed) {
-    1057:	8b 43 14             	mov    0x14(%ebx),%eax
+    2117:	8b 43 14             	mov    0x14(%ebx),%eax
     while (ch->count == ch->capacity && !ch->is_closed) {
-    105a:	39 4b 08             	cmp    %ecx,0x8(%ebx)
-    105d:	74 8e                	je     fed <channel_send+0x7d>
+    211a:	39 4b 08             	cmp    %ecx,0x8(%ebx)
+    211d:	74 8e                	je     20ad <channel_send+0x7d>
     if (ch->is_closed) {
-    105f:	85 c0                	test   %eax,%eax
-    1061:	75 7d                	jne    10e0 <channel_send+0x170>
+    211f:	85 c0                	test   %eax,%eax
+    2121:	75 7d                	jne    21a0 <channel_send+0x170>
         mutex_unlock(&ch->lock);
         return -1;
     }
     
-    // 写入数据
     ch->buffer[ch->write_idx] = data;
-    1063:	8b 53 10             	mov    0x10(%ebx),%edx
-    1066:	8b 03                	mov    (%ebx),%eax
+    2123:	8b 53 10             	mov    0x10(%ebx),%edx
+    2126:	8b 03                	mov    (%ebx),%eax
     thread_wakeup(c->wait_chan);
-    1068:	83 ec 0c             	sub    $0xc,%esp
+    2128:	83 ec 0c             	sub    $0xc,%esp
     ch->buffer[ch->write_idx] = data;
-    106b:	8b 4d 0c             	mov    0xc(%ebp),%ecx
-    106e:	89 0c 90             	mov    %ecx,(%eax,%edx,4)
+    212b:	8b 4d 0c             	mov    0xc(%ebp),%ecx
+    212e:	89 0c 90             	mov    %ecx,(%eax,%edx,4)
     ch->write_idx = (ch->write_idx + 1) % ch->capacity;
-    1071:	8b 43 10             	mov    0x10(%ebx),%eax
+    2131:	8b 43 10             	mov    0x10(%ebx),%eax
     ch->count++;
-    1074:	83 43 08 01          	addl   $0x1,0x8(%ebx)
+    2134:	83 43 08 01          	addl   $0x1,0x8(%ebx)
     ch->write_idx = (ch->write_idx + 1) % ch->capacity;
-    1078:	83 c0 01             	add    $0x1,%eax
-    107b:	99                   	cltd
-    107c:	f7 7b 04             	idivl  0x4(%ebx)
-    107f:	89 53 10             	mov    %edx,0x10(%ebx)
+    2138:	83 c0 01             	add    $0x1,%eax
+    213b:	99                   	cltd
+    213c:	f7 7b 04             	idivl  0x4(%ebx)
+    213f:	89 53 10             	mov    %edx,0x10(%ebx)
     thread_wakeup(c->wait_chan);
-    1082:	ff 73 24             	push   0x24(%ebx)
-    1085:	e8 c6 fb ff ff       	call   c50 <thread_wakeup>
+    2142:	ff 73 24             	push   0x24(%ebx)
+    2145:	e8 c6 fb ff ff       	call   1d10 <thread_wakeup>
     if (m->owner != thread_self()) {
-    108a:	8b 7b 1c             	mov    0x1c(%ebx),%edi
-    108d:	e8 2e f9 ff ff       	call   9c0 <thread_self>
-    1092:	83 c4 10             	add    $0x10,%esp
-    1095:	39 c7                	cmp    %eax,%edi
-    1097:	75 27                	jne    10c0 <channel_send+0x150>
+    214a:	8b 7b 1c             	mov    0x1c(%ebx),%edi
+    214d:	e8 2e f9 ff ff       	call   1a80 <thread_self>
+    2152:	83 c4 10             	add    $0x10,%esp
+    2155:	39 c7                	cmp    %eax,%edi
+    2157:	75 27                	jne    2180 <channel_send+0x150>
     thread_wakeup(m->wait_chan);
-    1099:	83 ec 0c             	sub    $0xc,%esp
+    2159:	83 ec 0c             	sub    $0xc,%esp
     m->locked = 0;
-    109c:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
+    215c:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
     m->owner = -1;
-    10a3:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
+    2163:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
     thread_wakeup(m->wait_chan);
-    10aa:	ff 73 20             	push   0x20(%ebx)
-    10ad:	e8 9e fb ff ff       	call   c50 <thread_wakeup>
-    10b2:	83 c4 10             	add    $0x10,%esp
-    // 唤醒接收者
+    216a:	ff 73 20             	push   0x20(%ebx)
+    216d:	e8 9e fb ff ff       	call   1d10 <thread_wakeup>
+    2172:	83 c4 10             	add    $0x10,%esp
+    
     cond_signal(&ch->not_empty);
     
     mutex_unlock(&ch->lock);
     return 0;
 }
-    10b5:	8d 65 f4             	lea    -0xc(%ebp),%esp
-    10b8:	89 f0                	mov    %esi,%eax
-    10ba:	5b                   	pop    %ebx
-    10bb:	5e                   	pop    %esi
-    10bc:	5f                   	pop    %edi
-    10bd:	5d                   	pop    %ebp
-    10be:	c3                   	ret
-    10bf:	90                   	nop
-        printf(2, "[uthreads] 错误：试图解锁不属于自己的锁\n");
-    10c0:	83 ec 08             	sub    $0x8,%esp
-    10c3:	68 00 17 00 00       	push   $0x1700
-    10c8:	6a 02                	push   $0x2
-    10ca:	e8 41 f4 ff ff       	call   510 <printf>
+    2175:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    2178:	89 f0                	mov    %esi,%eax
+    217a:	5b                   	pop    %ebx
+    217b:	5e                   	pop    %esi
+    217c:	5f                   	pop    %edi
+    217d:	5d                   	pop    %ebp
+    217e:	c3                   	ret
+    217f:	90                   	nop
+        printf(2, "[uthreads] Error: Trying to unlock mutex not owned by current thread\n");
+    2180:	83 ec 08             	sub    $0x8,%esp
+    2183:	68 b8 35 00 00       	push   $0x35b8
+    2188:	6a 02                	push   $0x2
+    218a:	e8 41 f4 ff ff       	call   15d0 <printf>
         return;
-    10cf:	83 c4 10             	add    $0x10,%esp
+    218f:	83 c4 10             	add    $0x10,%esp
 }
-    10d2:	8d 65 f4             	lea    -0xc(%ebp),%esp
-    10d5:	89 f0                	mov    %esi,%eax
-    10d7:	5b                   	pop    %ebx
-    10d8:	5e                   	pop    %esi
-    10d9:	5f                   	pop    %edi
-    10da:	5d                   	pop    %ebp
-    10db:	c3                   	ret
-    10dc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    2192:	8d 65 f4             	lea    -0xc(%ebp),%esp
+    2195:	89 f0                	mov    %esi,%eax
+    2197:	5b                   	pop    %ebx
+    2198:	5e                   	pop    %esi
+    2199:	5f                   	pop    %edi
+    219a:	5d                   	pop    %ebp
+    219b:	c3                   	ret
+    219c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
     if (m->owner != thread_self()) {
-    10e0:	8b 73 1c             	mov    0x1c(%ebx),%esi
-    10e3:	e8 d8 f8 ff ff       	call   9c0 <thread_self>
-    10e8:	39 c6                	cmp    %eax,%esi
-    10ea:	75 2c                	jne    1118 <channel_send+0x1a8>
+    21a0:	8b 73 1c             	mov    0x1c(%ebx),%esi
+    21a3:	e8 d8 f8 ff ff       	call   1a80 <thread_self>
+    21a8:	39 c6                	cmp    %eax,%esi
+    21aa:	75 2c                	jne    21d8 <channel_send+0x1a8>
     thread_wakeup(m->wait_chan);
-    10ec:	83 ec 0c             	sub    $0xc,%esp
+    21ac:	83 ec 0c             	sub    $0xc,%esp
     m->locked = 0;
-    10ef:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
+    21af:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
     m->owner = -1;
-    10f6:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
+    21b6:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
     thread_wakeup(m->wait_chan);
-    10fd:	ff 73 20             	push   0x20(%ebx)
-    1100:	e8 4b fb ff ff       	call   c50 <thread_wakeup>
-    1105:	83 c4 10             	add    $0x10,%esp
+    21bd:	ff 73 20             	push   0x20(%ebx)
+    21c0:	e8 4b fb ff ff       	call   1d10 <thread_wakeup>
+    21c5:	83 c4 10             	add    $0x10,%esp
         return -1;
-    1108:	be ff ff ff ff       	mov    $0xffffffff,%esi
-    110d:	eb a6                	jmp    10b5 <channel_send+0x145>
+    21c8:	be ff ff ff ff       	mov    $0xffffffff,%esi
+    21cd:	eb a6                	jmp    2175 <channel_send+0x145>
     if (m->owner != thread_self()) {
-    110f:	e8 ac f8 ff ff       	call   9c0 <thread_self>
-    1114:	39 c7                	cmp    %eax,%edi
-    1116:	74 d4                	je     10ec <channel_send+0x17c>
-        printf(2, "[uthreads] 错误：试图解锁不属于自己的锁\n");
-    1118:	83 ec 08             	sub    $0x8,%esp
-    111b:	68 00 17 00 00       	push   $0x1700
-    1120:	6a 02                	push   $0x2
-    1122:	e8 e9 f3 ff ff       	call   510 <printf>
+    21cf:	e8 ac f8 ff ff       	call   1a80 <thread_self>
+    21d4:	39 c7                	cmp    %eax,%edi
+    21d6:	74 d4                	je     21ac <channel_send+0x17c>
+        printf(2, "[uthreads] Error: Trying to unlock mutex not owned by current thread\n");
+    21d8:	83 ec 08             	sub    $0x8,%esp
+    21db:	68 b8 35 00 00       	push   $0x35b8
+    21e0:	6a 02                	push   $0x2
+    21e2:	e8 e9 f3 ff ff       	call   15d0 <printf>
         return;
-    1127:	83 c4 10             	add    $0x10,%esp
-    112a:	eb dc                	jmp    1108 <channel_send+0x198>
-    112c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    21e7:	83 c4 10             	add    $0x10,%esp
+    21ea:	eb dc                	jmp    21c8 <channel_send+0x198>
+    21ec:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-00001130 <channel_recv>:
+000021f0 <channel_recv>:
 
 int channel_recv(channel_t *ch, void **data) {
-    1130:	55                   	push   %ebp
-    1131:	89 e5                	mov    %esp,%ebp
-    1133:	56                   	push   %esi
-    1134:	53                   	push   %ebx
-    1135:	8b 5d 08             	mov    0x8(%ebp),%ebx
+    21f0:	55                   	push   %ebp
+    21f1:	89 e5                	mov    %esp,%ebp
+    21f3:	56                   	push   %esi
+    21f4:	53                   	push   %ebx
+    21f5:	8b 5d 08             	mov    0x8(%ebp),%ebx
     while (m->locked) {
-    1138:	8b 43 18             	mov    0x18(%ebx),%eax
-    113b:	85 c0                	test   %eax,%eax
-    113d:	74 16                	je     1155 <channel_recv+0x25>
-    113f:	90                   	nop
+    21f8:	8b 43 18             	mov    0x18(%ebx),%eax
+    21fb:	85 c0                	test   %eax,%eax
+    21fd:	74 16                	je     2215 <channel_recv+0x25>
+    21ff:	90                   	nop
         thread_sleep(m->wait_chan);
-    1140:	83 ec 0c             	sub    $0xc,%esp
-    1143:	ff 73 20             	push   0x20(%ebx)
-    1146:	e8 e5 fa ff ff       	call   c30 <thread_sleep>
+    2200:	83 ec 0c             	sub    $0xc,%esp
+    2203:	ff 73 20             	push   0x20(%ebx)
+    2206:	e8 e5 fa ff ff       	call   1cf0 <thread_sleep>
     while (m->locked) {
-    114b:	8b 43 18             	mov    0x18(%ebx),%eax
-    114e:	83 c4 10             	add    $0x10,%esp
-    1151:	85 c0                	test   %eax,%eax
-    1153:	75 eb                	jne    1140 <channel_recv+0x10>
+    220b:	8b 43 18             	mov    0x18(%ebx),%eax
+    220e:	83 c4 10             	add    $0x10,%esp
+    2211:	85 c0                	test   %eax,%eax
+    2213:	75 eb                	jne    2200 <channel_recv+0x10>
     m->locked = 1;
-    1155:	c7 43 18 01 00 00 00 	movl   $0x1,0x18(%ebx)
+    2215:	c7 43 18 01 00 00 00 	movl   $0x1,0x18(%ebx)
     m->owner = thread_self();
-    115c:	e8 5f f8 ff ff       	call   9c0 <thread_self>
-    1161:	89 43 1c             	mov    %eax,0x1c(%ebx)
+    221c:	e8 5f f8 ff ff       	call   1a80 <thread_self>
+    2221:	89 43 1c             	mov    %eax,0x1c(%ebx)
     mutex_lock(&ch->lock);
     
-    // 等待非空
     while (ch->count == 0 && !ch->is_closed) {
-    1164:	8b 43 08             	mov    0x8(%ebx),%eax
-    1167:	85 c0                	test   %eax,%eax
-    1169:	74 1e                	je     1189 <channel_recv+0x59>
-    116b:	e9 8b 00 00 00       	jmp    11fb <channel_recv+0xcb>
-        printf(2, "[uthreads] 错误：cond_wait 时未持有 mutex\n");
-    1170:	83 ec 08             	sub    $0x8,%esp
-    1173:	68 38 17 00 00       	push   $0x1738
-    1178:	6a 02                	push   $0x2
-    117a:	e8 91 f3 ff ff       	call   510 <printf>
+    2224:	8b 43 08             	mov    0x8(%ebx),%eax
+    2227:	85 c0                	test   %eax,%eax
+    2229:	74 1e                	je     2249 <channel_recv+0x59>
+    222b:	e9 8b 00 00 00       	jmp    22bb <channel_recv+0xcb>
+        printf(2, "[uthreads] Error: cond_wait called without holding mutex\n");
+    2230:	83 ec 08             	sub    $0x8,%esp
+    2233:	68 00 36 00 00       	push   $0x3600
+    2238:	6a 02                	push   $0x2
+    223a:	e8 91 f3 ff ff       	call   15d0 <printf>
     while (ch->count == 0 && !ch->is_closed) {
-    117f:	8b 53 08             	mov    0x8(%ebx),%edx
+    223f:	8b 53 08             	mov    0x8(%ebx),%edx
         return;
-    1182:	83 c4 10             	add    $0x10,%esp
+    2242:	83 c4 10             	add    $0x10,%esp
     while (ch->count == 0 && !ch->is_closed) {
-    1185:	85 d2                	test   %edx,%edx
-    1187:	75 72                	jne    11fb <channel_recv+0xcb>
-    1189:	8b 43 14             	mov    0x14(%ebx),%eax
+    2245:	85 d2                	test   %edx,%edx
+    2247:	75 72                	jne    22bb <channel_recv+0xcb>
+    2249:	8b 43 14             	mov    0x14(%ebx),%eax
     if (m->owner != thread_self()) {
-    118c:	8b 73 1c             	mov    0x1c(%ebx),%esi
+    224c:	8b 73 1c             	mov    0x1c(%ebx),%esi
     while (ch->count == 0 && !ch->is_closed) {
-    118f:	85 c0                	test   %eax,%eax
-    1191:	0f 85 d9 00 00 00    	jne    1270 <channel_recv+0x140>
+    224f:	85 c0                	test   %eax,%eax
+    2251:	0f 85 d9 00 00 00    	jne    2330 <channel_recv+0x140>
     if (m->owner != thread_self()) {
-    1197:	e8 24 f8 ff ff       	call   9c0 <thread_self>
-    119c:	39 c6                	cmp    %eax,%esi
-    119e:	75 d0                	jne    1170 <channel_recv+0x40>
+    2257:	e8 24 f8 ff ff       	call   1a80 <thread_self>
+    225c:	39 c6                	cmp    %eax,%esi
+    225e:	75 d0                	jne    2230 <channel_recv+0x40>
     thread_wakeup(m->wait_chan);
-    11a0:	83 ec 0c             	sub    $0xc,%esp
+    2260:	83 ec 0c             	sub    $0xc,%esp
     m->locked = 0;
-    11a3:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
+    2263:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
     m->owner = -1;
-    11aa:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
+    226a:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
     thread_wakeup(m->wait_chan);
-    11b1:	ff 73 20             	push   0x20(%ebx)
-    11b4:	e8 97 fa ff ff       	call   c50 <thread_wakeup>
+    2271:	ff 73 20             	push   0x20(%ebx)
+    2274:	e8 97 fa ff ff       	call   1d10 <thread_wakeup>
     thread_sleep(c->wait_chan);
-    11b9:	5e                   	pop    %esi
-    11ba:	ff 73 24             	push   0x24(%ebx)
-    11bd:	e8 6e fa ff ff       	call   c30 <thread_sleep>
+    2279:	5e                   	pop    %esi
+    227a:	ff 73 24             	push   0x24(%ebx)
+    227d:	e8 6e fa ff ff       	call   1cf0 <thread_sleep>
     while (m->locked) {
-    11c2:	8b 43 18             	mov    0x18(%ebx),%eax
-    11c5:	83 c4 10             	add    $0x10,%esp
-    11c8:	85 c0                	test   %eax,%eax
-    11ca:	74 19                	je     11e5 <channel_recv+0xb5>
-    11cc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    2282:	8b 43 18             	mov    0x18(%ebx),%eax
+    2285:	83 c4 10             	add    $0x10,%esp
+    2288:	85 c0                	test   %eax,%eax
+    228a:	74 19                	je     22a5 <channel_recv+0xb5>
+    228c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
         thread_sleep(m->wait_chan);
-    11d0:	83 ec 0c             	sub    $0xc,%esp
-    11d3:	ff 73 20             	push   0x20(%ebx)
-    11d6:	e8 55 fa ff ff       	call   c30 <thread_sleep>
+    2290:	83 ec 0c             	sub    $0xc,%esp
+    2293:	ff 73 20             	push   0x20(%ebx)
+    2296:	e8 55 fa ff ff       	call   1cf0 <thread_sleep>
     while (m->locked) {
-    11db:	8b 4b 18             	mov    0x18(%ebx),%ecx
-    11de:	83 c4 10             	add    $0x10,%esp
-    11e1:	85 c9                	test   %ecx,%ecx
-    11e3:	75 eb                	jne    11d0 <channel_recv+0xa0>
+    229b:	8b 4b 18             	mov    0x18(%ebx),%ecx
+    229e:	83 c4 10             	add    $0x10,%esp
+    22a1:	85 c9                	test   %ecx,%ecx
+    22a3:	75 eb                	jne    2290 <channel_recv+0xa0>
     m->locked = 1;
-    11e5:	c7 43 18 01 00 00 00 	movl   $0x1,0x18(%ebx)
+    22a5:	c7 43 18 01 00 00 00 	movl   $0x1,0x18(%ebx)
     m->owner = thread_self();
-    11ec:	e8 cf f7 ff ff       	call   9c0 <thread_self>
+    22ac:	e8 cf f7 ff ff       	call   1a80 <thread_self>
     while (ch->count == 0 && !ch->is_closed) {
-    11f1:	8b 53 08             	mov    0x8(%ebx),%edx
+    22b1:	8b 53 08             	mov    0x8(%ebx),%edx
     m->owner = thread_self();
-    11f4:	89 43 1c             	mov    %eax,0x1c(%ebx)
+    22b4:	89 43 1c             	mov    %eax,0x1c(%ebx)
     while (ch->count == 0 && !ch->is_closed) {
-    11f7:	85 d2                	test   %edx,%edx
-    11f9:	74 8e                	je     1189 <channel_recv+0x59>
+    22b7:	85 d2                	test   %edx,%edx
+    22b9:	74 8e                	je     2249 <channel_recv+0x59>
+    if (ch->is_closed && ch->count == 0) {
         mutex_unlock(&ch->lock);
         return -1;
     }
     
-    // 读取数据
     *data = ch->buffer[ch->read_idx];
-    11fb:	8b 53 0c             	mov    0xc(%ebx),%edx
-    11fe:	8b 03                	mov    (%ebx),%eax
+    22bb:	8b 53 0c             	mov    0xc(%ebx),%edx
+    22be:	8b 03                	mov    (%ebx),%eax
     thread_wakeup(c->wait_chan);
-    1200:	83 ec 0c             	sub    $0xc,%esp
+    22c0:	83 ec 0c             	sub    $0xc,%esp
     *data = ch->buffer[ch->read_idx];
-    1203:	8b 14 90             	mov    (%eax,%edx,4),%edx
-    1206:	8b 45 0c             	mov    0xc(%ebp),%eax
-    1209:	89 10                	mov    %edx,(%eax)
+    22c3:	8b 14 90             	mov    (%eax,%edx,4),%edx
+    22c6:	8b 45 0c             	mov    0xc(%ebp),%eax
+    22c9:	89 10                	mov    %edx,(%eax)
     ch->read_idx = (ch->read_idx + 1) % ch->capacity;
-    120b:	8b 43 0c             	mov    0xc(%ebx),%eax
+    22cb:	8b 43 0c             	mov    0xc(%ebx),%eax
     ch->count--;
-    120e:	83 6b 08 01          	subl   $0x1,0x8(%ebx)
+    22ce:	83 6b 08 01          	subl   $0x1,0x8(%ebx)
     ch->read_idx = (ch->read_idx + 1) % ch->capacity;
-    1212:	83 c0 01             	add    $0x1,%eax
-    1215:	99                   	cltd
-    1216:	f7 7b 04             	idivl  0x4(%ebx)
-    1219:	89 53 0c             	mov    %edx,0xc(%ebx)
+    22d2:	83 c0 01             	add    $0x1,%eax
+    22d5:	99                   	cltd
+    22d6:	f7 7b 04             	idivl  0x4(%ebx)
+    22d9:	89 53 0c             	mov    %edx,0xc(%ebx)
     thread_wakeup(c->wait_chan);
-    121c:	ff 73 28             	push   0x28(%ebx)
-    121f:	e8 2c fa ff ff       	call   c50 <thread_wakeup>
+    22dc:	ff 73 28             	push   0x28(%ebx)
+    22df:	e8 2c fa ff ff       	call   1d10 <thread_wakeup>
     if (m->owner != thread_self()) {
-    1224:	8b 73 1c             	mov    0x1c(%ebx),%esi
-    1227:	e8 94 f7 ff ff       	call   9c0 <thread_self>
-    122c:	83 c4 10             	add    $0x10,%esp
-    122f:	39 c6                	cmp    %eax,%esi
-    1231:	74 1d                	je     1250 <channel_recv+0x120>
-        printf(2, "[uthreads] 错误：试图解锁不属于自己的锁\n");
-    1233:	83 ec 08             	sub    $0x8,%esp
-    1236:	68 00 17 00 00       	push   $0x1700
-    123b:	6a 02                	push   $0x2
-    123d:	e8 ce f2 ff ff       	call   510 <printf>
+    22e4:	8b 73 1c             	mov    0x1c(%ebx),%esi
+    22e7:	e8 94 f7 ff ff       	call   1a80 <thread_self>
+    22ec:	83 c4 10             	add    $0x10,%esp
+    22ef:	39 c6                	cmp    %eax,%esi
+    22f1:	74 1d                	je     2310 <channel_recv+0x120>
+        printf(2, "[uthreads] Error: Trying to unlock mutex not owned by current thread\n");
+    22f3:	83 ec 08             	sub    $0x8,%esp
+    22f6:	68 b8 35 00 00       	push   $0x35b8
+    22fb:	6a 02                	push   $0x2
+    22fd:	e8 ce f2 ff ff       	call   15d0 <printf>
         return;
-    1242:	83 c4 10             	add    $0x10,%esp
+    2302:	83 c4 10             	add    $0x10,%esp
     
-    // 唤醒发送者
     cond_signal(&ch->not_full);
     
     mutex_unlock(&ch->lock);
     return 0;
-    1245:	31 c0                	xor    %eax,%eax
+    2305:	31 c0                	xor    %eax,%eax
 }
-    1247:	8d 65 f8             	lea    -0x8(%ebp),%esp
-    124a:	5b                   	pop    %ebx
-    124b:	5e                   	pop    %esi
-    124c:	5d                   	pop    %ebp
-    124d:	c3                   	ret
-    124e:	66 90                	xchg   %ax,%ax
+    2307:	8d 65 f8             	lea    -0x8(%ebp),%esp
+    230a:	5b                   	pop    %ebx
+    230b:	5e                   	pop    %esi
+    230c:	5d                   	pop    %ebp
+    230d:	c3                   	ret
+    230e:	66 90                	xchg   %ax,%ax
     thread_wakeup(m->wait_chan);
-    1250:	83 ec 0c             	sub    $0xc,%esp
+    2310:	83 ec 0c             	sub    $0xc,%esp
     m->locked = 0;
-    1253:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
+    2313:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
     m->owner = -1;
-    125a:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
+    231a:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
     thread_wakeup(m->wait_chan);
-    1261:	ff 73 20             	push   0x20(%ebx)
-    1264:	e8 e7 f9 ff ff       	call   c50 <thread_wakeup>
-    1269:	83 c4 10             	add    $0x10,%esp
-    126c:	eb d7                	jmp    1245 <channel_recv+0x115>
-    126e:	66 90                	xchg   %ax,%ax
+    2321:	ff 73 20             	push   0x20(%ebx)
+    2324:	e8 e7 f9 ff ff       	call   1d10 <thread_wakeup>
+    2329:	83 c4 10             	add    $0x10,%esp
+    232c:	eb d7                	jmp    2305 <channel_recv+0x115>
+    232e:	66 90                	xchg   %ax,%ax
     if (m->owner != thread_self()) {
-    1270:	e8 4b f7 ff ff       	call   9c0 <thread_self>
-    1275:	39 c6                	cmp    %eax,%esi
-    1277:	74 19                	je     1292 <channel_recv+0x162>
-        printf(2, "[uthreads] 错误：试图解锁不属于自己的锁\n");
-    1279:	83 ec 08             	sub    $0x8,%esp
-    127c:	68 00 17 00 00       	push   $0x1700
-    1281:	6a 02                	push   $0x2
-    1283:	e8 88 f2 ff ff       	call   510 <printf>
+    2330:	e8 4b f7 ff ff       	call   1a80 <thread_self>
+    2335:	39 c6                	cmp    %eax,%esi
+    2337:	74 19                	je     2352 <channel_recv+0x162>
+        printf(2, "[uthreads] Error: Trying to unlock mutex not owned by current thread\n");
+    2339:	83 ec 08             	sub    $0x8,%esp
+    233c:	68 b8 35 00 00       	push   $0x35b8
+    2341:	6a 02                	push   $0x2
+    2343:	e8 88 f2 ff ff       	call   15d0 <printf>
         return;
-    1288:	83 c4 10             	add    $0x10,%esp
+    2348:	83 c4 10             	add    $0x10,%esp
         return -1;
-    128b:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-    1290:	eb b5                	jmp    1247 <channel_recv+0x117>
+    234b:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+    2350:	eb b5                	jmp    2307 <channel_recv+0x117>
     thread_wakeup(m->wait_chan);
-    1292:	83 ec 0c             	sub    $0xc,%esp
+    2352:	83 ec 0c             	sub    $0xc,%esp
     m->locked = 0;
-    1295:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
+    2355:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
     m->owner = -1;
-    129c:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
+    235c:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
     thread_wakeup(m->wait_chan);
-    12a3:	ff 73 20             	push   0x20(%ebx)
-    12a6:	e8 a5 f9 ff ff       	call   c50 <thread_wakeup>
-    12ab:	83 c4 10             	add    $0x10,%esp
-    12ae:	eb db                	jmp    128b <channel_recv+0x15b>
+    2363:	ff 73 20             	push   0x20(%ebx)
+    2366:	e8 a5 f9 ff ff       	call   1d10 <thread_wakeup>
+    236b:	83 c4 10             	add    $0x10,%esp
+    236e:	eb db                	jmp    234b <channel_recv+0x15b>
 
-000012b0 <channel_close>:
+00002370 <channel_close>:
 
 void channel_close(channel_t *ch) {
-    12b0:	55                   	push   %ebp
-    12b1:	89 e5                	mov    %esp,%ebp
-    12b3:	56                   	push   %esi
-    12b4:	53                   	push   %ebx
-    12b5:	8b 5d 08             	mov    0x8(%ebp),%ebx
+    2370:	55                   	push   %ebp
+    2371:	89 e5                	mov    %esp,%ebp
+    2373:	56                   	push   %esi
+    2374:	53                   	push   %ebx
+    2375:	8b 5d 08             	mov    0x8(%ebp),%ebx
     while (m->locked) {
-    12b8:	8b 4b 18             	mov    0x18(%ebx),%ecx
-    12bb:	85 c9                	test   %ecx,%ecx
-    12bd:	74 16                	je     12d5 <channel_close+0x25>
-    12bf:	90                   	nop
+    2378:	8b 4b 18             	mov    0x18(%ebx),%ecx
+    237b:	85 c9                	test   %ecx,%ecx
+    237d:	74 16                	je     2395 <channel_close+0x25>
+    237f:	90                   	nop
         thread_sleep(m->wait_chan);
-    12c0:	83 ec 0c             	sub    $0xc,%esp
-    12c3:	ff 73 20             	push   0x20(%ebx)
-    12c6:	e8 65 f9 ff ff       	call   c30 <thread_sleep>
+    2380:	83 ec 0c             	sub    $0xc,%esp
+    2383:	ff 73 20             	push   0x20(%ebx)
+    2386:	e8 65 f9 ff ff       	call   1cf0 <thread_sleep>
     while (m->locked) {
-    12cb:	8b 53 18             	mov    0x18(%ebx),%edx
-    12ce:	83 c4 10             	add    $0x10,%esp
-    12d1:	85 d2                	test   %edx,%edx
-    12d3:	75 eb                	jne    12c0 <channel_close+0x10>
+    238b:	8b 53 18             	mov    0x18(%ebx),%edx
+    238e:	83 c4 10             	add    $0x10,%esp
+    2391:	85 d2                	test   %edx,%edx
+    2393:	75 eb                	jne    2380 <channel_close+0x10>
     m->locked = 1;
-    12d5:	c7 43 18 01 00 00 00 	movl   $0x1,0x18(%ebx)
+    2395:	c7 43 18 01 00 00 00 	movl   $0x1,0x18(%ebx)
     m->owner = thread_self();
-    12dc:	e8 df f6 ff ff       	call   9c0 <thread_self>
+    239c:	e8 df f6 ff ff       	call   1a80 <thread_self>
     thread_wakeup(c->wait_chan);
-    12e1:	83 ec 0c             	sub    $0xc,%esp
+    23a1:	83 ec 0c             	sub    $0xc,%esp
     mutex_lock(&ch->lock);
     
     ch->is_closed = 1;
-    12e4:	c7 43 14 01 00 00 00 	movl   $0x1,0x14(%ebx)
+    23a4:	c7 43 14 01 00 00 00 	movl   $0x1,0x14(%ebx)
     m->owner = thread_self();
-    12eb:	89 43 1c             	mov    %eax,0x1c(%ebx)
+    23ab:	89 43 1c             	mov    %eax,0x1c(%ebx)
     thread_wakeup(c->wait_chan);
-    12ee:	ff 73 24             	push   0x24(%ebx)
-    12f1:	e8 5a f9 ff ff       	call   c50 <thread_wakeup>
-    12f6:	58                   	pop    %eax
-    12f7:	ff 73 28             	push   0x28(%ebx)
-    12fa:	e8 51 f9 ff ff       	call   c50 <thread_wakeup>
+    23ae:	ff 73 24             	push   0x24(%ebx)
+    23b1:	e8 5a f9 ff ff       	call   1d10 <thread_wakeup>
+    23b6:	58                   	pop    %eax
+    23b7:	ff 73 28             	push   0x28(%ebx)
+    23ba:	e8 51 f9 ff ff       	call   1d10 <thread_wakeup>
     if (m->owner != thread_self()) {
-    12ff:	8b 73 1c             	mov    0x1c(%ebx),%esi
-    1302:	e8 b9 f6 ff ff       	call   9c0 <thread_self>
-    1307:	83 c4 10             	add    $0x10,%esp
-    130a:	39 c6                	cmp    %eax,%esi
-    130c:	74 32                	je     1340 <channel_close+0x90>
-        printf(2, "[uthreads] 错误：试图解锁不属于自己的锁\n");
-    130e:	83 ec 08             	sub    $0x8,%esp
-    1311:	68 00 17 00 00       	push   $0x1700
-    1316:	6a 02                	push   $0x2
-    1318:	e8 f3 f1 ff ff       	call   510 <printf>
+    23bf:	8b 73 1c             	mov    0x1c(%ebx),%esi
+    23c2:	e8 b9 f6 ff ff       	call   1a80 <thread_self>
+    23c7:	83 c4 10             	add    $0x10,%esp
+    23ca:	39 c6                	cmp    %eax,%esi
+    23cc:	74 32                	je     2400 <channel_close+0x90>
+        printf(2, "[uthreads] Error: Trying to unlock mutex not owned by current thread\n");
+    23ce:	83 ec 08             	sub    $0x8,%esp
+    23d1:	68 b8 35 00 00       	push   $0x35b8
+    23d6:	6a 02                	push   $0x2
+    23d8:	e8 f3 f1 ff ff       	call   15d0 <printf>
         return;
-    131d:	83 c4 10             	add    $0x10,%esp
+    23dd:	83 c4 10             	add    $0x10,%esp
     cond_broadcast(&ch->not_empty);
     cond_broadcast(&ch->not_full);
     
     mutex_unlock(&ch->lock);
     
-    printf(1, "[uthreads] Channel 已关闭\n");
-    1320:	83 ec 08             	sub    $0x8,%esp
-    1323:	68 4c 14 00 00       	push   $0x144c
-    1328:	6a 01                	push   $0x1
-    132a:	e8 e1 f1 ff ff       	call   510 <printf>
+    printf(1, "[uthreads] Channel closed\n");
+    23e0:	83 ec 08             	sub    $0x8,%esp
+    23e3:	68 7a 26 00 00       	push   $0x267a
+    23e8:	6a 01                	push   $0x1
+    23ea:	e8 e1 f1 ff ff       	call   15d0 <printf>
 }
-    132f:	83 c4 10             	add    $0x10,%esp
-    1332:	8d 65 f8             	lea    -0x8(%ebp),%esp
-    1335:	5b                   	pop    %ebx
-    1336:	5e                   	pop    %esi
-    1337:	5d                   	pop    %ebp
-    1338:	c3                   	ret
-    1339:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+    23ef:	83 c4 10             	add    $0x10,%esp
+    23f2:	8d 65 f8             	lea    -0x8(%ebp),%esp
+    23f5:	5b                   	pop    %ebx
+    23f6:	5e                   	pop    %esi
+    23f7:	5d                   	pop    %ebp
+    23f8:	c3                   	ret
+    23f9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
     thread_wakeup(m->wait_chan);
-    1340:	83 ec 0c             	sub    $0xc,%esp
+    2400:	83 ec 0c             	sub    $0xc,%esp
     m->locked = 0;
-    1343:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
+    2403:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%ebx)
     m->owner = -1;
-    134a:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
+    240a:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
     thread_wakeup(m->wait_chan);
-    1351:	ff 73 20             	push   0x20(%ebx)
-    1354:	e8 f7 f8 ff ff       	call   c50 <thread_wakeup>
-    1359:	83 c4 10             	add    $0x10,%esp
-    135c:	eb c2                	jmp    1320 <channel_close+0x70>
-    135e:	66 90                	xchg   %ax,%ax
+    2411:	ff 73 20             	push   0x20(%ebx)
+    2414:	e8 f7 f8 ff ff       	call   1d10 <thread_wakeup>
+    2419:	83 c4 10             	add    $0x10,%esp
+    241c:	eb c2                	jmp    23e0 <channel_close+0x70>
+    241e:	66 90                	xchg   %ax,%ax
 
-00001360 <channel_destroy>:
+00002420 <channel_destroy>:
 
 void channel_destroy(channel_t *ch) {
-    1360:	55                   	push   %ebp
-    1361:	89 e5                	mov    %esp,%ebp
-    1363:	53                   	push   %ebx
-    1364:	83 ec 04             	sub    $0x4,%esp
-    1367:	8b 5d 08             	mov    0x8(%ebp),%ebx
+    2420:	55                   	push   %ebp
+    2421:	89 e5                	mov    %esp,%ebp
+    2423:	53                   	push   %ebx
+    2424:	83 ec 04             	sub    $0x4,%esp
+    2427:	8b 5d 08             	mov    0x8(%ebp),%ebx
     if (!ch)
-    136a:	85 db                	test   %ebx,%ebx
-    136c:	74 22                	je     1390 <channel_destroy+0x30>
+    242a:	85 db                	test   %ebx,%ebx
+    242c:	74 22                	je     2450 <channel_destroy+0x30>
         return;
     
     if (ch->buffer) {
-    136e:	8b 03                	mov    (%ebx),%eax
-    1370:	85 c0                	test   %eax,%eax
-    1372:	74 0c                	je     1380 <channel_destroy+0x20>
+    242e:	8b 03                	mov    (%ebx),%eax
+    2430:	85 c0                	test   %eax,%eax
+    2432:	74 0c                	je     2440 <channel_destroy+0x20>
         free(ch->buffer);
-    1374:	83 ec 0c             	sub    $0xc,%esp
-    1377:	50                   	push   %eax
-    1378:	e8 23 f3 ff ff       	call   6a0 <free>
-    137d:	83 c4 10             	add    $0x10,%esp
+    2434:	83 ec 0c             	sub    $0xc,%esp
+    2437:	50                   	push   %eax
+    2438:	e8 23 f3 ff ff       	call   1760 <free>
+    243d:	83 c4 10             	add    $0x10,%esp
     }
     free(ch);
-    1380:	89 5d 08             	mov    %ebx,0x8(%ebp)
+    2440:	89 5d 08             	mov    %ebx,0x8(%ebp)
 }
-    1383:	8b 5d fc             	mov    -0x4(%ebp),%ebx
-    1386:	c9                   	leave
+    2443:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+    2446:	c9                   	leave
     free(ch);
-    1387:	e9 14 f3 ff ff       	jmp    6a0 <free>
-    138c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    2447:	e9 14 f3 ff ff       	jmp    1760 <free>
+    244c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 }
-    1390:	8b 5d fc             	mov    -0x4(%ebp),%ebx
-    1393:	c9                   	leave
-    1394:	c3                   	ret
+    2450:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+    2453:	c9                   	leave
+    2454:	c3                   	ret
 
-00001395 <thread_switch>:
-
+00002455 <thread_switch>:
 .text
 .globl thread_switch
 thread_switch:
-    # 获取参数
-    movl 4(%esp), %eax      # eax = old
-    1395:	8b 44 24 04          	mov    0x4(%esp),%eax
-    movl 8(%esp), %edx      # edx = new
-    1399:	8b 54 24 08          	mov    0x8(%esp),%edx
+    movl 4(%esp), %eax
+    2455:	8b 44 24 04          	mov    0x4(%esp),%eax
+    movl 8(%esp), %edx
+    2459:	8b 54 24 08          	mov    0x8(%esp),%edx
     
-    # 保存 old 的上下文
-    movl %ebx, 4(%eax)      # 保存 ebx
-    139d:	89 58 04             	mov    %ebx,0x4(%eax)
-    movl %ecx, 8(%eax)      # 保存 ecx
-    13a0:	89 48 08             	mov    %ecx,0x8(%eax)
-    movl %esi, 16(%eax)     # 保存 esi
-    13a3:	89 70 10             	mov    %esi,0x10(%eax)
-    movl %edi, 20(%eax)     # 保存 edi
-    13a6:	89 78 14             	mov    %edi,0x14(%eax)
-    movl %ebp, 24(%eax)     # 保存 ebp
-    13a9:	89 68 18             	mov    %ebp,0x18(%eax)
-    movl %esp, 28(%eax)     # 保存 esp
-    13ac:	89 60 1c             	mov    %esp,0x1c(%eax)
+    movl %ebx, 4(%eax)
+    245d:	89 58 04             	mov    %ebx,0x4(%eax)
+    movl %ecx, 8(%eax)
+    2460:	89 48 08             	mov    %ecx,0x8(%eax)
+    movl %esi, 16(%eax)
+    2463:	89 70 10             	mov    %esi,0x10(%eax)
+    movl %edi, 20(%eax)
+    2466:	89 78 14             	mov    %edi,0x14(%eax)
+    movl %ebp, 24(%eax)
+    2469:	89 68 18             	mov    %ebp,0x18(%eax)
+    movl %esp, 28(%eax)
+    246c:	89 60 1c             	mov    %esp,0x1c(%eax)
     
-    # 保存返回地址 (eip)
     movl (%esp), %ecx
-    13af:	8b 0c 24             	mov    (%esp),%ecx
+    246f:	8b 0c 24             	mov    (%esp),%ecx
     movl %ecx, 32(%eax)
-    13b2:	89 48 20             	mov    %ecx,0x20(%eax)
+    2472:	89 48 20             	mov    %ecx,0x20(%eax)
     
-    # 恢复 new 的上下文
-    movl 4(%edx), %ebx      # 恢复 ebx
-    13b5:	8b 5a 04             	mov    0x4(%edx),%ebx
-    movl 8(%edx), %ecx      # 恢复 ecx
-    13b8:	8b 4a 08             	mov    0x8(%edx),%ecx
-    movl 16(%edx), %esi     # 恢复 esi
-    13bb:	8b 72 10             	mov    0x10(%edx),%esi
-    movl 20(%edx), %edi     # 恢复 edi
-    13be:	8b 7a 14             	mov    0x14(%edx),%edi
-    movl 24(%edx), %ebp     # 恢复 ebp
-    13c1:	8b 6a 18             	mov    0x18(%edx),%ebp
-    movl 28(%edx), %esp     # 恢复 esp
-    13c4:	8b 62 1c             	mov    0x1c(%edx),%esp
+    movl 4(%edx), %ebx
+    2475:	8b 5a 04             	mov    0x4(%edx),%ebx
+    movl 8(%edx), %ecx
+    2478:	8b 4a 08             	mov    0x8(%edx),%ecx
+    movl 16(%edx), %esi
+    247b:	8b 72 10             	mov    0x10(%edx),%esi
+    movl 20(%edx), %edi
+    247e:	8b 7a 14             	mov    0x14(%edx),%edi
+    movl 24(%edx), %ebp
+    2481:	8b 6a 18             	mov    0x18(%edx),%ebp
+    movl 28(%edx), %esp
+    2484:	8b 62 1c             	mov    0x1c(%edx),%esp
     
-    # 恢复 eip（返回地址）
     movl 32(%edx), %eax
-    13c7:	8b 42 20             	mov    0x20(%edx),%eax
+    2487:	8b 42 20             	mov    0x20(%edx),%eax
     movl %eax, (%esp)
-    13ca:	89 04 24             	mov    %eax,(%esp)
+    248a:	89 04 24             	mov    %eax,(%esp)
     
-    # 返回（跳转到新线程）
     ret
-    13cd:	c3                   	ret
+    248d:	c3                   	ret

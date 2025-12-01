@@ -6,7 +6,7 @@ Disassembly of section .text:
 
 00000000 <main>:
     
-    printf(1, "[写者%d] 完成\n", id);
+    printf(1, "[Writer%d] Finished\n", id);
     return 0;
 }
 
@@ -19,36 +19,36 @@ int main(int argc, char *argv[]) {
        d:	57                   	push   %edi
        e:	56                   	push   %esi
        f:	53                   	push   %ebx
+    printf(1, "========================================\n\n");
     
     thread_init();
     rwlock_init(&rwlock);
     
-    // 创建读者
     for (i = 0; i < NUM_READERS; i++) {
       10:	31 db                	xor    %ebx,%ebx
 int main(int argc, char *argv[]) {
       12:	51                   	push   %ecx
       13:	83 ec 40             	sub    $0x40,%esp
     printf(1, "========================================\n");
-      16:	68 d0 18 00 00       	push   $0x18d0
+      16:	68 dc 18 00 00       	push   $0x18dc
       1b:	6a 01                	push   $0x1
       1d:	e8 8e 08 00 00       	call   8b0 <printf>
-    printf(1, "      写优先读写锁示例\n");
+    printf(1, "  Writer-Priority Reader-Writer Lock Example\n");
       22:	5e                   	pop    %esi
       23:	5f                   	pop    %edi
-      24:	68 fc 18 00 00       	push   $0x18fc
+      24:	68 08 19 00 00       	push   $0x1908
       29:	6a 01                	push   $0x1
       2b:	e8 80 08 00 00       	call   8b0 <printf>
     printf(1, "========================================\n\n");
       30:	58                   	pop    %eax
       31:	5a                   	pop    %edx
-      32:	68 1c 19 00 00       	push   $0x191c
+      32:	68 38 19 00 00       	push   $0x1938
       37:	6a 01                	push   $0x1
       39:	e8 72 08 00 00       	call   8b0 <printf>
     thread_init();
       3e:	e8 7d 0b 00 00       	call   bc0 <thread_init>
     rwlock_init(&rwlock);
-      43:	c7 04 24 a0 24 00 00 	movl   $0x24a0,(%esp)
+      43:	c7 04 24 00 25 00 00 	movl   $0x2500,(%esp)
       4a:	e8 01 02 00 00       	call   250 <rwlock_init>
       4f:	83 c4 10             	add    $0x10,%esp
       52:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
@@ -67,7 +67,6 @@ int main(int argc, char *argv[]) {
       73:	75 e3                	jne    58 <main+0x58>
     }
     
-    // 创建写者
     for (i = 0; i < NUM_WRITERS; i++) {
         writer_tids[i] = thread_create(writer, (void*)i);
       75:	83 ec 08             	sub    $0x8,%esp
@@ -83,18 +82,17 @@ int main(int argc, char *argv[]) {
       92:	e8 b9 0b 00 00       	call   c50 <thread_create>
     }
     
-    printf(1, "所有线程已创建，开始执行...\n\n");
+    printf(1, "All threads created, starting execution...\n\n");
       97:	59                   	pop    %ecx
       98:	5b                   	pop    %ebx
-      99:	68 48 19 00 00       	push   $0x1948
+      99:	68 64 19 00 00       	push   $0x1964
       9e:	6a 01                	push   $0x1
       a0:	8d 5d e8             	lea    -0x18(%ebp),%ebx
         writer_tids[i] = thread_create(writer, (void*)i);
       a3:	89 45 c4             	mov    %eax,-0x3c(%ebp)
-    printf(1, "所有线程已创建，开始执行...\n\n");
+    printf(1, "All threads created, starting execution...\n\n");
       a6:	e8 05 08 00 00       	call   8b0 <printf>
     
-    // 等待所有线程完成
     for (i = 0; i < NUM_READERS; i++) {
       ab:	83 c4 10             	add    $0x10,%esp
       ae:	66 90                	xchg   %ax,%ax
@@ -124,24 +122,24 @@ int main(int argc, char *argv[]) {
     printf(1, "\n========================================\n");
       d6:	5a                   	pop    %edx
       d7:	59                   	pop    %ecx
-      d8:	68 74 19 00 00       	push   $0x1974
+      d8:	68 94 19 00 00       	push   $0x1994
       dd:	6a 01                	push   $0x1
       df:	e8 cc 07 00 00       	call   8b0 <printf>
-    printf(1, "所有线程已完成！\n");
+    printf(1, "All threads finished!\n");
       e4:	5b                   	pop    %ebx
       e5:	5e                   	pop    %esi
-      e6:	68 26 18 00 00       	push   $0x1826
+      e6:	68 dc 17 00 00       	push   $0x17dc
       eb:	6a 01                	push   $0x1
       ed:	e8 be 07 00 00       	call   8b0 <printf>
-    printf(1, "最终数据值：%d（预期：%d）\n", shared_data, NUM_WRITERS * WRITE_TIMES);
+    printf(1, "Final data value: %d (expected: %d)\n", shared_data, NUM_WRITERS * WRITE_TIMES);
       f2:	6a 06                	push   $0x6
-      f4:	ff 35 80 24 00 00    	push   0x2480
-      fa:	68 a0 19 00 00       	push   $0x19a0
+      f4:	ff 35 e0 24 00 00    	push   0x24e0
+      fa:	68 c0 19 00 00       	push   $0x19c0
       ff:	6a 01                	push   $0x1
      101:	e8 aa 07 00 00       	call   8b0 <printf>
     printf(1, "========================================\n");
      106:	83 c4 18             	add    $0x18,%esp
-     109:	68 d0 18 00 00       	push   $0x18d0
+     109:	68 dc 18 00 00       	push   $0x18dc
      10e:	6a 01                	push   $0x1
      110:	e8 9b 07 00 00       	call   8b0 <printf>
     
@@ -156,26 +154,26 @@ void *reader(void *arg) {
      120:	55                   	push   %ebp
      121:	89 e5                	mov    %esp,%ebp
      123:	56                   	push   %esi
-    printf(1, "[读者%d] 启动\n", id);
+    printf(1, "[Reader%d] Start\n", id);
      124:	be 03 00 00 00       	mov    $0x3,%esi
 void *reader(void *arg) {
      129:	53                   	push   %ebx
      12a:	8b 5d 08             	mov    0x8(%ebp),%ebx
-    printf(1, "[读者%d] 启动\n", id);
+    printf(1, "[Reader%d] Start\n", id);
      12d:	83 ec 04             	sub    $0x4,%esp
      130:	53                   	push   %ebx
      131:	68 70 17 00 00       	push   $0x1770
      136:	6a 01                	push   $0x1
      138:	e8 73 07 00 00       	call   8b0 <printf>
      13d:	83 c4 10             	add    $0x10,%esp
-        printf(1, "[读者%d] 请求读锁...\n", id);
+        printf(1, "[Reader%d] Request read lock...\n", id);
      140:	83 ec 04             	sub    $0x4,%esp
      143:	53                   	push   %ebx
-     144:	68 83 17 00 00       	push   $0x1783
+     144:	68 18 18 00 00       	push   $0x1818
      149:	6a 01                	push   $0x1
      14b:	e8 60 07 00 00       	call   8b0 <printf>
     mutex_lock(&rw->lock);
-     150:	c7 04 24 a0 24 00 00 	movl   $0x24a0,(%esp)
+     150:	c7 04 24 00 25 00 00 	movl   $0x2500,(%esp)
      157:	e8 f4 0e 00 00       	call   1050 <mutex_lock>
     while (rw->active_writers > 0 || rw->waiting_writers > 0) {
      15c:	83 c4 10             	add    $0x10,%esp
@@ -183,28 +181,28 @@ void *reader(void *arg) {
      161:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
         cond_wait(&rw->can_read, &rw->lock);
      168:	83 ec 08             	sub    $0x8,%esp
-     16b:	68 a0 24 00 00       	push   $0x24a0
-     170:	68 ac 24 00 00       	push   $0x24ac
+     16b:	68 00 25 00 00       	push   $0x2500
+     170:	68 0c 25 00 00       	push   $0x250c
      175:	e8 b6 0f 00 00       	call   1130 <cond_wait>
      17a:	83 c4 10             	add    $0x10,%esp
     while (rw->active_writers > 0 || rw->waiting_writers > 0) {
-     17d:	8b 15 b8 24 00 00    	mov    0x24b8,%edx
+     17d:	8b 15 18 25 00 00    	mov    0x2518,%edx
      183:	85 d2                	test   %edx,%edx
      185:	7f e1                	jg     168 <reader+0x48>
-     187:	a1 bc 24 00 00       	mov    0x24bc,%eax
+     187:	a1 1c 25 00 00       	mov    0x251c,%eax
      18c:	85 c0                	test   %eax,%eax
      18e:	7f d8                	jg     168 <reader+0x48>
     mutex_unlock(&rw->lock);
      190:	83 ec 0c             	sub    $0xc,%esp
     rw->active_readers++;
-     193:	83 05 b4 24 00 00 01 	addl   $0x1,0x24b4
+     193:	83 05 14 25 00 00 01 	addl   $0x1,0x2514
     mutex_unlock(&rw->lock);
-     19a:	68 a0 24 00 00       	push   $0x24a0
+     19a:	68 00 25 00 00       	push   $0x2500
      19f:	e8 ec 0e 00 00       	call   1090 <mutex_unlock>
-        printf(1, "[读者%d] 获得读锁，读取数据 = %d\n", id, shared_data);
-     1a4:	ff 35 80 24 00 00    	push   0x2480
+        printf(1, "[Reader%d] Got read lock, data = %d\n", id, shared_data);
+     1a4:	ff 35 e0 24 00 00    	push   0x24e0
      1aa:	53                   	push   %ebx
-     1ab:	68 68 18 00 00       	push   $0x1868
+     1ab:	68 3c 18 00 00       	push   $0x183c
      1b0:	6a 01                	push   $0x1
      1b2:	e8 f9 06 00 00       	call   8b0 <printf>
         thread_yield();
@@ -212,26 +210,26 @@ void *reader(void *arg) {
      1ba:	e8 f1 0d 00 00       	call   fb0 <thread_yield>
     mutex_lock(&rw->lock);
      1bf:	83 ec 0c             	sub    $0xc,%esp
-     1c2:	68 a0 24 00 00       	push   $0x24a0
+     1c2:	68 00 25 00 00       	push   $0x2500
      1c7:	e8 84 0e 00 00       	call   1050 <mutex_lock>
     rw->active_readers--;
-     1cc:	a1 b4 24 00 00       	mov    0x24b4,%eax
+     1cc:	a1 14 25 00 00       	mov    0x2514,%eax
     if (rw->active_readers == 0) {
      1d1:	83 c4 10             	add    $0x10,%esp
     rw->active_readers--;
      1d4:	83 e8 01             	sub    $0x1,%eax
-     1d7:	a3 b4 24 00 00       	mov    %eax,0x24b4
+     1d7:	a3 14 25 00 00       	mov    %eax,0x2514
     if (rw->active_readers == 0) {
      1dc:	85 c0                	test   %eax,%eax
      1de:	74 50                	je     230 <reader+0x110>
     mutex_unlock(&rw->lock);
      1e0:	83 ec 0c             	sub    $0xc,%esp
-     1e3:	68 a0 24 00 00       	push   $0x24a0
+     1e3:	68 00 25 00 00       	push   $0x2500
      1e8:	e8 a3 0e 00 00       	call   1090 <mutex_unlock>
-        printf(1, "[读者%d] 释放读锁\n", id);
+        printf(1, "[Reader%d] Release read lock\n", id);
      1ed:	83 c4 0c             	add    $0xc,%esp
      1f0:	53                   	push   %ebx
-     1f1:	68 9f 17 00 00       	push   $0x179f
+     1f1:	68 82 17 00 00       	push   $0x1782
      1f6:	6a 01                	push   $0x1
      1f8:	e8 b3 06 00 00       	call   8b0 <printf>
         thread_yield();
@@ -240,10 +238,10 @@ void *reader(void *arg) {
      202:	83 c4 10             	add    $0x10,%esp
      205:	83 ee 01             	sub    $0x1,%esi
      208:	0f 85 32 ff ff ff    	jne    140 <reader+0x20>
-    printf(1, "[读者%d] 完成\n", id);
+    printf(1, "[Reader%d] Finished\n", id);
      20e:	83 ec 04             	sub    $0x4,%esp
      211:	53                   	push   %ebx
-     212:	68 b8 17 00 00       	push   $0x17b8
+     212:	68 a0 17 00 00       	push   $0x17a0
      217:	6a 01                	push   $0x1
      219:	e8 92 06 00 00       	call   8b0 <printf>
 }
@@ -258,7 +256,7 @@ void *reader(void *arg) {
      22f:	90                   	nop
         cond_signal(&rw->can_write);
      230:	83 ec 0c             	sub    $0xc,%esp
-     233:	68 b0 24 00 00       	push   $0x24b0
+     233:	68 10 25 00 00       	push   $0x2510
      238:	e8 93 0f 00 00       	call   11d0 <cond_signal>
      23d:	83 c4 10             	add    $0x10,%esp
      240:	eb 9e                	jmp    1e0 <reader+0xc0>
@@ -441,35 +439,35 @@ void *writer(void *arg) {
      3a0:	55                   	push   %ebp
      3a1:	89 e5                	mov    %esp,%ebp
      3a3:	56                   	push   %esi
-    printf(1, "[写者%d] 启动\n", id);
+    printf(1, "[Writer%d] Start\n", id);
      3a4:	be 03 00 00 00       	mov    $0x3,%esi
 void *writer(void *arg) {
      3a9:	53                   	push   %ebx
      3aa:	8b 5d 08             	mov    0x8(%ebp),%ebx
-    printf(1, "[写者%d] 启动\n", id);
+    printf(1, "[Writer%d] Start\n", id);
      3ad:	83 ec 04             	sub    $0x4,%esp
      3b0:	53                   	push   %ebx
-     3b1:	68 cb 17 00 00       	push   $0x17cb
+     3b1:	68 b5 17 00 00       	push   $0x17b5
      3b6:	6a 01                	push   $0x1
      3b8:	e8 f3 04 00 00       	call   8b0 <printf>
      3bd:	83 c4 10             	add    $0x10,%esp
-        printf(1, "[写者%d] 请求写锁...\n", id);
+        printf(1, "[Writer%d] Request write lock...\n", id);
      3c0:	83 ec 04             	sub    $0x4,%esp
      3c3:	53                   	push   %ebx
-     3c4:	68 de 17 00 00       	push   $0x17de
+     3c4:	68 64 18 00 00       	push   $0x1864
      3c9:	6a 01                	push   $0x1
      3cb:	e8 e0 04 00 00       	call   8b0 <printf>
         writer_lock(&rwlock);
-     3d0:	c7 04 24 a0 24 00 00 	movl   $0x24a0,(%esp)
+     3d0:	c7 04 24 00 25 00 00 	movl   $0x2500,(%esp)
      3d7:	e8 64 ff ff ff       	call   340 <writer_lock>
         shared_data++;
-     3dc:	a1 80 24 00 00       	mov    0x2480,%eax
+     3dc:	a1 e0 24 00 00       	mov    0x24e0,%eax
      3e1:	83 c0 01             	add    $0x1,%eax
-     3e4:	a3 80 24 00 00       	mov    %eax,0x2480
-        printf(1, "[写者%d] *** 获得写锁，写入数据 = %d ***\n", id, shared_data);
+     3e4:	a3 e0 24 00 00       	mov    %eax,0x24e0
+        printf(1, "[Writer%d] *** Got write lock, wrote data = %d ***\n", id, shared_data);
      3e9:	50                   	push   %eax
      3ea:	53                   	push   %ebx
-     3eb:	68 98 18 00 00       	push   $0x1898
+     3eb:	68 88 18 00 00       	push   $0x1888
      3f0:	6a 01                	push   $0x1
      3f2:	e8 b9 04 00 00       	call   8b0 <printf>
         thread_yield();
@@ -477,29 +475,29 @@ void *writer(void *arg) {
      3fa:	e8 b1 0b 00 00       	call   fb0 <thread_yield>
     mutex_lock(&rw->lock);
      3ff:	83 ec 0c             	sub    $0xc,%esp
-     402:	68 a0 24 00 00       	push   $0x24a0
+     402:	68 00 25 00 00       	push   $0x2500
      407:	e8 44 0c 00 00       	call   1050 <mutex_lock>
     if (rw->waiting_writers > 0) {
-     40c:	a1 bc 24 00 00       	mov    0x24bc,%eax
+     40c:	a1 1c 25 00 00       	mov    0x251c,%eax
     rw->active_writers--;
-     411:	83 2d b8 24 00 00 01 	subl   $0x1,0x24b8
+     411:	83 2d 18 25 00 00 01 	subl   $0x1,0x2518
     if (rw->waiting_writers > 0) {
      418:	83 c4 10             	add    $0x10,%esp
      41b:	85 c0                	test   %eax,%eax
      41d:	7e 61                	jle    480 <writer+0xe0>
         cond_signal(&rw->can_write);
      41f:	83 ec 0c             	sub    $0xc,%esp
-     422:	68 b0 24 00 00       	push   $0x24b0
+     422:	68 10 25 00 00       	push   $0x2510
      427:	e8 a4 0d 00 00       	call   11d0 <cond_signal>
      42c:	83 c4 10             	add    $0x10,%esp
     mutex_unlock(&rw->lock);
      42f:	83 ec 0c             	sub    $0xc,%esp
-     432:	68 a0 24 00 00       	push   $0x24a0
+     432:	68 00 25 00 00       	push   $0x2500
      437:	e8 54 0c 00 00       	call   1090 <mutex_unlock>
-        printf(1, "[写者%d] 释放写锁\n", id);
+        printf(1, "[Writer%d] Release write lock\n", id);
      43c:	83 c4 0c             	add    $0xc,%esp
      43f:	53                   	push   %ebx
-     440:	68 fa 17 00 00       	push   $0x17fa
+     440:	68 bc 18 00 00       	push   $0x18bc
      445:	6a 01                	push   $0x1
      447:	e8 64 04 00 00       	call   8b0 <printf>
         thread_yield();
@@ -508,10 +506,10 @@ void *writer(void *arg) {
      451:	83 c4 10             	add    $0x10,%esp
      454:	83 ee 01             	sub    $0x1,%esi
      457:	0f 85 63 ff ff ff    	jne    3c0 <writer+0x20>
-    printf(1, "[写者%d] 完成\n", id);
+    printf(1, "[Writer%d] Finished\n", id);
      45d:	83 ec 04             	sub    $0x4,%esp
      460:	53                   	push   %ebx
-     461:	68 13 18 00 00       	push   $0x1813
+     461:	68 c7 17 00 00       	push   $0x17c7
      466:	6a 01                	push   $0x1
      468:	e8 43 04 00 00       	call   8b0 <printf>
 }
@@ -526,7 +524,7 @@ void *writer(void *arg) {
      47e:	66 90                	xchg   %ax,%ax
         cond_broadcast(&rw->can_read);
      480:	83 ec 0c             	sub    $0xc,%esp
-     483:	68 ac 24 00 00       	push   $0x24ac
+     483:	68 0c 25 00 00       	push   $0x250c
      488:	e8 63 0d 00 00       	call   11f0 <cond_broadcast>
      48d:	83 c4 10             	add    $0x10,%esp
      490:	eb 9d                	jmp    42f <writer+0x8f>
@@ -1178,7 +1176,7 @@ printint(int fd, int xx, int base, int sgn)
      844:	89 f7                	mov    %esi,%edi
      846:	f7 f3                	div    %ebx
      848:	8d 76 01             	lea    0x1(%esi),%esi
-     84b:	0f b6 92 14 1d 00 00 	movzbl 0x1d14(%edx),%edx
+     84b:	0f b6 92 60 1d 00 00 	movzbl 0x1d60(%edx),%edx
      852:	88 54 35 d7          	mov    %dl,-0x29(%ebp,%esi,1)
   }while((x /= base) != 0);
      856:	89 ca                	mov    %ecx,%edx
@@ -1299,7 +1297,7 @@ printf(int fd, const char *fmt, ...)
      91c:	83 e8 63             	sub    $0x63,%eax
      91f:	83 f8 15             	cmp    $0x15,%eax
      922:	77 1c                	ja     940 <printf+0x90>
-     924:	ff 24 85 bc 1c 00 00 	jmp    *0x1cbc(,%eax,4)
+     924:	ff 24 85 08 1d 00 00 	jmp    *0x1d08(,%eax,4)
      92b:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
         putc(fd, c);
       }
@@ -1431,7 +1429,7 @@ printf(int fd, const char *fmt, ...)
      a2b:	e9 31 ff ff ff       	jmp    961 <printf+0xb1>
      a30:	b8 28 00 00 00       	mov    $0x28,%eax
           s = "(null)";
-     a35:	bb 40 18 00 00       	mov    $0x1840,%ebx
+     a35:	bb f3 17 00 00       	mov    $0x17f3,%ebx
      a3a:	e9 77 ff ff ff       	jmp    9b6 <printf+0x106>
      a3f:	90                   	nop
 
@@ -1447,7 +1445,7 @@ free(void *ap)
 
   bp = (Header*)ap - 1;
   for(p = freep; !(bp > p && bp < p->s.ptr); p = p->s.ptr)
-     a41:	a1 c0 24 00 00       	mov    0x24c0,%eax
+     a41:	a1 20 25 00 00       	mov    0x2520,%eax
 {
      a46:	89 e5                	mov    %esp,%ebp
      a48:	57                   	push   %edi
@@ -1493,7 +1491,7 @@ free(void *ap)
 }
      a7f:	5b                   	pop    %ebx
   freep = p;
-     a80:	a3 c0 24 00 00       	mov    %eax,0x24c0
+     a80:	a3 20 25 00 00       	mov    %eax,0x2520
 }
      a85:	5e                   	pop    %esi
      a86:	5f                   	pop    %edi
@@ -1524,7 +1522,7 @@ free(void *ap)
     p->s.size += bp->s.size;
      ab7:	03 53 fc             	add    -0x4(%ebx),%edx
   freep = p;
-     aba:	a3 c0 24 00 00       	mov    %eax,0x24c0
+     aba:	a3 20 25 00 00       	mov    %eax,0x2520
     p->s.size += bp->s.size;
      abf:	89 50 04             	mov    %edx,0x4(%eax)
     p->s.ptr = bp->s.ptr;
@@ -1557,7 +1555,7 @@ malloc(uint nbytes)
   nunits = (nbytes + sizeof(Header) - 1)/sizeof(Header) + 1;
      ad9:	8b 45 08             	mov    0x8(%ebp),%eax
   if((prevp = freep) == 0){
-     adc:	8b 15 c0 24 00 00    	mov    0x24c0,%edx
+     adc:	8b 15 20 25 00 00    	mov    0x2520,%edx
   nunits = (nbytes + sizeof(Header) - 1)/sizeof(Header) + 1;
      ae2:	8d 78 07             	lea    0x7(%eax),%edi
      ae5:	c1 ef 03             	shr    $0x3,%edi
@@ -1595,7 +1593,7 @@ malloc(uint nbytes)
     }
     if(p == freep)
      b19:	89 c2                	mov    %eax,%edx
-     b1b:	3b 05 c0 24 00 00    	cmp    0x24c0,%eax
+     b1b:	3b 05 20 25 00 00    	cmp    0x2520,%eax
      b21:	75 ed                	jne    b10 <malloc+0x40>
   p = sbrk(nu * sizeof(Header));
      b23:	83 ec 0c             	sub    $0xc,%esp
@@ -1613,7 +1611,7 @@ malloc(uint nbytes)
      b3d:	50                   	push   %eax
      b3e:	e8 fd fe ff ff       	call   a40 <free>
   return freep;
-     b43:	8b 15 c0 24 00 00    	mov    0x24c0,%edx
+     b43:	8b 15 20 25 00 00    	mov    0x2520,%edx
       if((p = morecore(nunits)) == 0)
      b49:	83 c4 10             	add    $0x10,%esp
      b4c:	85 d2                	test   %edx,%edx
@@ -1642,7 +1640,7 @@ malloc(uint nbytes)
         p->s.size = nunits;
      b6c:	89 78 04             	mov    %edi,0x4(%eax)
       freep = prevp;
-     b6f:	89 15 c0 24 00 00    	mov    %edx,0x24c0
+     b6f:	89 15 20 25 00 00    	mov    %edx,0x2520
 }
      b75:	8d 65 f4             	lea    -0xc(%ebp),%esp
       return (void*)(p + 1);
@@ -1654,15 +1652,15 @@ malloc(uint nbytes)
      b7e:	5d                   	pop    %ebp
      b7f:	c3                   	ret
     base.s.ptr = freep = prevp = &base;
-     b80:	c7 05 c0 24 00 00 c4 	movl   $0x24c4,0x24c0
-     b87:	24 00 00 
+     b80:	c7 05 20 25 00 00 24 	movl   $0x2524,0x2520
+     b87:	25 00 00 
     base.s.size = 0;
-     b8a:	b8 c4 24 00 00       	mov    $0x24c4,%eax
+     b8a:	b8 24 25 00 00       	mov    $0x2524,%eax
     base.s.ptr = freep = prevp = &base;
-     b8f:	c7 05 c4 24 00 00 c4 	movl   $0x24c4,0x24c4
-     b96:	24 00 00 
+     b8f:	c7 05 24 25 00 00 24 	movl   $0x2524,0x2524
+     b96:	25 00 00 
     base.s.size = 0;
-     b99:	c7 05 c8 24 00 00 00 	movl   $0x0,0x24c8
+     b99:	c7 05 28 25 00 00 00 	movl   $0x0,0x2528
      ba0:	00 00 00 
     if(p->s.size >= nunits){
      ba3:	e9 54 ff ff ff       	jmp    afc <malloc+0x2c>
@@ -1679,17 +1677,16 @@ malloc(uint nbytes)
      bbe:	66 90                	xchg   %ax,%ax
 
 00000bc0 <thread_init>:
+    if (threads[tid].state == T_UNUSED)
         return 0;
     return &threads[tid];
 }
 
-/* 初始化线程库 */
 void thread_init(void) {
      bc0:	55                   	push   %ebp
-     bc1:	b8 00 25 00 00       	mov    $0x2500,%eax
+     bc1:	b8 60 25 00 00       	mov    $0x2560,%eax
     int i;
     
-    // 初始化线程表
     for (i = 0; i < MAX_THREADS; i++) {
      bc6:	31 d2                	xor    %edx,%edx
 void thread_init(void) {
@@ -1721,28 +1718,27 @@ void thread_init(void) {
      c0c:	75 c2                	jne    bd0 <thread_init+0x10>
     }
     
-    // 主线程
     threads[0].state = T_RUNNING;
-     c0e:	c7 05 04 25 00 00 02 	movl   $0x2,0x2504
+     c0e:	c7 05 64 25 00 00 02 	movl   $0x2,0x2564
      c15:	00 00 00 
     threads[0].tid = 0;
     current_thread = &threads[0];
     next_tid = 1;
     
-    printf(1, "[uthreads] 线程库初始化完成，主线程 tid=0\n");
+    printf(1, "[uthreads] Thread library initialized, main thread tid=0\n");
      c18:	83 ec 08             	sub    $0x8,%esp
-     c1b:	68 c8 19 00 00       	push   $0x19c8
+     c1b:	68 e8 19 00 00       	push   $0x19e8
      c20:	6a 01                	push   $0x1
     threads[0].tid = 0;
-     c22:	c7 05 00 25 00 00 00 	movl   $0x0,0x2500
+     c22:	c7 05 60 25 00 00 00 	movl   $0x0,0x2560
      c29:	00 00 00 
     current_thread = &threads[0];
-     c2c:	c7 05 e4 24 00 00 00 	movl   $0x2500,0x24e4
+     c2c:	c7 05 44 25 00 00 60 	movl   $0x2560,0x2544
      c33:	25 00 00 
     next_tid = 1;
-     c36:	c7 05 e0 24 00 00 01 	movl   $0x1,0x24e0
+     c36:	c7 05 40 25 00 00 01 	movl   $0x1,0x2540
      c3d:	00 00 00 
-    printf(1, "[uthreads] 线程库初始化完成，主线程 tid=0\n");
+    printf(1, "[uthreads] Thread library initialized, main thread tid=0\n");
      c40:	e8 6b fc ff ff       	call   8b0 <printf>
 }
      c45:	83 c4 10             	add    $0x10,%esp
@@ -1752,7 +1748,6 @@ void thread_init(void) {
 
 00000c50 <thread_create>:
 
-/* 创建线程 */
 int thread_create(void *(*start_routine)(void*), void *arg) {
      c50:	55                   	push   %ebp
      c51:	89 e5                	mov    %esp,%ebp
@@ -1768,10 +1763,9 @@ int thread_create(void *(*start_routine)(void*), void *arg) {
     if (!start_routine)
      c5c:	85 f6                	test   %esi,%esi
      c5e:	0f 84 d6 00 00 00    	je     d3a <thread_create+0xea>
-     c64:	b8 04 25 00 00       	mov    $0x2504,%eax
+     c64:	b8 64 25 00 00       	mov    $0x2564,%eax
         return -1;
     
-    // 查找空闲线程槽
     t = 0;
     for (i = 0; i < MAX_THREADS; i++) {
      c69:	31 db                	xor    %ebx,%ebx
@@ -1785,16 +1779,16 @@ int thread_create(void *(*start_routine)(void*), void *arg) {
      c7f:	8b 10                	mov    (%eax),%edx
      c81:	85 d2                	test   %edx,%edx
      c83:	75 eb                	jne    c70 <thread_create+0x20>
-        printf(2, "[uthreads] 错误：线程数已达上限\n");
+    if (!t) {
+        printf(2, "[uthreads] Error: Thread limit reached\n");
         return -1;
     }
     
-    // 分配栈
     t->stack = malloc(STACK_SIZE);
      c85:	83 ec 0c             	sub    $0xc,%esp
      c88:	6b db 44             	imul   $0x44,%ebx,%ebx
      c8b:	68 00 10 00 00       	push   $0x1000
-     c90:	8d bb 00 25 00 00    	lea    0x2500(%ebx),%edi
+     c90:	8d bb 60 25 00 00    	lea    0x2560(%ebx),%edi
      c96:	e8 35 fe ff ff       	call   ad0 <malloc>
     if (!t->stack) {
      c9b:	83 c4 10             	add    $0x10,%esp
@@ -1803,9 +1797,9 @@ int thread_create(void *(*start_routine)(void*), void *arg) {
     if (!t->stack) {
      ca1:	85 c0                	test   %eax,%eax
      ca3:	0f 84 9e 00 00 00    	je     d47 <thread_create+0xf7>
+        return -1;
     }
     
-    // 初始化 TCB
     t->state = T_RUNNABLE;
     t->start_routine = start_routine;
     t->arg = arg;
@@ -1814,7 +1808,6 @@ int thread_create(void *(*start_routine)(void*), void *arg) {
     t->join_waiter = 0;
     t->sleep_chan = 0;
     
-    // 初始化上下文
     memset(&t->context, 0, sizeof(thread_context_t));
      cac:	83 ec 04             	sub    $0x4,%esp
     t->start_routine = start_routine;
@@ -1824,7 +1817,7 @@ int thread_create(void *(*start_routine)(void*), void *arg) {
     t->arg = arg;
      cb9:	89 47 34             	mov    %eax,0x34(%edi)
     memset(&t->context, 0, sizeof(thread_context_t));
-     cbc:	8d 83 0c 25 00 00    	lea    0x250c(%ebx),%eax
+     cbc:	8d 83 6c 25 00 00    	lea    0x256c(%ebx),%eax
     t->retval = 0;
      cc2:	c7 47 38 00 00 00 00 	movl   $0x0,0x38(%edi)
     t->join_waiter = 0;
@@ -1837,15 +1830,14 @@ int thread_create(void *(*start_routine)(void*), void *arg) {
      cdb:	50                   	push   %eax
      cdc:	e8 df f8 ff ff       	call   5c0 <memset>
     
-    // 设置栈顶
     sp = (uint*)((char*)t->stack + STACK_SIZE);
      ce1:	8b 47 08             	mov    0x8(%edi),%eax
+    *sp = (uint)thread_entry;
     
-    // 设置 esp 和 eip
     t->context.esp = (uint)sp;
     t->context.eip = (uint)thread_entry;
     
-    printf(1, "[uthreads] 创建线程 tid=%d\n", t->tid);
+    printf(1, "[uthreads] Created thread tid=%d\n", t->tid);
      ce4:	83 c4 0c             	add    $0xc,%esp
     *sp = (uint)thread_entry;
      ce7:	c7 80 fc 0f 00 00 b0 	movl   $0xeb0,0xffc(%eax)
@@ -1855,13 +1847,13 @@ int thread_create(void *(*start_routine)(void*), void *arg) {
      cf6:	89 47 28             	mov    %eax,0x28(%edi)
     t->context.eip = (uint)thread_entry;
      cf9:	c7 47 2c b0 0e 00 00 	movl   $0xeb0,0x2c(%edi)
-    printf(1, "[uthreads] 创建线程 tid=%d\n", t->tid);
-     d00:	ff b3 00 25 00 00    	push   0x2500(%ebx)
-     d06:	68 54 1a 00 00       	push   $0x1a54
+    printf(1, "[uthreads] Created thread tid=%d\n", t->tid);
+     d00:	ff b3 60 25 00 00    	push   0x2560(%ebx)
+     d06:	68 78 1a 00 00       	push   $0x1a78
      d0b:	6a 01                	push   $0x1
      d0d:	e8 9e fb ff ff       	call   8b0 <printf>
     return t->tid;
-     d12:	8b 83 00 25 00 00    	mov    0x2500(%ebx),%eax
+     d12:	8b 83 60 25 00 00    	mov    0x2560(%ebx),%eax
      d18:	83 c4 10             	add    $0x10,%esp
 }
      d1b:	8d 65 f4             	lea    -0xc(%ebp),%esp
@@ -1871,9 +1863,9 @@ int thread_create(void *(*start_routine)(void*), void *arg) {
      d21:	5d                   	pop    %ebp
      d22:	c3                   	ret
      d23:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
-        printf(2, "[uthreads] 错误：线程数已达上限\n");
+        printf(2, "[uthreads] Error: Thread limit reached\n");
      d28:	83 ec 08             	sub    $0x8,%esp
-     d2b:	68 00 1a 00 00       	push   $0x1a00
+     d2b:	68 24 1a 00 00       	push   $0x1a24
      d30:	6a 02                	push   $0x2
      d32:	e8 79 fb ff ff       	call   8b0 <printf>
         return -1;
@@ -1888,9 +1880,9 @@ int thread_create(void *(*start_routine)(void*), void *arg) {
      d44:	5f                   	pop    %edi
      d45:	5d                   	pop    %ebp
      d46:	c3                   	ret
-        printf(2, "[uthreads] 错误：栈分配失败\n");
+        printf(2, "[uthreads] Error: Stack allocation failed\n");
      d47:	83 ec 08             	sub    $0x8,%esp
-     d4a:	68 2c 1a 00 00       	push   $0x1a2c
+     d4a:	68 4c 1a 00 00       	push   $0x1a4c
      d4f:	6a 02                	push   $0x2
      d51:	e8 5a fb ff ff       	call   8b0 <printf>
         return -1;
@@ -1899,13 +1891,13 @@ int thread_create(void *(*start_routine)(void*), void *arg) {
      d5b:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
 
 00000d60 <thread_self>:
+    current_thread->state = T_RUNNABLE;
     thread_schedule();
 }
 
-/* 获取当前线程 ID */
 int thread_self(void) {
     return current_thread->tid;
-     d60:	a1 e4 24 00 00       	mov    0x24e4,%eax
+     d60:	a1 44 25 00 00       	mov    0x2544,%eax
      d65:	8b 00                	mov    (%eax),%eax
 }
      d67:	c3                   	ret
@@ -1914,7 +1906,6 @@ int thread_self(void) {
 
 00000d70 <thread_schedule>:
 
-/* 调度器 */
 void thread_schedule(void) {
      d70:	55                   	push   %ebp
      d71:	89 e5                	mov    %esp,%ebp
@@ -1926,10 +1917,9 @@ void thread_schedule(void) {
     int start, i, idx;
     
     old_thread = current_thread;
-     d79:	8b 35 e4 24 00 00    	mov    0x24e4,%esi
+     d79:	8b 35 44 25 00 00    	mov    0x2544,%esi
     new_thread = 0;
     
-    // Round-robin 调度
     start = (current_thread->tid + 1) % MAX_THREADS;
      d7f:	8b 06                	mov    (%esi),%eax
      d81:	8d 50 01             	lea    0x1(%eax),%edx
@@ -1956,22 +1946,22 @@ void thread_schedule(void) {
      db5:	29 c8                	sub    %ecx,%eax
         if (threads[idx].state == T_RUNNABLE) {
      db7:	6b c8 44             	imul   $0x44,%eax,%ecx
-     dba:	83 b9 04 25 00 00 01 	cmpl   $0x1,0x2504(%ecx)
-     dc1:	8d b9 00 25 00 00    	lea    0x2500(%ecx),%edi
+     dba:	83 b9 64 25 00 00 01 	cmpl   $0x1,0x2564(%ecx)
+     dc1:	8d b9 60 25 00 00    	lea    0x2560(%ecx),%edi
      dc7:	75 d7                	jne    da0 <thread_schedule+0x30>
-        printf(1, "[uthreads] 所有线程已结束或阻塞\n");
+        
+        printf(1, "[uthreads] All threads finished or blocked\n");
         exit();
     }
     
-    // 同一个线程
     if (new_thread == old_thread) {
      dc9:	39 fe                	cmp    %edi,%esi
      dcb:	74 6b                	je     e38 <thread_schedule+0xc8>
+            old_thread->state = T_RUNNING;
         }
         return;
     }
     
-    // 更新状态
     if (old_thread->state == T_RUNNING) {
      dcd:	83 7e 04 02          	cmpl   $0x2,0x4(%esi)
      dd1:	74 35                	je     e08 <thread_schedule+0x98>
@@ -1981,15 +1971,14 @@ void thread_schedule(void) {
      dd3:	6b c0 44             	imul   $0x44,%eax,%eax
     current_thread = new_thread;
     
-    // 上下文切换
     thread_switch(&old_thread->context, &new_thread->context);
      dd6:	83 ec 08             	sub    $0x8,%esp
-     dd9:	81 c1 0c 25 00 00    	add    $0x250c,%ecx
+     dd9:	81 c1 6c 25 00 00    	add    $0x256c,%ecx
      ddf:	83 c6 0c             	add    $0xc,%esi
     current_thread = new_thread;
-     de2:	89 3d e4 24 00 00    	mov    %edi,0x24e4
+     de2:	89 3d 44 25 00 00    	mov    %edi,0x2544
     new_thread->state = T_RUNNING;
-     de8:	c7 80 04 25 00 00 02 	movl   $0x2,0x2504(%eax)
+     de8:	c7 80 64 25 00 00 02 	movl   $0x2,0x2564(%eax)
      def:	00 00 00 
     thread_switch(&old_thread->context, &new_thread->context);
      df2:	51                   	push   %ecx
@@ -2011,10 +2000,10 @@ void thread_schedule(void) {
         if (current_thread->state == T_RUNNING) {
      e18:	83 7e 04 02          	cmpl   $0x2,0x4(%esi)
      e1c:	74 de                	je     dfc <thread_schedule+0x8c>
-        printf(1, "[uthreads] 所有线程已结束或阻塞\n");
+        printf(1, "[uthreads] All threads finished or blocked\n");
      e1e:	50                   	push   %eax
      e1f:	50                   	push   %eax
-     e20:	68 74 1a 00 00       	push   $0x1a74
+     e20:	68 9c 1a 00 00       	push   $0x1a9c
      e25:	6a 01                	push   $0x1
      e27:	e8 84 fa ff ff       	call   8b0 <printf>
         exit();
@@ -2033,19 +2022,19 @@ void thread_exit(void *retval) {
      e51:	89 e5                	mov    %esp,%ebp
      e53:	83 ec 0c             	sub    $0xc,%esp
     current_thread->retval = retval;
-     e56:	a1 e4 24 00 00       	mov    0x24e4,%eax
+     e56:	a1 44 25 00 00       	mov    0x2544,%eax
      e5b:	8b 55 08             	mov    0x8(%ebp),%edx
     current_thread->state = T_ZOMBIE;
      e5e:	c7 40 04 04 00 00 00 	movl   $0x4,0x4(%eax)
     current_thread->retval = retval;
      e65:	89 50 38             	mov    %edx,0x38(%eax)
-    printf(1, "[uthreads] 线程 tid=%d 退出\n", current_thread->tid);
+    printf(1, "[uthreads] Thread tid=%d exiting\n", current_thread->tid);
      e68:	ff 30                	push   (%eax)
-     e6a:	68 a0 1a 00 00       	push   $0x1aa0
+     e6a:	68 c8 1a 00 00       	push   $0x1ac8
      e6f:	6a 01                	push   $0x1
      e71:	e8 3a fa ff ff       	call   8b0 <printf>
     if (current_thread->join_waiter) {
-     e76:	a1 e4 24 00 00       	mov    0x24e4,%eax
+     e76:	a1 44 25 00 00       	mov    0x2544,%eax
      e7b:	83 c4 10             	add    $0x10,%esp
      e7e:	8b 50 3c             	mov    0x3c(%eax),%edx
      e81:	85 d2                	test   %edx,%edx
@@ -2057,9 +2046,9 @@ void thread_exit(void *retval) {
      e8f:	c7 40 40 00 00 00 00 	movl   $0x0,0x40(%eax)
     thread_schedule();
      e96:	e8 d5 fe ff ff       	call   d70 <thread_schedule>
-    printf(2, "[uthreads] 错误：thread_exit 不应返回\n");
+    printf(2, "[uthreads] Error: thread_exit should not return\n");
      e9b:	83 ec 08             	sub    $0x8,%esp
-     e9e:	68 c4 1a 00 00       	push   $0x1ac4
+     e9e:	68 ec 1a 00 00       	push   $0x1aec
      ea3:	6a 02                	push   $0x2
      ea5:	e8 06 fa ff ff       	call   8b0 <printf>
     exit();
@@ -2072,7 +2061,7 @@ static void thread_entry(void) {
      eb1:	89 e5                	mov    %esp,%ebp
      eb3:	83 ec 14             	sub    $0x14,%esp
     void *ret = current_thread->start_routine(current_thread->arg);
-     eb6:	a1 e4 24 00 00       	mov    0x24e4,%eax
+     eb6:	a1 44 25 00 00       	mov    0x2544,%eax
      ebb:	ff 70 34             	push   0x34(%eax)
      ebe:	ff 50 30             	call   *0x30(%eax)
     thread_exit(ret);
@@ -2094,19 +2083,19 @@ void *thread_join(int tid) {
      edf:	77 67                	ja     f48 <thread_join+0x78>
     if (threads[tid].state == T_UNUSED)
      ee1:	6b de 44             	imul   $0x44,%esi,%ebx
-     ee4:	81 c3 00 25 00 00    	add    $0x2500,%ebx
+     ee4:	81 c3 60 25 00 00    	add    $0x2560,%ebx
      eea:	8b 43 04             	mov    0x4(%ebx),%eax
      eed:	85 c0                	test   %eax,%eax
      eef:	74 57                	je     f48 <thread_join+0x78>
     if (!t || t == current_thread) {
-     ef1:	39 1d e4 24 00 00    	cmp    %ebx,0x24e4
+     ef1:	39 1d 44 25 00 00    	cmp    %ebx,0x2544
      ef7:	74 4f                	je     f48 <thread_join+0x78>
     while (t->state != T_ZOMBIE) {
      ef9:	83 f8 04             	cmp    $0x4,%eax
      efc:	75 1f                	jne    f1d <thread_join+0x4d>
      efe:	eb 60                	jmp    f60 <thread_join+0x90>
         t->join_waiter = current_thread;
-     f00:	a1 e4 24 00 00       	mov    0x24e4,%eax
+     f00:	a1 44 25 00 00       	mov    0x2544,%eax
      f05:	89 43 3c             	mov    %eax,0x3c(%ebx)
         current_thread->sleep_chan = t;
      f08:	89 58 40             	mov    %ebx,0x40(%eax)
@@ -2121,10 +2110,10 @@ void *thread_join(int tid) {
      f1d:	8b 43 3c             	mov    0x3c(%ebx),%eax
      f20:	85 c0                	test   %eax,%eax
      f22:	74 dc                	je     f00 <thread_join+0x30>
-            printf(2, "[uthreads] 错误：线程 tid=%d 已被其他线程 join\n", tid);
+            printf(2, "[uthreads] Error: Thread tid=%d already being joined\n", tid);
      f24:	83 ec 04             	sub    $0x4,%esp
      f27:	56                   	push   %esi
-     f28:	68 28 1b 00 00       	push   $0x1b28
+     f28:	68 50 1b 00 00       	push   $0x1b50
      f2d:	6a 02                	push   $0x2
      f2f:	e8 7c f9 ff ff       	call   8b0 <printf>
             return 0;
@@ -2141,10 +2130,10 @@ void *thread_join(int tid) {
      f41:	5d                   	pop    %ebp
      f42:	c3                   	ret
      f43:	2e 8d 74 26 00       	lea    %cs:0x0(%esi,%eiz,1),%esi
-        printf(2, "[uthreads] 错误：无效的 join 目标 tid=%d\n", tid);
+        printf(2, "[uthreads] Error: Invalid join target tid=%d\n", tid);
      f48:	83 ec 04             	sub    $0x4,%esp
      f4b:	56                   	push   %esi
-     f4c:	68 f4 1a 00 00       	push   $0x1af4
+     f4c:	68 20 1b 00 00       	push   $0x1b20
      f51:	6a 02                	push   $0x2
      f53:	e8 58 f9 ff ff       	call   8b0 <printf>
         return 0;
@@ -2153,7 +2142,7 @@ void *thread_join(int tid) {
      f5d:	8d 76 00             	lea    0x0(%esi),%esi
     retval = t->retval;
      f60:	6b de 44             	imul   $0x44,%esi,%ebx
-     f63:	81 c3 00 25 00 00    	add    $0x2500,%ebx
+     f63:	81 c3 60 25 00 00    	add    $0x2560,%ebx
     if (t->stack) {
      f69:	8b 43 08             	mov    0x8(%ebx),%eax
     retval = t->retval;
@@ -2170,14 +2159,14 @@ void *thread_join(int tid) {
      f83:	83 c4 10             	add    $0x10,%esp
     t->state = T_UNUSED;
      f86:	6b c6 44             	imul   $0x44,%esi,%eax
-    printf(1, "[uthreads] 线程 tid=%d join 完成\n", tid);
+    printf(1, "[uthreads] Thread tid=%d joined\n", tid);
      f89:	83 ec 04             	sub    $0x4,%esp
     t->state = T_UNUSED;
-     f8c:	c7 80 04 25 00 00 00 	movl   $0x0,0x2504(%eax)
+     f8c:	c7 80 64 25 00 00 00 	movl   $0x0,0x2564(%eax)
      f93:	00 00 00 
-    printf(1, "[uthreads] 线程 tid=%d join 完成\n", tid);
+    printf(1, "[uthreads] Thread tid=%d joined\n", tid);
      f96:	56                   	push   %esi
-     f97:	68 64 1b 00 00       	push   $0x1b64
+     f97:	68 88 1b 00 00       	push   $0x1b88
      f9c:	6a 01                	push   $0x1
      f9e:	e8 0d f9 ff ff       	call   8b0 <printf>
     return retval;
@@ -2193,7 +2182,7 @@ void *thread_join(int tid) {
 
 00000fb0 <thread_yield>:
     current_thread->state = T_RUNNABLE;
-     fb0:	a1 e4 24 00 00       	mov    0x24e4,%eax
+     fb0:	a1 44 25 00 00       	mov    0x2544,%eax
      fb5:	c7 40 04 01 00 00 00 	movl   $0x1,0x4(%eax)
     thread_schedule();
      fbc:	e9 af fd ff ff       	jmp    d70 <thread_schedule>
@@ -2203,11 +2192,10 @@ void *thread_join(int tid) {
 
 00000fd0 <thread_sleep>:
 
-/* 线程睡眠 */
 void thread_sleep(void *chan) {
      fd0:	55                   	push   %ebp
     current_thread->sleep_chan = chan;
-     fd1:	a1 e4 24 00 00       	mov    0x24e4,%eax
+     fd1:	a1 44 25 00 00       	mov    0x2544,%eax
     current_thread->state = T_SLEEPING;
      fd6:	c7 40 04 03 00 00 00 	movl   $0x3,0x4(%eax)
 void thread_sleep(void *chan) {
@@ -2224,11 +2212,10 @@ void thread_sleep(void *chan) {
 
 00000ff0 <thread_wakeup>:
 
-/* 唤醒线程 */
 void thread_wakeup(void *chan) {
      ff0:	55                   	push   %ebp
-     ff1:	b8 04 25 00 00       	mov    $0x2504,%eax
-     ff6:	ba 04 36 00 00       	mov    $0x3604,%edx
+     ff1:	b8 64 25 00 00       	mov    $0x2564,%eax
+     ff6:	ba 64 36 00 00       	mov    $0x3664,%edx
      ffb:	89 e5                	mov    %esp,%ebp
      ffd:	8b 4d 08             	mov    0x8(%ebp),%ecx
     1000:	eb 0d                	jmp    100f <thread_wakeup+0x1f>
@@ -2261,10 +2248,9 @@ void thread_wakeup(void *chan) {
     102f:	90                   	nop
 
 00001030 <mutex_init>:
+#include "types.h"
 #include "user.h"
 #include "user_threading_library_core/src/uthreads.h"
-
-/* ========== 互斥锁实现 ========== */
 
 void mutex_init(mutex_t *m) {
     1030:	55                   	push   %ebp
@@ -2331,9 +2317,9 @@ void mutex_unlock(mutex_t *m) {
     109b:	e8 c0 fc ff ff       	call   d60 <thread_self>
     10a0:	39 c6                	cmp    %eax,%esi
     10a2:	74 1c                	je     10c0 <mutex_unlock+0x30>
-        printf(2, "[uthreads] 错误：试图解锁不属于自己的锁\n");
+        printf(2, "[uthreads] Error: Trying to unlock mutex not owned by current thread\n");
     10a4:	83 ec 08             	sub    $0x8,%esp
-    10a7:	68 8c 1b 00 00       	push   $0x1b8c
+    10a7:	68 ac 1b 00 00       	push   $0x1bac
     10ac:	6a 02                	push   $0x2
     10ae:	e8 fd f7 ff ff       	call   8b0 <printf>
         return;
@@ -2408,8 +2394,6 @@ int mutex_trylock(mutex_t *m) {
 
 00001120 <cond_init>:
 
-/* ========== 条件变量实现 ========== */
-
 void cond_init(cond_t *c) {
     1120:	55                   	push   %ebp
     1121:	89 e5                	mov    %esp,%ebp
@@ -2437,13 +2421,13 @@ void cond_wait(cond_t *c, mutex_t *m) {
     1142:	e8 19 fc ff ff       	call   d60 <thread_self>
     1147:	39 c6                	cmp    %eax,%esi
     1149:	74 1d                	je     1168 <cond_wait+0x38>
-        printf(2, "[uthreads] 错误：cond_wait 时未持有 mutex\n");
-    114b:	c7 45 0c c4 1b 00 00 	movl   $0x1bc4,0xc(%ebp)
+        printf(2, "[uthreads] Error: cond_wait called without holding mutex\n");
+    114b:	c7 45 0c f4 1b 00 00 	movl   $0x1bf4,0xc(%ebp)
     1152:	c7 45 08 02 00 00 00 	movl   $0x2,0x8(%ebp)
-    // 在条件变量上睡眠
+    thread_wakeup(m->wait_chan);
+    
     thread_sleep(c->wait_chan);
     
-    // 被唤醒后重新获取 mutex
     mutex_lock(m);
 }
     1159:	8d 65 f4             	lea    -0xc(%ebp),%esp
@@ -2451,7 +2435,7 @@ void cond_wait(cond_t *c, mutex_t *m) {
     115d:	5e                   	pop    %esi
     115e:	5f                   	pop    %edi
     115f:	5d                   	pop    %ebp
-        printf(2, "[uthreads] 错误：cond_wait 时未持有 mutex\n");
+        printf(2, "[uthreads] Error: cond_wait called without holding mutex\n");
     1160:	e9 4b f7 ff ff       	jmp    8b0 <printf>
     1165:	8d 76 00             	lea    0x0(%esi),%esi
     thread_wakeup(m->wait_chan);
@@ -2533,8 +2517,6 @@ void cond_broadcast(cond_t *c) {
     thread_wakeup(c->wait_chan);
 }
 
-/* ========== Channel 实现 ========== */
-
 channel_t *channel_create(int capacity) {
     1210:	55                   	push   %ebp
     1211:	89 e5                	mov    %esp,%ebp
@@ -2546,7 +2528,7 @@ channel_t *channel_create(int capacity) {
     if (capacity <= 0) {
     1218:	85 f6                	test   %esi,%esi
     121a:	0f 8e 90 00 00 00    	jle    12b0 <channel_create+0xa0>
-        printf(2, "[uthreads] 错误：channel 容量必须大于 0\n");
+        printf(2, "[uthreads] Error: Channel capacity must be greater than 0\n");
         return 0;
     }
     
@@ -2561,7 +2543,7 @@ channel_t *channel_create(int capacity) {
     if (!ch) {
     122f:	85 c0                	test   %eax,%eax
     1231:	0f 84 99 00 00 00    	je     12d0 <channel_create+0xc0>
-        printf(2, "[uthreads] 错误：channel 分配失败\n");
+        printf(2, "[uthreads] Error: Channel allocation failed\n");
         return 0;
     }
     
@@ -2587,7 +2569,7 @@ channel_t *channel_create(int capacity) {
     cond_init(&ch->not_empty);
     cond_init(&ch->not_full);
     
-    printf(1, "[uthreads] Channel 创建成功，容量=%d\n", capacity);
+    printf(1, "[uthreads] Channel created successfully, capacity=%d\n", capacity);
     1257:	83 ec 04             	sub    $0x4,%esp
     ch->capacity = capacity;
     125a:	89 73 04             	mov    %esi,0x4(%ebx)
@@ -2612,9 +2594,9 @@ channel_t *channel_create(int capacity) {
     128c:	c7 43 1c ff ff ff ff 	movl   $0xffffffff,0x1c(%ebx)
     cond_init(&ch->not_full);
     1293:	89 43 28             	mov    %eax,0x28(%ebx)
-    printf(1, "[uthreads] Channel 创建成功，容量=%d\n", capacity);
+    printf(1, "[uthreads] Channel created successfully, capacity=%d\n", capacity);
     1296:	56                   	push   %esi
-    1297:	68 8c 1c 00 00       	push   $0x1c8c
+    1297:	68 d0 1c 00 00       	push   $0x1cd0
     129c:	6a 01                	push   $0x1
     129e:	e8 0d f6 ff ff       	call   8b0 <printf>
     return ch;
@@ -2627,12 +2609,12 @@ channel_t *channel_create(int capacity) {
     12ad:	5d                   	pop    %ebp
     12ae:	c3                   	ret
     12af:	90                   	nop
-        printf(2, "[uthreads] 错误：channel 容量必须大于 0\n");
+        printf(2, "[uthreads] Error: Channel capacity must be greater than 0\n");
     12b0:	83 ec 08             	sub    $0x8,%esp
         return 0;
     12b3:	31 db                	xor    %ebx,%ebx
-        printf(2, "[uthreads] 错误：channel 容量必须大于 0\n");
-    12b5:	68 f8 1b 00 00       	push   $0x1bf8
+        printf(2, "[uthreads] Error: Channel capacity must be greater than 0\n");
+    12b5:	68 30 1c 00 00       	push   $0x1c30
     12ba:	6a 02                	push   $0x2
     12bc:	e8 ef f5 ff ff       	call   8b0 <printf>
         return 0;
@@ -2641,12 +2623,12 @@ channel_t *channel_create(int capacity) {
     12c6:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
     12cd:	00 
     12ce:	66 90                	xchg   %ax,%ax
-        printf(2, "[uthreads] 错误：channel 分配失败\n");
+        printf(2, "[uthreads] Error: Channel allocation failed\n");
     12d0:	83 ec 08             	sub    $0x8,%esp
         return 0;
     12d3:	31 db                	xor    %ebx,%ebx
-        printf(2, "[uthreads] 错误：channel 分配失败\n");
-    12d5:	68 2c 1c 00 00       	push   $0x1c2c
+        printf(2, "[uthreads] Error: Channel allocation failed\n");
+    12d5:	68 6c 1c 00 00       	push   $0x1c6c
     12da:	6a 02                	push   $0x2
     12dc:	e8 cf f5 ff ff       	call   8b0 <printf>
         return 0;
@@ -2655,9 +2637,9 @@ channel_t *channel_create(int capacity) {
     12e6:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
     12ed:	00 
     12ee:	66 90                	xchg   %ax,%ax
-        printf(2, "[uthreads] 错误：channel 缓冲区分配失败\n");
+        printf(2, "[uthreads] Error: Channel buffer allocation failed\n");
     12f0:	83 ec 08             	sub    $0x8,%esp
-    12f3:	68 58 1c 00 00       	push   $0x1c58
+    12f3:	68 9c 1c 00 00       	push   $0x1c9c
     12f8:	6a 02                	push   $0x2
     12fa:	e8 b1 f5 ff ff       	call   8b0 <printf>
         free(ch);
@@ -2713,7 +2695,6 @@ int channel_send(channel_t *ch, void *data) {
         return -1;
     }
     
-    // 等待非满
     while (ch->count == ch->capacity && !ch->is_closed) {
     1359:	8b 43 04             	mov    0x4(%ebx),%eax
     135c:	39 43 08             	cmp    %eax,0x8(%ebx)
@@ -2722,9 +2703,9 @@ int channel_send(channel_t *ch, void *data) {
     1366:	2e 8d b4 26 00 00 00 	lea    %cs:0x0(%esi,%eiz,1),%esi
     136d:	00 
     136e:	66 90                	xchg   %ax,%ax
-        printf(2, "[uthreads] 错误：cond_wait 时未持有 mutex\n");
+        printf(2, "[uthreads] Error: cond_wait called without holding mutex\n");
     1370:	83 ec 08             	sub    $0x8,%esp
-    1373:	68 c4 1b 00 00       	push   $0x1bc4
+    1373:	68 f4 1b 00 00       	push   $0x1bf4
     1378:	6a 02                	push   $0x2
     137a:	e8 31 f5 ff ff       	call   8b0 <printf>
         cond_wait(&ch->not_full, &ch->lock);
@@ -2794,7 +2775,6 @@ int channel_send(channel_t *ch, void *data) {
         return -1;
     }
     
-    // 写入数据
     ch->buffer[ch->write_idx] = data;
     1403:	8b 53 10             	mov    0x10(%ebx),%edx
     1406:	8b 03                	mov    (%ebx),%eax
@@ -2831,7 +2811,7 @@ int channel_send(channel_t *ch, void *data) {
     144a:	ff 73 20             	push   0x20(%ebx)
     144d:	e8 9e fb ff ff       	call   ff0 <thread_wakeup>
     1452:	83 c4 10             	add    $0x10,%esp
-    // 唤醒接收者
+    
     cond_signal(&ch->not_empty);
     
     mutex_unlock(&ch->lock);
@@ -2845,9 +2825,9 @@ int channel_send(channel_t *ch, void *data) {
     145d:	5d                   	pop    %ebp
     145e:	c3                   	ret
     145f:	90                   	nop
-        printf(2, "[uthreads] 错误：试图解锁不属于自己的锁\n");
+        printf(2, "[uthreads] Error: Trying to unlock mutex not owned by current thread\n");
     1460:	83 ec 08             	sub    $0x8,%esp
-    1463:	68 8c 1b 00 00       	push   $0x1b8c
+    1463:	68 ac 1b 00 00       	push   $0x1bac
     1468:	6a 02                	push   $0x2
     146a:	e8 41 f4 ff ff       	call   8b0 <printf>
         return;
@@ -2883,9 +2863,9 @@ int channel_send(channel_t *ch, void *data) {
     14af:	e8 ac f8 ff ff       	call   d60 <thread_self>
     14b4:	39 c7                	cmp    %eax,%edi
     14b6:	74 d4                	je     148c <channel_send+0x17c>
-        printf(2, "[uthreads] 错误：试图解锁不属于自己的锁\n");
+        printf(2, "[uthreads] Error: Trying to unlock mutex not owned by current thread\n");
     14b8:	83 ec 08             	sub    $0x8,%esp
-    14bb:	68 8c 1b 00 00       	push   $0x1b8c
+    14bb:	68 ac 1b 00 00       	push   $0x1bac
     14c0:	6a 02                	push   $0x2
     14c2:	e8 e9 f3 ff ff       	call   8b0 <printf>
         return;
@@ -2922,15 +2902,14 @@ int channel_recv(channel_t *ch, void **data) {
     1501:	89 43 1c             	mov    %eax,0x1c(%ebx)
     mutex_lock(&ch->lock);
     
-    // 等待非空
     while (ch->count == 0 && !ch->is_closed) {
     1504:	8b 43 08             	mov    0x8(%ebx),%eax
     1507:	85 c0                	test   %eax,%eax
     1509:	74 1e                	je     1529 <channel_recv+0x59>
     150b:	e9 8b 00 00 00       	jmp    159b <channel_recv+0xcb>
-        printf(2, "[uthreads] 错误：cond_wait 时未持有 mutex\n");
+        printf(2, "[uthreads] Error: cond_wait called without holding mutex\n");
     1510:	83 ec 08             	sub    $0x8,%esp
-    1513:	68 c4 1b 00 00       	push   $0x1bc4
+    1513:	68 f4 1b 00 00       	push   $0x1bf4
     1518:	6a 02                	push   $0x2
     151a:	e8 91 f3 ff ff       	call   8b0 <printf>
     while (ch->count == 0 && !ch->is_closed) {
@@ -2989,11 +2968,11 @@ int channel_recv(channel_t *ch, void **data) {
     while (ch->count == 0 && !ch->is_closed) {
     1597:	85 d2                	test   %edx,%edx
     1599:	74 8e                	je     1529 <channel_recv+0x59>
+    if (ch->is_closed && ch->count == 0) {
         mutex_unlock(&ch->lock);
         return -1;
     }
     
-    // 读取数据
     *data = ch->buffer[ch->read_idx];
     159b:	8b 53 0c             	mov    0xc(%ebx),%edx
     159e:	8b 03                	mov    (%ebx),%eax
@@ -3021,15 +3000,14 @@ int channel_recv(channel_t *ch, void **data) {
     15cc:	83 c4 10             	add    $0x10,%esp
     15cf:	39 c6                	cmp    %eax,%esi
     15d1:	74 1d                	je     15f0 <channel_recv+0x120>
-        printf(2, "[uthreads] 错误：试图解锁不属于自己的锁\n");
+        printf(2, "[uthreads] Error: Trying to unlock mutex not owned by current thread\n");
     15d3:	83 ec 08             	sub    $0x8,%esp
-    15d6:	68 8c 1b 00 00       	push   $0x1b8c
+    15d6:	68 ac 1b 00 00       	push   $0x1bac
     15db:	6a 02                	push   $0x2
     15dd:	e8 ce f2 ff ff       	call   8b0 <printf>
         return;
     15e2:	83 c4 10             	add    $0x10,%esp
     
-    // 唤醒发送者
     cond_signal(&ch->not_full);
     
     mutex_unlock(&ch->lock);
@@ -3058,9 +3036,9 @@ int channel_recv(channel_t *ch, void **data) {
     1610:	e8 4b f7 ff ff       	call   d60 <thread_self>
     1615:	39 c6                	cmp    %eax,%esi
     1617:	74 19                	je     1632 <channel_recv+0x162>
-        printf(2, "[uthreads] 错误：试图解锁不属于自己的锁\n");
+        printf(2, "[uthreads] Error: Trying to unlock mutex not owned by current thread\n");
     1619:	83 ec 08             	sub    $0x8,%esp
-    161c:	68 8c 1b 00 00       	push   $0x1b8c
+    161c:	68 ac 1b 00 00       	push   $0x1bac
     1621:	6a 02                	push   $0x2
     1623:	e8 88 f2 ff ff       	call   8b0 <printf>
         return;
@@ -3126,9 +3104,9 @@ void channel_close(channel_t *ch) {
     16a7:	83 c4 10             	add    $0x10,%esp
     16aa:	39 c6                	cmp    %eax,%esi
     16ac:	74 32                	je     16e0 <channel_close+0x90>
-        printf(2, "[uthreads] 错误：试图解锁不属于自己的锁\n");
+        printf(2, "[uthreads] Error: Trying to unlock mutex not owned by current thread\n");
     16ae:	83 ec 08             	sub    $0x8,%esp
-    16b1:	68 8c 1b 00 00       	push   $0x1b8c
+    16b1:	68 ac 1b 00 00       	push   $0x1bac
     16b6:	6a 02                	push   $0x2
     16b8:	e8 f3 f1 ff ff       	call   8b0 <printf>
         return;
@@ -3138,9 +3116,9 @@ void channel_close(channel_t *ch) {
     
     mutex_unlock(&ch->lock);
     
-    printf(1, "[uthreads] Channel 已关闭\n");
+    printf(1, "[uthreads] Channel closed\n");
     16c0:	83 ec 08             	sub    $0x8,%esp
-    16c3:	68 47 18 00 00       	push   $0x1847
+    16c3:	68 fa 17 00 00       	push   $0x17fa
     16c8:	6a 01                	push   $0x1
     16ca:	e8 e1 f1 ff ff       	call   8b0 <printf>
 }
@@ -3201,56 +3179,49 @@ void channel_destroy(channel_t *ch) {
     1734:	c3                   	ret
 
 00001735 <thread_switch>:
-
 .text
 .globl thread_switch
 thread_switch:
-    # 获取参数
-    movl 4(%esp), %eax      # eax = old
+    movl 4(%esp), %eax
     1735:	8b 44 24 04          	mov    0x4(%esp),%eax
-    movl 8(%esp), %edx      # edx = new
+    movl 8(%esp), %edx
     1739:	8b 54 24 08          	mov    0x8(%esp),%edx
     
-    # 保存 old 的上下文
-    movl %ebx, 4(%eax)      # 保存 ebx
+    movl %ebx, 4(%eax)
     173d:	89 58 04             	mov    %ebx,0x4(%eax)
-    movl %ecx, 8(%eax)      # 保存 ecx
+    movl %ecx, 8(%eax)
     1740:	89 48 08             	mov    %ecx,0x8(%eax)
-    movl %esi, 16(%eax)     # 保存 esi
+    movl %esi, 16(%eax)
     1743:	89 70 10             	mov    %esi,0x10(%eax)
-    movl %edi, 20(%eax)     # 保存 edi
+    movl %edi, 20(%eax)
     1746:	89 78 14             	mov    %edi,0x14(%eax)
-    movl %ebp, 24(%eax)     # 保存 ebp
+    movl %ebp, 24(%eax)
     1749:	89 68 18             	mov    %ebp,0x18(%eax)
-    movl %esp, 28(%eax)     # 保存 esp
+    movl %esp, 28(%eax)
     174c:	89 60 1c             	mov    %esp,0x1c(%eax)
     
-    # 保存返回地址 (eip)
     movl (%esp), %ecx
     174f:	8b 0c 24             	mov    (%esp),%ecx
     movl %ecx, 32(%eax)
     1752:	89 48 20             	mov    %ecx,0x20(%eax)
     
-    # 恢复 new 的上下文
-    movl 4(%edx), %ebx      # 恢复 ebx
+    movl 4(%edx), %ebx
     1755:	8b 5a 04             	mov    0x4(%edx),%ebx
-    movl 8(%edx), %ecx      # 恢复 ecx
+    movl 8(%edx), %ecx
     1758:	8b 4a 08             	mov    0x8(%edx),%ecx
-    movl 16(%edx), %esi     # 恢复 esi
+    movl 16(%edx), %esi
     175b:	8b 72 10             	mov    0x10(%edx),%esi
-    movl 20(%edx), %edi     # 恢复 edi
+    movl 20(%edx), %edi
     175e:	8b 7a 14             	mov    0x14(%edx),%edi
-    movl 24(%edx), %ebp     # 恢复 ebp
+    movl 24(%edx), %ebp
     1761:	8b 6a 18             	mov    0x18(%edx),%ebp
-    movl 28(%edx), %esp     # 恢复 esp
+    movl 28(%edx), %esp
     1764:	8b 62 1c             	mov    0x1c(%edx),%esp
     
-    # 恢复 eip（返回地址）
     movl 32(%edx), %eax
     1767:	8b 42 20             	mov    0x20(%edx),%eax
     movl %eax, (%esp)
     176a:	89 04 24             	mov    %eax,(%esp)
     
-    # 返回（跳转到新线程）
     ret
     176d:	c3                   	ret

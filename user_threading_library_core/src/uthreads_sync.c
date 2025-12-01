@@ -1,10 +1,6 @@
-// uthreads_sync.c - Synchronization primitives for user-level threads
-
 #include "types.h"
 #include "user.h"
 #include "user_threading_library_core/src/uthreads.h"
-
-/* ========== 互斥锁实现 ========== */
 
 void mutex_init(mutex_t *m) {
     m->locked = 0;
@@ -23,7 +19,7 @@ void mutex_lock(mutex_t *m) {
 
 void mutex_unlock(mutex_t *m) {
     if (m->owner != thread_self()) {
-        printf(2, "[uthreads] 错误：试图解锁不属于自己的锁\n");
+        printf(2, "[uthreads] Error: Trying to unlock mutex not owned by current thread\n");
         return;
     }
     
@@ -43,27 +39,22 @@ int mutex_trylock(mutex_t *m) {
     return 1;
 }
 
-/* ========== 条件变量实现 ========== */
-
 void cond_init(cond_t *c) {
     c->wait_chan = c;
 }
 
 void cond_wait(cond_t *c, mutex_t *m) {
     if (m->owner != thread_self()) {
-        printf(2, "[uthreads] 错误：cond_wait 时未持有 mutex\n");
+        printf(2, "[uthreads] Error: cond_wait called without holding mutex\n");
         return;
     }
     
-    // 释放 mutex
     m->locked = 0;
     m->owner = -1;
     thread_wakeup(m->wait_chan);
     
-    // 在条件变量上睡眠
     thread_sleep(c->wait_chan);
     
-    // 被唤醒后重新获取 mutex
     mutex_lock(m);
 }
 
@@ -75,25 +66,23 @@ void cond_broadcast(cond_t *c) {
     thread_wakeup(c->wait_chan);
 }
 
-/* ========== Channel 实现 ========== */
-
 channel_t *channel_create(int capacity) {
     channel_t *ch;
     
     if (capacity <= 0) {
-        printf(2, "[uthreads] 错误：channel 容量必须大于 0\n");
+        printf(2, "[uthreads] Error: Channel capacity must be greater than 0\n");
         return 0;
     }
     
     ch = (channel_t*)malloc(sizeof(channel_t));
     if (!ch) {
-        printf(2, "[uthreads] 错误：channel 分配失败\n");
+        printf(2, "[uthreads] Error: Channel allocation failed\n");
         return 0;
     }
     
     ch->buffer = (void**)malloc(sizeof(void*) * capacity);
     if (!ch->buffer) {
-        printf(2, "[uthreads] 错误：channel 缓冲区分配失败\n");
+        printf(2, "[uthreads] Error: Channel buffer allocation failed\n");
         free(ch);
         return 0;
     }
@@ -108,7 +97,7 @@ channel_t *channel_create(int capacity) {
     cond_init(&ch->not_empty);
     cond_init(&ch->not_full);
     
-    printf(1, "[uthreads] Channel 创建成功，容量=%d\n", capacity);
+    printf(1, "[uthreads] Channel created successfully, capacity=%d\n", capacity);
     return ch;
 }
 
@@ -120,7 +109,6 @@ int channel_send(channel_t *ch, void *data) {
         return -1;
     }
     
-    // 等待非满
     while (ch->count == ch->capacity && !ch->is_closed) {
         cond_wait(&ch->not_full, &ch->lock);
     }
@@ -130,12 +118,10 @@ int channel_send(channel_t *ch, void *data) {
         return -1;
     }
     
-    // 写入数据
     ch->buffer[ch->write_idx] = data;
     ch->write_idx = (ch->write_idx + 1) % ch->capacity;
     ch->count++;
     
-    // 唤醒接收者
     cond_signal(&ch->not_empty);
     
     mutex_unlock(&ch->lock);
@@ -145,7 +131,6 @@ int channel_send(channel_t *ch, void *data) {
 int channel_recv(channel_t *ch, void **data) {
     mutex_lock(&ch->lock);
     
-    // 等待非空
     while (ch->count == 0 && !ch->is_closed) {
         cond_wait(&ch->not_empty, &ch->lock);
     }
@@ -155,12 +140,10 @@ int channel_recv(channel_t *ch, void **data) {
         return -1;
     }
     
-    // 读取数据
     *data = ch->buffer[ch->read_idx];
     ch->read_idx = (ch->read_idx + 1) % ch->capacity;
     ch->count--;
     
-    // 唤醒发送者
     cond_signal(&ch->not_full);
     
     mutex_unlock(&ch->lock);
@@ -172,13 +155,12 @@ void channel_close(channel_t *ch) {
     
     ch->is_closed = 1;
     
-    // 唤醒所有等待的线程
     cond_broadcast(&ch->not_empty);
     cond_broadcast(&ch->not_full);
     
     mutex_unlock(&ch->lock);
     
-    printf(1, "[uthreads] Channel 已关闭\n");
+    printf(1, "[uthreads] Channel closed\n");
 }
 
 void channel_destroy(channel_t *ch) {
@@ -190,4 +172,3 @@ void channel_destroy(channel_t *ch) {
     }
     free(ch);
 }
-

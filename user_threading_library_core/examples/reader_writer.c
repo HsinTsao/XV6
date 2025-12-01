@@ -1,5 +1,3 @@
-// reader_writer.c - Writer-priority Reader-Writer lock example
-
 #include "types.h"
 #include "stat.h"
 #include "user.h"
@@ -10,7 +8,6 @@
 #define READ_TIMES 3
 #define WRITE_TIMES 3
 
-/* 写优先读写锁 */
 typedef struct {
     mutex_t lock;
     cond_t can_read;
@@ -88,22 +85,22 @@ void *reader(void *arg) {
     int id = (int)arg;
     int i;
     
-    printf(1, "[读者%d] 启动\n", id);
+    printf(1, "[Reader%d] Start\n", id);
     
     for (i = 0; i < READ_TIMES; i++) {
-        printf(1, "[读者%d] 请求读锁...\n", id);
+        printf(1, "[Reader%d] Request read lock...\n", id);
         reader_lock(&rwlock);
         
-        printf(1, "[读者%d] 获得读锁，读取数据 = %d\n", id, shared_data);
+        printf(1, "[Reader%d] Got read lock, data = %d\n", id, shared_data);
         thread_yield();
         
         reader_unlock(&rwlock);
-        printf(1, "[读者%d] 释放读锁\n", id);
+        printf(1, "[Reader%d] Release read lock\n", id);
         
         thread_yield();
     }
     
-    printf(1, "[读者%d] 完成\n", id);
+    printf(1, "[Reader%d] Finished\n", id);
     return 0;
 }
 
@@ -111,23 +108,23 @@ void *writer(void *arg) {
     int id = (int)arg;
     int i;
     
-    printf(1, "[写者%d] 启动\n", id);
+    printf(1, "[Writer%d] Start\n", id);
     
     for (i = 0; i < WRITE_TIMES; i++) {
-        printf(1, "[写者%d] 请求写锁...\n", id);
+        printf(1, "[Writer%d] Request write lock...\n", id);
         writer_lock(&rwlock);
         
         shared_data++;
-        printf(1, "[写者%d] *** 获得写锁，写入数据 = %d ***\n", id, shared_data);
+        printf(1, "[Writer%d] *** Got write lock, wrote data = %d ***\n", id, shared_data);
         thread_yield();
         
         writer_unlock(&rwlock);
-        printf(1, "[写者%d] 释放写锁\n", id);
+        printf(1, "[Writer%d] Release write lock\n", id);
         
         thread_yield();
     }
     
-    printf(1, "[写者%d] 完成\n", id);
+    printf(1, "[Writer%d] Finished\n", id);
     return 0;
 }
 
@@ -137,25 +134,22 @@ int main(int argc, char *argv[]) {
     int i;
     
     printf(1, "========================================\n");
-    printf(1, "      写优先读写锁示例\n");
+    printf(1, "  Writer-Priority Reader-Writer Lock Example\n");
     printf(1, "========================================\n\n");
     
     thread_init();
     rwlock_init(&rwlock);
     
-    // 创建读者
     for (i = 0; i < NUM_READERS; i++) {
         reader_tids[i] = thread_create(reader, (void*)i);
     }
     
-    // 创建写者
     for (i = 0; i < NUM_WRITERS; i++) {
         writer_tids[i] = thread_create(writer, (void*)i);
     }
     
-    printf(1, "所有线程已创建，开始执行...\n\n");
+    printf(1, "All threads created, starting execution...\n\n");
     
-    // 等待所有线程完成
     for (i = 0; i < NUM_READERS; i++) {
         thread_join(reader_tids[i]);
     }
@@ -165,10 +159,9 @@ int main(int argc, char *argv[]) {
     }
     
     printf(1, "\n========================================\n");
-    printf(1, "所有线程已完成！\n");
-    printf(1, "最终数据值：%d（预期：%d）\n", shared_data, NUM_WRITERS * WRITE_TIMES);
+    printf(1, "All threads finished!\n");
+    printf(1, "Final data value: %d (expected: %d)\n", shared_data, NUM_WRITERS * WRITE_TIMES);
     printf(1, "========================================\n");
     
     exit();
 }
-
