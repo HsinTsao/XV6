@@ -93,7 +93,7 @@ CFLAGS = -m32 -fno-pic -static -fno-builtin -fno-strict-aliasing \
 # CFLAGS = -m32 -fno-pic -static -fno-builtin -fno-strict-aliasing \
 #          -O2 -Wall -MD -ggdb -Werror -fno-omit-frame-pointer \
 #          -fno-stack-protector -no-pie
-# CFLAGS += -DPRIORITY_SCHED
+CFLAGS += -DPRIORITY_SCHED
 CFLAGS += $(EXTRA_CFLAGS)
 
 
@@ -164,48 +164,18 @@ tags: $(OBJS) entryother.S _init
 vectors.S: vectors.pl
 	./vectors.pl > vectors.S
 
-# 用户线程库源文件目录
-UTHREADS_SRC = user_threading_library_core/src
+ULIB = ulib.o usys.o printf.o umalloc.o
 
-# 用户线程库对象文件
-UTHREADS_OBJS = \
-	$(UTHREADS_SRC)/uthreads.o \
-	$(UTHREADS_SRC)/uthreads_sync.o \
-	$(UTHREADS_SRC)/uthreads_switch.o
-
-ULIB = ulib.o usys.o printf.o umalloc.o $(UTHREADS_OBJS)
-
-# 用户线程库编译规则（需要包含父目录的头文件）
-$(UTHREADS_SRC)/%.o: $(UTHREADS_SRC)/%.c
-	$(CC) $(CFLAGS) -I. -c -o $@ $<
-
-$(UTHREADS_SRC)/%.o: $(UTHREADS_SRC)/%.S
-	$(CC) $(ASFLAGS) -I. -c -o $@ $<
-
-user_threading_library_core/tests/%.o: user_threading_library_core/tests/%.c
-	$(CC) $(CFLAGS) -I. -c -o $@ $<
-
-user_threading_library_core/examples/%.o: user_threading_library_core/examples/%.c
-	$(CC) $(CFLAGS) -I. -c -o $@ $<
+# Threading library - only linked with threading programs
+ULIB_THREADS = $(ULIB) \
+	user_threading_library_core/src/uthreads.o \
+	user_threading_library_core/src/uthreads_sync.o \
+	user_threading_library_core/src/uthreads_switch.o
 
 _%: %.o $(ULIB)
 	$(LD) $(LDFLAGS) -N -e main -Ttext 0 -o $@ $^
 	$(OBJDUMP) -S $@ > $*.asm
 	$(OBJDUMP) -t $@ | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' > $*.sym
-
-# 用户线程库测试程序
-_uthreads_test: user_threading_library_core/tests/uthreads_test.o $(ULIB)
-	$(LD) $(LDFLAGS) -N -e main -Ttext 0 -o $@ $^
-	$(OBJDUMP) -S $@ > uthreads_test.asm
-
-# 用户线程库示例程序
-_producer_consumer: user_threading_library_core/examples/producer_consumer.o $(ULIB)
-	$(LD) $(LDFLAGS) -N -e main -Ttext 0 -o $@ $^
-	$(OBJDUMP) -S $@ > producer_consumer.asm
-
-_reader_writer: user_threading_library_core/examples/reader_writer.o $(ULIB)
-	$(LD) $(LDFLAGS) -N -e main -Ttext 0 -o $@ $^
-	$(OBJDUMP) -S $@ > reader_writer.asm
 
 _forktest: forktest.o $(ULIB)
 	# forktest has less library code linked in - needs to be small
@@ -221,6 +191,9 @@ mkfs: mkfs.c fs.h
 # details:
 # http://www.gnu.org/software/make/manual/html_node/Chained-Rules.html
 .PRECIOUS: %.o
+.PRECIOUS: user_threading_library_core/src/%.o
+.PRECIOUS: user_threading_library_core/examples/%.o
+.PRECIOUS: user_threading_library_core/tests/%.o
 
 UPROGS=\
 	_cat\
@@ -240,7 +213,6 @@ UPROGS=\
 	_wc\
 	_zombie\
 	_nice\
-	_test1 _test2 _test3 _test4\
 	_uthreads_test\
 	_producer_consumer\
 	_reader_writer
@@ -249,9 +221,9 @@ fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
 
 -include *.d
--include $(UTHREADS_SRC)/*.d
--include user_threading_library_core/tests/*.d
+-include user_threading_library_core/src/*.d
 -include user_threading_library_core/examples/*.d
+-include user_threading_library_core/tests/*.d
 
 clean: 
 	rm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
@@ -259,9 +231,9 @@ clean:
 	initcode initcode.out kernel xv6.img fs.img kernelmemfs \
 	xv6memfs.img mkfs .gdbinit \
 	$(UPROGS)
-	rm -f $(UTHREADS_SRC)/*.o $(UTHREADS_SRC)/*.d
-	rm -f user_threading_library_core/tests/*.o user_threading_library_core/tests/*.d
-	rm -f user_threading_library_core/examples/*.o user_threading_library_core/examples/*.d
+	rm -f user_threading_library_core/src/*.o user_threading_library_core/src/*.d
+	rm -f user_threading_library_core/examples/*.o user_threading_library_core/examples/*.d user_threading_library_core/examples/*.asm user_threading_library_core/examples/*.sym
+	rm -f user_threading_library_core/tests/*.o user_threading_library_core/tests/*.d user_threading_library_core/tests/*.asm user_threading_library_core/tests/*.sym
 
 # make a printout
 FILES = $(shell grep -v '^\#' runoff.list)
@@ -351,5 +323,40 @@ tar:
 	mkdir -p /tmp/xv6
 	cp dist/* dist/.gdbinit.tmpl /tmp/xv6
 	(cd /tmp; tar cf - xv6) | gzip >xv6-rev10.tar.gz  # the next one will be 10 (9/17)
+
+# User threading library compilation rules
+
+# Threading library source files - need to specify include path
+user_threading_library_core/src/%.o: user_threading_library_core/src/%.c
+	$(CC) $(CFLAGS) -I. -c -o $@ $<
+
+user_threading_library_core/src/%.o: user_threading_library_core/src/%.S
+	$(CC) $(CFLAGS) -nostdinc -I. -c -o $@ $<
+
+user_threading_library_core/examples/%.o: user_threading_library_core/examples/%.c
+	$(CC) $(CFLAGS) -I. -c -o $@ $<
+
+user_threading_library_core/tests/%.o: user_threading_library_core/tests/%.c
+	$(CC) $(CFLAGS) -I. -c -o $@ $<
+
+# Threading library objects depend on header
+user_threading_library_core/src/uthreads.o: user_threading_library_core/src/uthreads.c user_threading_library_core/src/uthreads.h
+user_threading_library_core/src/uthreads_sync.o: user_threading_library_core/src/uthreads_sync.c user_threading_library_core/src/uthreads.h
+
+# Test and example programs - use ULIB_THREADS instead of ULIB
+_uthreads_test: user_threading_library_core/tests/uthreads_test.o $(ULIB_THREADS)
+	$(LD) $(LDFLAGS) -N -e main -Ttext 0 -o $@ $^
+	$(OBJDUMP) -S $@ > user_threading_library_core/tests/uthreads_test.asm
+	$(OBJDUMP) -t $@ | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' > user_threading_library_core/tests/uthreads_test.sym
+
+_producer_consumer: user_threading_library_core/examples/producer_consumer.o $(ULIB_THREADS)
+	$(LD) $(LDFLAGS) -N -e main -Ttext 0 -o $@ $^
+	$(OBJDUMP) -S $@ > user_threading_library_core/examples/producer_consumer.asm
+	$(OBJDUMP) -t $@ | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' > user_threading_library_core/examples/producer_consumer.sym
+
+_reader_writer: user_threading_library_core/examples/reader_writer.o $(ULIB_THREADS)
+	$(LD) $(LDFLAGS) -N -e main -Ttext 0 -o $@ $^
+	$(OBJDUMP) -S $@ > user_threading_library_core/examples/reader_writer.asm
+	$(OBJDUMP) -t $@ | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' > user_threading_library_core/examples/reader_writer.sym
 
 .PHONY: dist-test dist
