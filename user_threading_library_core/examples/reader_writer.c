@@ -3,9 +3,9 @@
 #include "user.h"
 #include "user_threading_library_core/src/uthreads.h"
 
-#define NUM_READERS 5
+#define NUM_READERS 3
 #define NUM_WRITERS 2
-#define READ_TIMES 3
+#define READ_TIMES 5
 #define WRITE_TIMES 3
 
 typedef struct {
@@ -85,22 +85,17 @@ void *reader(void *arg) {
     int id = (int)arg;
     int i;
     
-    printf(1, "[Reader%d] Start\n", id);
-    
     for (i = 0; i < READ_TIMES; i++) {
-        printf(1, "[Reader%d] Request read lock...\n", id);
         reader_lock(&rwlock);
         
-        printf(1, "[Reader%d] Got read lock, data = %d\n", id, shared_data);
+        printf(1, "Reader %d: reading value = %d\n", id + 1, shared_data);
         thread_yield();
         
         reader_unlock(&rwlock);
-        printf(1, "[Reader%d] Release read lock\n", id);
         
         thread_yield();
     }
     
-    printf(1, "[Reader%d] Finished\n", id);
     return 0;
 }
 
@@ -108,23 +103,18 @@ void *writer(void *arg) {
     int id = (int)arg;
     int i;
     
-    printf(1, "[Writer%d] Start\n", id);
-    
     for (i = 0; i < WRITE_TIMES; i++) {
-        printf(1, "[Writer%d] Request write lock...\n", id);
         writer_lock(&rwlock);
         
         shared_data++;
-        printf(1, "[Writer%d] *** Got write lock, wrote data = %d ***\n", id, shared_data);
+        printf(1, "Writer %d: wrote new value = %d\n", id + 1, shared_data);
         thread_yield();
         
         writer_unlock(&rwlock);
-        printf(1, "[Writer%d] Release write lock\n", id);
         
         thread_yield();
     }
     
-    printf(1, "[Writer%d] Finished\n", id);
     return 0;
 }
 
@@ -132,10 +122,6 @@ int main(int argc, char *argv[]) {
     int reader_tids[NUM_READERS];
     int writer_tids[NUM_WRITERS];
     int i;
-    
-    printf(1, "========================================\n");
-    printf(1, "  Writer-Priority Reader-Writer Lock Example\n");
-    printf(1, "========================================\n\n");
     
     thread_init();
     rwlock_init(&rwlock);
@@ -148,8 +134,6 @@ int main(int argc, char *argv[]) {
         writer_tids[i] = thread_create(writer, (void*)i);
     }
     
-    printf(1, "All threads created, starting execution...\n\n");
-    
     for (i = 0; i < NUM_READERS; i++) {
         thread_join(reader_tids[i]);
     }
@@ -157,11 +141,6 @@ int main(int argc, char *argv[]) {
     for (i = 0; i < NUM_WRITERS; i++) {
         thread_join(writer_tids[i]);
     }
-    
-    printf(1, "\n========================================\n");
-    printf(1, "All threads finished!\n");
-    printf(1, "Final data value: %d (expected: %d)\n", shared_data, NUM_WRITERS * WRITE_TIMES);
-    printf(1, "========================================\n");
     
     exit();
 }
