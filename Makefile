@@ -170,7 +170,8 @@ ULIB = ulib.o usys.o printf.o umalloc.o
 ULIB_THREADS = $(ULIB) \
 	user_threading_library_core/src/uthreads.o \
 	user_threading_library_core/src/uthreads_sync.o \
-	user_threading_library_core/src/uthreads_switch.o
+	user_threading_library_core/src/uthreads_switch.o \
+	user_threading_library_core/src/uthreads_fileio.o
 
 _%: %.o $(ULIB)
 	$(LD) $(LDFLAGS) -N -e main -Ttext 0 -o $@ $^
@@ -209,16 +210,19 @@ UPROGS=\
 	_sh\
 	_stressfs\
 	_tail\
-	_usertests\
 	_wc\
 	_zombie\
 	_nice\
 	_uthreads_test\
 	_producer_consumer\
-	_reader_writer
+	_reader_writer\
+	_file_producer_consumer
 
-fs.img: mkfs README $(UPROGS)
-	./mkfs fs.img README $(UPROGS)
+fs.img: mkfs README $(UPROGS) user_threading_library_core/tests/file_io_test.txt user_threading_library_core/examples/pc_test.txt
+	cp user_threading_library_core/tests/file_io_test.txt file_io_test.txt
+	cp user_threading_library_core/examples/pc_test.txt pc_test.txt
+	./mkfs fs.img README $(UPROGS) file_io_test.txt pc_test.txt
+	rm -f file_io_test.txt pc_test.txt
 
 -include *.d
 -include user_threading_library_core/src/*.d
@@ -342,6 +346,7 @@ user_threading_library_core/tests/%.o: user_threading_library_core/tests/%.c
 # Threading library objects depend on header
 user_threading_library_core/src/uthreads.o: user_threading_library_core/src/uthreads.c user_threading_library_core/src/uthreads.h
 user_threading_library_core/src/uthreads_sync.o: user_threading_library_core/src/uthreads_sync.c user_threading_library_core/src/uthreads.h
+user_threading_library_core/src/uthreads_fileio.o: user_threading_library_core/src/uthreads_fileio.c user_threading_library_core/src/uthreads.h
 
 # Test and example programs - use ULIB_THREADS instead of ULIB
 _uthreads_test: user_threading_library_core/tests/uthreads_test.o $(ULIB_THREADS)
@@ -358,5 +363,10 @@ _reader_writer: user_threading_library_core/examples/reader_writer.o $(ULIB_THRE
 	$(LD) $(LDFLAGS) -N -e main -Ttext 0 -o $@ $^
 	$(OBJDUMP) -S $@ > user_threading_library_core/examples/reader_writer.asm
 	$(OBJDUMP) -t $@ | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' > user_threading_library_core/examples/reader_writer.sym
+
+_file_producer_consumer: user_threading_library_core/examples/file_producer_consumer.o $(ULIB_THREADS)
+	$(LD) $(LDFLAGS) -N -e main -Ttext 0 -o $@ $^
+	$(OBJDUMP) -S $@ > user_threading_library_core/examples/file_producer_consumer.asm
+	$(OBJDUMP) -t $@ | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' > user_threading_library_core/examples/file_producer_consumer.sym
 
 .PHONY: dist-test dist

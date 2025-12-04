@@ -45,6 +45,7 @@ Exit QEMU: `Ctrl+A` then `X`
 - Mutexes
 - Condition variables
 - Channels (Go-style)
+- File IO
 
 ## Documentation
 

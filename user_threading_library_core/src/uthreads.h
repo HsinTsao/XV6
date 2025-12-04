@@ -86,4 +86,18 @@ int channel_recv(channel_t *ch, void **data);
 void channel_close(channel_t *ch);
 void channel_destroy(channel_t *ch);
 
+typedef struct {
+    mutex_t m;
+    cond_t cond_read;
+    cond_t cond_write;
+    int readable;
+    int writable;
+    int fd;
+} file_state_t;
+
+int uopen(const char *path, int mode);
+int uclose(int fd);
+int uread(int fd, void *buf, int n);
+int uwrite(int fd, const void *buf, int n);
+
 #endif

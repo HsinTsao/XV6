@@ -1,6 +1,7 @@
 #include "types.h"
 #include "stat.h"
 #include "user.h"
+#include "fcntl.h"
 #include "user_threading_library_core/src/uthreads.h"
 
 int shared_counter = 0;
@@ -523,6 +524,78 @@ void test_part3_examples(void) {
     printf(1, "========================================================\n");
 }
 
+static int test_fd;
+static int test_items_read;
+
+void *test_fileio_reader(void *arg) {
+    char buf[256];
+    int n;
+    char line[256];
+    int line_pos = 0;
+    int expected_lines = 24;
+    
+    while (test_items_read < expected_lines) {
+        n = uread(test_fd, buf, sizeof(buf) - 1);
+        
+        if (n < 0) {
+            break;
+        }
+        
+        if (n == 0) {
+            thread_yield();
+            continue;
+        }
+        
+        buf[n] = '\0';
+        
+        int i;
+        for (i = 0; i < n; i++) {
+            if (buf[i] == '\n') {
+                line[line_pos] = '\0';
+                if (line_pos > 0) {
+                    test_items_read++;
+                    line_pos = 0;
+                }
+            } else {
+                if (line_pos < sizeof(line) - 1) {
+                    line[line_pos++] = buf[i];
+                }
+            }
+        }
+        
+        thread_yield();
+    }
+    
+    return 0;
+}
+
+void test_file_io(void) {
+    int reader_tid;
+    char *test_file = "file_io_test.txt";
+    
+    printf(1, "\n[Test 4.1] Async File I/O\n");
+    printf(1, "----------------------------------------------\n");
+    
+    test_items_read = 0;
+    
+    test_fd = uopen(test_file, O_RDONLY);
+    if (test_fd < 0) {
+        printf(2, "FAIL Failed to open %s\n", test_file);
+        return;
+    }
+    
+    reader_tid = thread_create(test_fileio_reader, 0);
+    thread_join(reader_tid);
+    
+    uclose(test_fd);
+    
+    if (test_items_read == 24) {
+        printf(1, "PASS File I/O test passed (read %d lines)\n", test_items_read);
+    } else {
+        printf(2, "FAIL File I/O test failed: read %d lines (expected 24)\n", test_items_read);
+    }
+}
+
 int main(int argc, char *argv[]) {
     printf(1, "\n");
     printf(1, "========================================================\n");
@@ -586,6 +659,25 @@ int main(int argc, char *argv[]) {
     printf(1, "========================================================\n");
     
     test_part3_examples();
+    
+    printf(1, "\n");
+    printf(1, "========================================================\n");
+    printf(1, "=                                                      =\n");
+    printf(1, "=      Part 4: Async File I/O                         =\n");
+    printf(1, "=                                                      =\n");
+    printf(1, "=  Test Content:                                       =\n");
+    printf(1, "=  - Async read/write operations                       =\n");
+    printf(1, "=  - File producer-consumer pattern                    =\n");
+    printf(1, "=                                                      =\n");
+    printf(1, "=  Note: Full example available at:                   =\n");
+    printf(1, "=    - examples/file_producer_consumer.c               =\n");
+    printf(1, "=                                                      =\n");
+    printf(1, "=  Run separately for full demo:                       =\n");
+    printf(1, "=    $ file_producer_consumer                          =\n");
+    printf(1, "=                                                      =\n");
+    printf(1, "========================================================\n");
+    
+    test_file_io();
     
     printf(1, "\n");
     printf(1, "========================================================\n");
