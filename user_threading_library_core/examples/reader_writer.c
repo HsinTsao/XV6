@@ -84,15 +84,27 @@ int shared_data = 0;
 void *reader(void *arg) {
     int id = (int)arg;
     int i;
+    int read_value;
     
-    for (i = 0; i < READ_TIMES; i++) {
+    for (i = 0; i < 2; i++) {
         reader_lock(&rwlock);
-        
-        printf(1, "Reader %d: reading value = %d\n", id + 1, shared_data);
+        read_value = shared_data;
+        printf(1, "Reader %d: reading value = %d (read #%d)\n", id + 1, read_value, i + 1);
         thread_yield();
-        
         reader_unlock(&rwlock);
-        
+        thread_yield();
+    }
+    
+    for (i = 0; i < 3; i++) {
+        thread_yield();
+    }
+    
+    for (i = 2; i < READ_TIMES; i++) {
+        reader_lock(&rwlock);
+        read_value = shared_data;
+        printf(1, "Reader %d: reading value = %d (read #%d)\n", id + 1, read_value, i + 1);
+        thread_yield();
+        reader_unlock(&rwlock);
         thread_yield();
     }
     
@@ -103,11 +115,15 @@ void *writer(void *arg) {
     int id = (int)arg;
     int i;
     
+    for (i = 0; i < 2; i++) {
+        thread_yield();
+    }
+    
     for (i = 0; i < WRITE_TIMES; i++) {
         writer_lock(&rwlock);
         
         shared_data++;
-        printf(1, "Writer %d: wrote new value = %d\n", id + 1, shared_data);
+        printf(1, "Writer %d: wrote new value = %d (write #%d)\n", id + 1, shared_data, i + 1);
         thread_yield();
         
         writer_unlock(&rwlock);
